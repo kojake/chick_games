@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         VStack {
             HStack{
@@ -41,6 +42,7 @@ struct ContentView: View {
                 }
             }
             Spacer()
+            //スタートボタン
             Button(action: {
                 print("Button")
             }) {
