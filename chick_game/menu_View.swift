@@ -19,7 +19,7 @@ struct menu_View: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Color.blue.opacity(0.5).frame(width: 400, height: 900)
+                Color.blue.opacity(0.5).ignoresSafeArea()
                 VStack{
                     Spacer()
                     Text("MENU").font(.largeTitle).fontWeight(.black)
