@@ -25,6 +25,13 @@ struct main_View: View {
     @State var goal_y_position = -280
     //clear_alert
     @State private var clear_alert = false
+    @State var alert_message = "ゴールしましたリザルト画面に移動します"
+    //timer
+    @State var timer_count = 15
+    //result_View
+    @State private var showShould_result_View = false
+    //結果
+    @State var result = ""
     
     var body: some View {
         NavigationView{
@@ -32,6 +39,9 @@ struct main_View: View {
                 Color.green.ignoresSafeArea()
                 VStack{
                     NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
+                        EmptyView()
+                    }.navigationBarBackButtonHidden(true)
+                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count), isActive: $showShould_result_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     HStack{
@@ -60,54 +70,65 @@ struct main_View: View {
                     
                     Spacer()
                     HStack{
-                        Button(action: {
-                            self.isTapped.toggle()
-                        }) {
-                            Image(systemName: "arrowtriangle.down.fill")
-                                .resizable()
-                                .frame(width: 75, height: 75)
-                                .foregroundColor(isTapped ? Color.yellow : Color.red)
-                            
-                        }
-                        .simultaneousGesture(LongPressGesture().onChanged { _ in
-                            self.isTapped = false
-                            if y_position == 480{
-                            }
-                            else{
-                                y_position += 10
-                            }
-                            print(y_position)
-                        }.onEnded { _ in
-                            self.isTapped = true
-                        })
-                        
-                        Button(action: {
-                            self.isTapped2.toggle()
-                        }) {
-                            Image(systemName: "arrowtriangle.up.fill")
-                                .resizable()
-                                .frame(width: 75, height: 75)
-                                .foregroundColor(isTapped2 ? Color.yellow : Color.red)
-                            
-                        }
-                        .simultaneousGesture(LongPressGesture().onChanged { _ in
-                            self.isTapped2 = true
-                            if y_position == 0{
-                            }
-                            else{
-                                y_position -= 10
+                        Spacer()
+                        HStack{
+                            Button(action: {
+                                self.isTapped.toggle()
+                            }) {
+                                Image(systemName: "arrowtriangle.down.fill")
+                                    .resizable()
+                                    .frame(width: 75, height: 75)
+                                    .foregroundColor(isTapped ? Color.yellow : Color.red)
                                 
-                                if y_position == 0{
-                                    clear_alert = true
-                                }
                             }
-                            print(y_position)
-                        }.onEnded { _ in
-                            self.isTapped2 = false
-                        })
-                    }.frame(width: 180, height: 90).overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red, lineWidth: 5))
+                            .simultaneousGesture(LongPressGesture().onChanged { _ in
+                                self.isTapped = false
+                                if y_position == 480{
+                                }
+                                else{
+                                    y_position += 10
+                                }
+                                print(y_position)
+                            }.onEnded { _ in
+                                self.isTapped = true
+                            })
+                            
+                            Button(action: {
+                                self.isTapped2.toggle()
+                            }) {
+                                Image(systemName: "arrowtriangle.up.fill")
+                                    .resizable()
+                                    .frame(width: 75, height: 75)
+                                    .foregroundColor(isTapped2 ? Color.yellow : Color.red)
+                                
+                            }
+                            .simultaneousGesture(LongPressGesture().onChanged { _ in
+                                self.isTapped2 = true
+                                if y_position == 0{
+                                }
+                                else{
+                                    y_position -= 10
+                                    
+                                    if y_position == 0{
+                                        clear_alert = true
+                                    }
+                                }
+                                print(y_position)
+                            }.onEnded { _ in
+                                self.isTapped2 = false
+                            })
+                        }.frame(width: 180, height: 90).overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.red, lineWidth: 5))
+                        Spacer()
+                        HStack{
+                            Text("残り秒数:").font(.title2).fontWeight(.black)
+                            Text("\(timer_count)").font(.title2).fontWeight(.black)
+                        }.frame(width: 180, height: 90).overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 5))
+                        Spacer()
+                    }
                 }.onAppear{
                     print("反応")
                     print(interrupt_the_game)
@@ -117,15 +138,32 @@ struct main_View: View {
                         sleep(1)
                         dismiss2()
                     }
+                    //timerstart
+                    var timer: Timer? = nil
+                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                        timer_count -= 1
+                        if timer_count == 0 {
+                            timer?.invalidate()
+                            timer = nil
+                            clear_alert = true
+                            alert_message = "時間切れになりました。リザルト画面に移動します"
+                            result = "out_of_time"
+                        }
+                    }
+                    if clear_alert{
+                        print("a")
+                        timer?.invalidate()
+                        alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
+                        result = "clear"
+                    }
                 }
             }
         }
         .alert(isPresented: $clear_alert) {
-            Alert(title: Text("CLEAR!"),
-                  message: Text("ゴールしましたリザルト画面に移動します"),
+            Alert(title: Text("結果"), message: Text(alert_message),
                   dismissButton: .default(Text("OK"),
                                           action: {
-                
+                showShould_result_View = true
             }))
         }
     }
