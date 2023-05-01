@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+var coin = 0
+
 @main
 struct chick_gameApp: App {
     var body: some Scene {

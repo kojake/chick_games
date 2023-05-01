@@ -10,6 +10,7 @@ import SwiftUI
 struct result_View: View {
     @Binding var result: String
     @Binding var remaining_timer: Int
+    @State var coin_up = coin
     
     var body: some View {
         NavigationView{
@@ -35,7 +36,7 @@ struct result_View: View {
                             Text("x10").font(.largeTitle).fontWeight(.black)
                         }
                     }
-                    else{
+                    if result == "out_of_time"{
                         Text("結果").font(.largeTitle).fontWeight(.black)
                         
                         //goal_text
@@ -51,7 +52,7 @@ struct result_View: View {
                         Text("獲得コイン").font(.largeTitle).fontWeight(.black)
                         HStack{
                             Image("money").resizable().scaledToFit().frame(width: 100)
-                            Text("x10").font(.largeTitle).fontWeight(.black)
+                            Text("x0").font(.largeTitle).fontWeight(.black)
                         }
                     }
                 }

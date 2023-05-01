@@ -32,6 +32,7 @@ struct main_View: View {
     @State private var showShould_result_View = false
     //結果
     @State var result = ""
+    @State var clear_or_not_clear = ""
     
     var body: some View {
         NavigationView{
@@ -111,6 +112,7 @@ struct main_View: View {
                                     
                                     if y_position == 0{
                                         clear_alert = true
+                                        clear_or_not_clear = "game_over"
                                     }
                                 }
                                 print(y_position)
@@ -138,6 +140,7 @@ struct main_View: View {
                         sleep(1)
                         dismiss2()
                     }
+                    
                     //timerstart
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -149,16 +152,15 @@ struct main_View: View {
                             alert_message = "時間切れになりました。リザルト画面に移動します"
                             result = "out_of_time"
                         }
-                    }
-                    if clear_alert{
-                        print("a")
-                        timer?.invalidate()
-                        alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
-                        result = "clear"
+                        if clear_or_not_clear == "clear"{
+                            timer?.invalidate()
+                            alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
+                            result = "clear"
+                        }
                     }
                 }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
         .alert(isPresented: $clear_alert) {
             Alert(title: Text("結果"), message: Text(alert_message),
                   dismissButton: .default(Text("OK"),
