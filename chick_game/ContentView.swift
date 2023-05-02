@@ -12,11 +12,18 @@ struct ContentView: View {
     @State var selected_STAGE = 1
     //画面遷移
     @State private var showShould_main_View = false
+    @State private var showShould_shop_View = false
+    
+    //各ステージごとの星の数
+    @State var star_for_each_stage: [String:Int] = ["stage1": 0]
     
     var body: some View {
         NavigationView{
             VStack {
                 NavigationLink(destination: main_View(), isActive: $showShould_main_View) {
+                    EmptyView()
+                }.navigationBarBackButtonHidden(true)
+                NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 
@@ -25,7 +32,7 @@ struct ContentView: View {
                     Text("\(coin)").font(.largeTitle).fontWeight(.black)
                     Spacer()
                     Button(action: {
-                        print("Button")
+                        showShould_shop_View = true
                     }) {
                         Image(systemName: "cart.fill")
                             .padding()
@@ -62,6 +69,11 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE1").font(.title2).fontWeight(.black)
+                                HStack{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                }.foregroundColor(Color.yellow)
                                 Button(action: {
                                     selected_STAGE = 1
                                 }) {
@@ -77,6 +89,11 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE2").font(.title2).fontWeight(.black)
+                                HStack{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                }.foregroundColor(Color.yellow)
                                 Button(action: {
                                     selected_STAGE = 2
                                 }) {
