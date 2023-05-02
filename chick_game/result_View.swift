@@ -10,7 +10,9 @@ import SwiftUI
 struct result_View: View {
     @Binding var result: String
     @Binding var remaining_timer: Int
+    @Binding var result_star_count: Int
     @State var coin_up = coin
+    @State var result_coin = 0
     
     var body: some View {
         NavigationView{
@@ -28,12 +30,36 @@ struct result_View: View {
                             Text("残り秒数：").font(.largeTitle).fontWeight(.black)
                             Text("\(remaining_timer)").font(.largeTitle).fontWeight(.black)
                         }
+                        //星の数
+                        HStack{
+                            if result_star_count == 3{
+                                Image(systemName: "star.fill").font(.title)
+                                Image(systemName: "star.fill").font(.title)
+                                Image(systemName: "star.fill").font(.title)
+                            }
+                            else if result_star_count == 2{
+                                Image(systemName: "star").font(.title)
+                                Image(systemName: "star.fill").font(.title)
+                                Image(systemName: "star.fill").font(.title)
+                            }
+                            else if result_star_count == 1{
+                                Image(systemName: "star").font(.title)
+                                Image(systemName: "star").font(.title)
+                                Image(systemName: "star.fill").font(.title)
+                            }
+                            else if result_star_count == 0{
+                                Image(systemName: "star").font(.title)
+                                Image(systemName: "star").font(.title)
+                                Image(systemName: "star").font(.title)
+                            }
+                        }
+                        
                         //コインの獲得数
                         Text("").frame(height: 10)
                         Text("獲得コイン").font(.largeTitle).fontWeight(.black)
                         HStack{
                             Image("money").resizable().scaledToFit().frame(width: 100)
-                            Text("x10").font(.largeTitle).fontWeight(.black)
+                            Text("x\(result_coin)").font(.largeTitle).fontWeight(.black)
                         }
                     }
                     if result == "out_of_time"{
@@ -42,11 +68,6 @@ struct result_View: View {
                         //goal_text
                         Text("時間切れ").font(.largeTitle).fontWeight(.black)
                         Text("").frame(height: 10)
-                        //残り秒数
-                        HStack{
-                            Text("残り秒数：").font(.largeTitle).fontWeight(.black)
-                            Text("\(remaining_timer)").font(.largeTitle).fontWeight(.black)
-                        }
                         //コインの獲得数
                         Text("").frame(height: 10)
                         Text("獲得コイン").font(.largeTitle).fontWeight(.black)
@@ -56,6 +77,8 @@ struct result_View: View {
                         }
                     }
                 }
+            }.onAppear{
+                result_coin = remaining_timer * result_star_count
             }
         }.navigationBarBackButtonHidden(true)
     }

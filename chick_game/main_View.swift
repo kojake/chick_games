@@ -22,7 +22,7 @@ struct main_View: View {
     @State var x_position = 200
     @State var y_position = 430
     @State var goal_x_position = 200
-    @State var goal_y_position = -280
+    @State var goal_y_position = -250
     //clear_alert
     @State private var clear_alert = false
     @State var alert_message = "ゴールしましたリザルト画面に移動します"
@@ -33,6 +33,8 @@ struct main_View: View {
     //結果
     @State var result = ""
     @State var clear_or_not_clear = ""
+    //スターの数
+    @State var star_count = 3
     
     var body: some View {
         NavigationView{
@@ -42,7 +44,7 @@ struct main_View: View {
                     NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
-                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count), isActive: $showShould_result_View) {
+                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count), isActive: $showShould_result_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     HStack{
@@ -112,7 +114,7 @@ struct main_View: View {
                                     
                                     if y_position == 0{
                                         clear_alert = true
-                                        clear_or_not_clear = "game_over"
+                                        clear_or_not_clear = "clear"
                                     }
                                 }
                                 print(y_position)
@@ -123,10 +125,34 @@ struct main_View: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.red, lineWidth: 5))
                         Spacer()
-                        HStack{
-                            Text("残り秒数:").font(.title2).fontWeight(.black)
-                            Text("\(timer_count)").font(.title2).fontWeight(.black)
-                        }.frame(width: 180, height: 90).overlay(
+                        VStack{
+                            HStack{
+                                if star_count == 3{
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                }
+                                else if star_count == 2{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                }
+                                else if star_count == 1{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                }
+                                else if star_count == 0{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                }
+                            }.foregroundColor(Color.yellow)
+                            HStack{
+                                Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
+                                Text("\(timer_count)").font(.title2).fontWeight(.black)
+                            }
+                        }.frame(width: 180, height: 130).overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.blue, lineWidth: 5))
                         Spacer()
@@ -145,13 +171,51 @@ struct main_View: View {
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                         timer_count -= 1
-                        if timer_count == 0 {
-                            timer?.invalidate()
-                            timer = nil
-                            clear_alert = true
-                            alert_message = "時間切れになりました。リザルト画面に移動します"
-                            result = "out_of_time"
+                        
+                        if star_count == 3{
+                            if timer_count == 0 {
+                                timer = nil
+                                timer_count = 15
+                                star_count -= 1
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
                         }
+                        else if star_count == 2{
+                            if timer_count == 0 {
+                                timer = nil
+                                timer_count = 15
+                                star_count -= 1
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                        }
+                        else if star_count == 1{
+                            if timer_count == 0 {
+                                timer = nil
+                                timer_count = 15
+                                star_count -= 1
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                        }
+                        else if star_count == 0{
+                            if timer_count == 0 {
+                                timer?.invalidate()
+                                timer = nil
+                                clear_alert = true
+                                alert_message = "時間切れになりました。リザルト画面に移動します"
+                                result = "out_of_time"
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                        }
+                        
+                        
                         if clear_or_not_clear == "clear"{
                             timer?.invalidate()
                             alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
