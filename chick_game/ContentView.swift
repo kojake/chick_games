@@ -103,7 +103,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 struct ContentView_Previews: PreviewProvider {

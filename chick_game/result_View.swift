@@ -11,14 +11,19 @@ struct result_View: View {
     @Binding var result: String
     @Binding var remaining_timer: Int
     @Binding var result_star_count: Int
-    @State var coin_up = coin
     @State var result_coin = 0
+    //画面遷移
+    @State private var showShould_home_View = false
     
     var body: some View {
         NavigationView{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
+                    NavigationLink(destination: ContentView (), isActive: $showShould_home_View) {
+                        EmptyView()
+                    }.navigationBarBackButtonHidden(true)
+                    
                     if result == "clear"{
                         Text("結果").font(.largeTitle).fontWeight(.black)
                         
@@ -59,7 +64,7 @@ struct result_View: View {
                         Spacer()
                         //home戻る
                         Button(action: {
-                            print("Button action")
+                            showShould_home_View = true
                         }) {
                             HStack {
                                 Image(systemName: "house.fill")
@@ -84,6 +89,7 @@ struct result_View: View {
                 }
             }.onAppear{
                 result_coin = remaining_timer * result_star_count
+                coin += result_coin
             }
         }.navigationBarBackButtonHidden(true)
     }
