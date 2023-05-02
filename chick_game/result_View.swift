@@ -25,11 +25,6 @@ struct result_View: View {
                         //goal_text
                         Text("!GOAL!").font(.largeTitle).fontWeight(.black)
                         Text("").frame(height: 10)
-                        //残り秒数
-                        HStack{
-                            Text("残り秒数：").font(.largeTitle).fontWeight(.black)
-                            Text("\(remaining_timer)").font(.largeTitle).fontWeight(.black)
-                        }
                         //星の数
                         HStack{
                             if result_star_count == 3{
@@ -52,7 +47,7 @@ struct result_View: View {
                                 Image(systemName: "star").font(.title)
                                 Image(systemName: "star").font(.title)
                             }
-                        }
+                        }.foregroundColor(Color.yellow)
                         
                         //コインの獲得数
                         Text("").frame(height: 10)
@@ -61,6 +56,16 @@ struct result_View: View {
                             Image("money").resizable().scaledToFit().frame(width: 100)
                             Text("x\(result_coin)").font(.largeTitle).fontWeight(.black)
                         }
+                        Spacer()
+                        //home戻る
+                        Button(action: {
+                            print("Button action")
+                        }) {
+                            HStack {
+                                Image(systemName: "house.fill")
+                                Text("ホームに戻る")
+                            }
+                        }.buttonStyle(GradientButtonStyle())
                     }
                     if result == "out_of_time"{
                         Text("結果").font(.largeTitle).fontWeight(.black)
@@ -81,5 +86,15 @@ struct result_View: View {
                 result_coin = remaining_timer * result_star_count
             }
         }.navigationBarBackButtonHidden(true)
+    }
+}
+
+struct GradientButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(Color.white)
+            .padding()
+            .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))
+            .cornerRadius(15.0)
     }
 }
