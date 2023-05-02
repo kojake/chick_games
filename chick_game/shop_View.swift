@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct shop_View: View {
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss
     
     //ルーレットitem
-    @State private var rotation: Double = 0
-    @State private var spinDegrees: Double = 0
-    
-    let rouletteNumbers: [Int] = Array(0...36)
+    @State private var roulette_color_list = [1,2,3,4,5,6,7,8,9]
+    @State var roulette_color_1 = Color.white
+    @State var timer_count2 = 0
+    @State var button_text = "ルーレットを回す"
     
     var body: some View {
         NavigationView{
@@ -66,16 +67,49 @@ struct shop_View: View {
                 ZStack{
                     RoundedRectangle(cornerRadius: 30)
                         .fill(Color.yellow)
-                        .frame(width:350,height: 350)
+                        .frame(width:350,height: 430)
                         .shadow(radius: 30)
-                    Text("ルーレット").font(.largeTitle).fontWeight(.black)
                     VStack{
+                        Text("ルーレット").font(.largeTitle).fontWeight(.black)
                         
-                        
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(roulette_color_1)
+                                .frame(width:100,height: 100)
+                                .shadow(radius: 30)
+                            Text(String(timer_count2)).font(.largeTitle).fontWeight(.black)
+                        }
+                        Button(action: {
+                            if button_text == "ルーレットを回す"{
+                                button_text = "ルーレットを止める"
+                                var timer: Timer? = nil
+                                timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                                    timer_count2 += 1
+                                    if button_text == "ルーレットを回す"{
+                                        timer?.invalidate()
+                                    }
+                                    if timer_count2 == 9{
+                                        timer_count2 = 0
+                                    }
+                                }
+                            }
+                            else if button_text == "ルーレットを止める"{
+                                button_text = "ルーレットを回す"
+                            }
+                        }
+                        ) {
+                            Text(button_text)
+                                .bold()
+                                .padding()
+                                .frame(width: 200, height: 50)
+                                .foregroundColor(Color.white)
+                                .background(Color.purple)
+                                .cornerRadius(10)
+                        }
                     }
                 }
-            }
-        }.navigationBarBackButtonHidden(true)
+            }.navigationBarBackButtonHidden(true)
+        }
     }
 }
 
