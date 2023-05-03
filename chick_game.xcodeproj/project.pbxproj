@@ -15,6 +15,7 @@
 		9775A13D29FF48E90066FD79 /* result_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775A13C29FF48E90066FD79 /* result_View.swift */; };
 		977A594429FE7A3D00F5874C /* main_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977A594329FE7A3D00F5874C /* main_View.swift */; };
 		977A594629FE7C4700F5874C /* menu_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977A594529FE7C4700F5874C /* menu_View.swift */; };
+		97F7FAF72A028362002299E2 /* clatter_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F7FAF62A028362002299E2 /* clatter_View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		9775A13C29FF48E90066FD79 /* result_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = result_View.swift; sourceTree = "<group>"; };
 		977A594329FE7A3D00F5874C /* main_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main_View.swift; sourceTree = "<group>"; };
 		977A594529FE7C4700F5874C /* menu_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menu_View.swift; sourceTree = "<group>"; };
+		97F7FAF62A028362002299E2 /* clatter_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clatter_View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				971736A329FE45F100B8B833 /* chick_gameApp.swift */,
 				971736A529FE45F100B8B833 /* ContentView.swift */,
 				9762EE7E2A00E981007A9574 /* shop_View.swift */,
+				97F7FAF62A028362002299E2 /* clatter_View.swift */,
 				977A594329FE7A3D00F5874C /* main_View.swift */,
 				9775A13C29FF48E90066FD79 /* result_View.swift */,
 				977A594529FE7C4700F5874C /* menu_View.swift */,
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97F7FAF72A028362002299E2 /* clatter_View.swift in Sources */,
 				971736A629FE45F100B8B833 /* ContentView.swift in Sources */,
 				9775A13D29FF48E90066FD79 /* result_View.swift in Sources */,
 				977A594629FE7C4700F5874C /* menu_View.swift in Sources */,

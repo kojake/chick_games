@@ -12,15 +12,19 @@ struct shop_View: View {
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss
     
-    //ルーレットitem
-    @State private var roulette_color_list = [1,2,3,4,5,6,7,8,9]
-    @State var roulette_color_1 = Color.white
-    @State var timer_count2 = 0
-    @State var button_text = "ルーレットを回す"
+    //ルーレット画面に遷移
+    @State private var showShould_clatter_View = false
+    //お金が足りないアラート
+    @State private var money_shortage_alert = false
+    @State var money_shortage = 0
     
     var body: some View {
         NavigationView{
             VStack{
+                NavigationLink(destination: clatter_View(), isActive: $showShould_clatter_View) {
+                    EmptyView()
+                }.navigationBarBackButtonHidden(true)
+                
                 HStack{
                     Button(action: {
                         dismiss()
@@ -35,81 +39,123 @@ struct shop_View: View {
                     }
                     Spacer()
                     Text("SHOP").font(.largeTitle).fontWeight(.black)
-                    
                 }
                 //色々な色のひよこ
-                VStack{
-                    HStack{
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.red)
-                                .frame(width:190,height: 260)
-                                .shadow(radius: 30)
-                            
-                            VStack{
-                                Text("赤ひよこ").font(.largeTitle).fontWeight(.black)
+                ScrollView(.horizontal) {
+                    VStack{
+                        HStack{
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.red)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("赤ひよこ").font(.largeTitle).fontWeight(.black)
+                                }
                             }
-                        }
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.blue)
-                                .frame(width:190,height: 260)
-                                .shadow(radius: 30)
-                            
-                            VStack{
-                                Text("青ひよこ").font(.largeTitle).fontWeight(.black)
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.blue)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("青ひよこ").font(.largeTitle).fontWeight(.black)
+                                }
                             }
                         }
                     }
                 }
                 Spacer()
+                //自分の所持金
+                VStack{
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    HStack{
+                        Image("money").resizable().scaledToFit().frame(width: 50,height: 40)
+                        Text("\(coin)").font(.title).fontWeight(.black)
+                    }
+                    Text("自分の所持金").fontWeight(.black).font(.title)
+                    Spacer()
+                }.bold()
+                    .padding()
+                    .frame(width: 250, height: 115)
+                    .foregroundColor(Color.white)
+                    .background(Color.gray).shadow(radius: 10)
+                Spacer()
                 //ルーレットバージョン
                 ZStack{
                     RoundedRectangle(cornerRadius: 30)
                         .fill(Color.yellow)
-                        .frame(width:350,height: 430)
+                        .frame(width:350,height: 350)
                         .shadow(radius: 30)
                     VStack{
-                        Text("ルーレット").font(.largeTitle).fontWeight(.black)
+                        Text("ガチャ").font(.largeTitle).fontWeight(.black)
                         
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(roulette_color_1)
-                                .frame(width:100,height: 100)
-                                .shadow(radius: 30)
-                            Text(String(timer_count2)).font(.largeTitle).fontWeight(.black)
-                        }
-                        Button(action: {
-                            if button_text == "ルーレットを回す"{
-                                button_text = "ルーレットを止める"
-                                var timer: Timer? = nil
-                                timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-                                    timer_count2 += 1
-                                    if button_text == "ルーレットを回す"{
-                                        timer?.invalidate()
-                                    }
-                                    if timer_count2 == 9{
-                                        timer_count2 = 0
-                                    }
+                        VStack{
+                            Button(action: {
+                                if coin >= 100{
+                                    showShould_clatter_View = true
+                                    //お金を減らす
+                                    coin -= 100
                                 }
+                                else{
+                                    money_shortage_alert = true
+                                    //どれぐらいお金が足りないのかを計算する
+                                    money_shortage = 100 - coin
+                                }
+                            }) {
+                                VStack{
+                                    Text("シングル").fontWeight(.black).font(.title3)
+                                    HStack{
+                                        Image("money").resizable().scaledToFit().frame(width: 100, height: 50)
+                                        Text("100").foregroundColor(Color.black).font(.title2)
+                                    }.bold()
+                                        .padding()
+                                        .frame(width: 180, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.white)
+
+                                }.bold()
+                                    .padding()
+                                    .frame(width: 200, height: 100)
+                                    .foregroundColor(Color.white)
+                                    .background(Color.gray)
                             }
-                            else if button_text == "ルーレットを止める"{
-                                button_text = "ルーレットを回す"
+                            Button(action: {
+                                print("Button")
+                            }) {
+                                VStack{
+                                    Text("3回").fontWeight(.black).font(.title3)
+                                    HStack{
+                                        Image("money").resizable().scaledToFit().frame(width: 100, height: 50)
+                                        Text("500").foregroundColor(Color.black).font(.title3)
+                                    }.bold()
+                                        .padding()
+                                        .frame(width: 180, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.white)
+
+                                }.bold()
+                                    .padding()
+                                    .frame(width: 200, height: 100)
+                                    .foregroundColor(Color.white)
+                                    .background(Color.gray)
                             }
-                        }
-                        ) {
-                            Text(button_text)
-                                .bold()
-                                .padding()
-                                .frame(width: 200, height: 50)
-                                .foregroundColor(Color.white)
-                                .background(Color.purple)
-                                .cornerRadius(10)
                         }
                     }
                 }
-            }.navigationBarBackButtonHidden(true)
-        }
+                .alert(isPresented: $money_shortage_alert) {
+                    Alert(title: Text("お金が足りません"),
+                          message: Text("お金が\(money_shortage)コイン足りません"),
+                          dismissButton: .default(Text("了解"),action: {print("了解がタップされた")})
+                )}
+                
+            }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
