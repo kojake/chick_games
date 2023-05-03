@@ -52,6 +52,7 @@ struct shop_View: View {
                                 
                                 VStack{
                                     Text("赤ひよこ").font(.largeTitle).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
                                 }
                             }
                             ZStack{
@@ -62,6 +63,18 @@ struct shop_View: View {
                                 
                                 VStack{
                                     Text("青ひよこ").font(.largeTitle).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                }
+                            }
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.yellow)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("黄ひよこ").font(.largeTitle).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
                                 }
                             }
                         }
@@ -69,22 +82,24 @@ struct shop_View: View {
                 }
                 Spacer()
                 //自分の所持金
-                VStack{
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    HStack{
-                        Image("money").resizable().scaledToFit().frame(width: 50,height: 40)
-                        Text("\(coin)").font(.title).fontWeight(.black)
-                    }
-                    Text("自分の所持金").fontWeight(.black).font(.title)
-                    Spacer()
-                }.bold()
-                    .padding()
-                    .frame(width: 250, height: 115)
-                    .foregroundColor(Color.white)
-                    .background(Color.gray).shadow(radius: 10)
+                HStack{
+                    VStack{
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        HStack{
+                            Image("money").resizable().scaledToFit().frame(width: 50,height: 40)
+                            Text("\(coin)").font(.title).fontWeight(.black)
+                        }
+                        Text("自分の所持金").fontWeight(.black).font(.title)
+                        Spacer()
+                    }.bold()
+                        .padding()
+                        .frame(width: 250, height: 115)
+                        .foregroundColor(Color.white)
+                        .background(Color.gray).shadow(radius: 10)
+                }
                 Spacer()
                 //ルーレットバージョン
                 ZStack{
