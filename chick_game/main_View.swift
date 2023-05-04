@@ -25,7 +25,7 @@ struct main_View: View {
     @State var goal_y_position = -250
     //clear_alert
     @State private var clear_alert = false
-    @State var alert_message = "ゴールしましたリザルト画面に移動します"
+    @State var alert_message = ""
     //timer
     @State var timer_count = 15
     //result_View

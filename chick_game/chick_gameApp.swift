@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-var coin = 90
+var coin = 490
 
 @main
 struct chick_gameApp: App {

@@ -22,7 +22,7 @@ struct shop_View: View {
     var body: some View {
         NavigationView{
             VStack{
-                NavigationLink(destination: clatter_View(), isActive: $showShould_clatter_View) {
+                NavigationLink(destination: clatter_View(single_or_Third_clatter: $clatter_single_or_Third_selected), isActive: $showShould_clatter_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 
@@ -144,7 +144,19 @@ struct shop_View: View {
                                     .background(Color.gray)
                             }
                             Button(action: {
-                                print("Button")
+                                if coin >= 500{
+                                    showShould_clatter_View = true
+                                    //お金を減らす
+                                    coin -= 500
+                                    //シングルに選択されたことを保存する
+                                    clatter_single_or_Third_selected = "サード"
+                                }
+                                else{
+                                    money_shortage_alert = true
+                                    //どれぐらいお金が足りないのかを計算する
+                                    money_shortage = 500 - coin
+                                }
+
                             }) {
                                 VStack{
                                     Text("3回").fontWeight(.black).font(.title3)
