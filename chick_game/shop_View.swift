@@ -14,6 +14,7 @@ struct shop_View: View {
     
     //ルーレット画面に遷移
     @State private var showShould_clatter_View = false
+    @State var clatter_single_or_Third_selected = ""
     //お金が足りないアラート
     @State private var money_shortage_alert = false
     @State var money_shortage = 0
@@ -116,6 +117,8 @@ struct shop_View: View {
                                     showShould_clatter_View = true
                                     //お金を減らす
                                     coin -= 100
+                                    //シングルに選択されたことを保存する
+                                    clatter_single_or_Third_selected = "シングル"
                                 }
                                 else{
                                     money_shortage_alert = true
