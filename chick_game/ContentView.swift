@@ -13,9 +13,7 @@ struct ContentView: View {
     //画面遷移
     @State private var showShould_main_View = false
     @State private var showShould_shop_View = false
-    
-    //各ステージごとの星の数
-    @State var star_for_each_stage: [String:Int] = ["stage1": 0]
+    @State private var showShould_dressing_up_View = false
     
     var body: some View {
         NavigationView{
@@ -24,6 +22,9 @@ struct ContentView: View {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
+                    EmptyView()
+                }.navigationBarBackButtonHidden(true)
+                NavigationLink(destination: dressing_up_View(), isActive: $showShould_dressing_up_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 
@@ -43,9 +44,9 @@ struct ContentView: View {
                             .clipShape(Circle())
                     }
                     Button(action: {
-                        print("Button")
+                        showShould_dressing_up_View = true
                     }) {
-                        Image(systemName: "gearshape.fill")
+                        Image(systemName: "arrow.left.arrow.right.square.fill")
                             .padding()
                             .frame(width: 70, height: 70)
                             .imageScale(.large)
@@ -69,11 +70,6 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE1").font(.title2).fontWeight(.black)
-                                HStack{
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                }.foregroundColor(Color.yellow)
                                 Button(action: {
                                     selected_STAGE = 1
                                 }) {
@@ -89,11 +85,6 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE2").font(.title2).fontWeight(.black)
-                                HStack{
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                }.foregroundColor(Color.yellow)
                                 Button(action: {
                                     selected_STAGE = 2
                                 }) {
@@ -107,17 +98,19 @@ struct ContentView: View {
                 }
                 Spacer()
                 //スタートボタン
-                Text("STAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
-                Button(action: {
-                    showShould_main_View = true
-                }) {
-                    Text("START")
-                        .bold()
-                        .padding()
-                        .frame(width: 200, height: 100)
-                        .foregroundColor(Color.white)
-                        .background(Color.purple)
-                        .cornerRadius(10)
+                VStack{
+                    Text("STAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
+                    Button(action: {
+                        showShould_main_View = true
+                    }) {
+                        Text("START")
+                            .bold()
+                            .padding()
+                            .frame(width: 200, height: 100)
+                            .foregroundColor(Color.white)
+                            .background(Color.purple)
+                            .cornerRadius(10)
+                    }
                 }
             }
         }.navigationBarBackButtonHidden(true)
