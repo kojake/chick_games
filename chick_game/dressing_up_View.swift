@@ -10,6 +10,8 @@ import SwiftUI
 struct dressing_up_View: View {
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss
+    //画面遷移
+    @State private var showShould_shop_View = false
     //選択されているひよこを回す
     @State private var degrees = 0.0
     //現在装着されているひよこを検知する
@@ -17,11 +19,14 @@ struct dressing_up_View: View {
     //装着されているひよこの色に合わせて背景を変える
     @State var Attachment_confirmation_background_color = Color.red
     //前ひよこでゲットされているひよことゲットされていないひよこ
-    @State var chicks_that_are_getting_or_not: [String:String] = ["赤ひよこ": "not_get", "青ひよこ": "get", "黄ひよこ": "not_get"]
+    var chicks_that_are_getting_or_not: [String:String] = ["赤ひよこ": "not_get", "青ひよこ": "get", "黄ひよこ": "not_get"]
     
     var body: some View {
         NavigationView{
             VStack{
+                NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
+                    EmptyView()
+                }.navigationBarBackButtonHidden(true)
                 HStack{
                     Button(action: {
                         dismiss()
@@ -82,21 +87,46 @@ struct dressing_up_View: View {
                                     Text("赤ひよこ").font(.largeTitle).fontWeight(.black)
                                     Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
                                     Button(action: {
-                                        Currently_worn_skin = "赤ひよこ"
-                                        Attachment_confirmation_background_color = Color.red
+                                        let (red_chick, red_chick_value) = chicks_that_are_getting_or_not.first(where: { _ in true })!
+                                        
+                                        if red_chick_value == "get"{
+                                            Currently_worn_skin = "赤ひよこ"
+                                            Attachment_confirmation_background_color = Color.red
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
                                     }) {
-                                        Text("装着する")
-                                        .fontWeight(.bold)
-                                        .font(.title2)
-                                        .padding()
-                                        .background(Color.black)
-                                        .cornerRadius(40)
-                                        .foregroundColor(.white)
-                                        .padding(10)
-                                        .overlay(
-                                        RoundedRectangle(cornerRadius: 60)
-                                            .stroke(Color.black, lineWidth: 5)
-                                        )
+                                        let (red_chick, red_chick_value) = chicks_that_are_getting_or_not.first(where: { _ in true })!
+                                        
+                                        if red_chick_value == "get"{
+                                            Text("装着する")
+                                            .fontWeight(.bold)
+                                            .font(.title2)
+                                            .padding()
+                                            .background(Color.black)
+                                            .cornerRadius(40)
+                                            .foregroundColor(.white)
+                                            .padding(10)
+                                            .overlay(
+                                            RoundedRectangle(cornerRadius: 60)
+                                                .stroke(Color.black, lineWidth: 5)
+                                            )
+                                        }
+                                        else if red_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                            .fontWeight(.bold)
+                                            .font(.title2)
+                                            .padding()
+                                            .background(Color.black)
+                                            .cornerRadius(40)
+                                            .foregroundColor(.white)
+                                            .padding(10)
+                                            .overlay(
+                                            RoundedRectangle(cornerRadius: 60)
+                                                .stroke(Color.black, lineWidth: 5)
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -110,21 +140,46 @@ struct dressing_up_View: View {
                                     Text("青ひよこ").font(.largeTitle).fontWeight(.black)
                                     Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
                                     Button(action: {
-                                        Currently_worn_skin = "青ひよこ"
-                                        Attachment_confirmation_background_color = Color.blue
+                                        let (blue_chick, blue_chick_value) = chicks_that_are_getting_or_not.dropFirst().first(where: { _ in true })!
+                                        
+                                        if blue_chick_value == "get"{
+                                            Currently_worn_skin = "青ひよこ"
+                                            Attachment_confirmation_background_color = Color.blue
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
                                     }) {
-                                        Text("装着する")
-                                        .fontWeight(.bold)
-                                        .font(.title2)
-                                        .padding()
-                                        .background(Color.black)
-                                        .cornerRadius(40)
-                                        .foregroundColor(.white)
-                                        .padding(10)
-                                        .overlay(
-                                        RoundedRectangle(cornerRadius: 60)
-                                            .stroke(Color.black, lineWidth: 5)
-                                        )
+                                        let (blue_chick, blue_chick_value) = chicks_that_are_getting_or_not.dropFirst().first(where: { _ in true })!
+                                        
+                                        if blue_chick_value == "get"{
+                                            Text("装着する")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                        else if blue_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
                                     }
                                 }
                             }
@@ -138,21 +193,46 @@ struct dressing_up_View: View {
                                     Text("黄ひよこ").font(.largeTitle).fontWeight(.black)
                                     Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
                                     Button(action: {
-                                        Currently_worn_skin = "黄ひよこ"
-                                        Attachment_confirmation_background_color = Color.yellow
+                                        let (yellow_chick, yellow_chick_value) = chicks_that_are_getting_or_not.dropFirst(2).first(where: { _ in true })!
+                                        
+                                        if yellow_chick_value == "get"{
+                                            Currently_worn_skin = "黄ひよこ"
+                                            Attachment_confirmation_background_color = Color.yellow
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
                                     }) {
-                                        Text("装着する")
-                                        .fontWeight(.bold)
-                                        .font(.title2)
-                                        .padding()
-                                        .background(Color.black)
-                                        .cornerRadius(40)
-                                        .foregroundColor(.white)
-                                        .padding(10)
-                                        .overlay(
-                                        RoundedRectangle(cornerRadius: 60)
-                                            .stroke(Color.black, lineWidth: 5)
-                                        )
+                                        let (yellow_chick, yellow_chick_value) = chicks_that_are_getting_or_not.dropFirst(2).first(where: { _ in true })!
+                                        
+                                        if yellow_chick_value == "get"{
+                                            Text("装着する")
+                                            .fontWeight(.bold)
+                                            .font(.title2)
+                                            .padding()
+                                            .background(Color.black)
+                                            .cornerRadius(40)
+                                            .foregroundColor(.white)
+                                            .padding(10)
+                                            .overlay(
+                                            RoundedRectangle(cornerRadius: 60)
+                                                .stroke(Color.black, lineWidth: 5)
+                                            )
+                                        }
+                                        else if yellow_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                            .fontWeight(.bold)
+                                            .font(.title2)
+                                            .padding()
+                                            .background(Color.black)
+                                            .cornerRadius(40)
+                                            .foregroundColor(.white)
+                                            .padding(10)
+                                            .overlay(
+                                            RoundedRectangle(cornerRadius: 60)
+                                                .stroke(Color.black, lineWidth: 5)
+                                            )
+                                        }
                                     }
                                 }
                             }
