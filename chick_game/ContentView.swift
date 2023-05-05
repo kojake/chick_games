@@ -61,7 +61,7 @@ struct ContentView: View {
                     Text("ひよこゲーム").font(.largeTitle).fontWeight(.black).foregroundColor(.yellow)
                     Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(180), axis: (0, 1, 0))
                 }
-                Text("ステージ選択").padding().fontWeight(.black)
+                Text("ステージ選択").padding().fontWeight(.black).font(.largeTitle)
                 ScrollView(.horizontal) {
                     HStack{
                         ZStack{
