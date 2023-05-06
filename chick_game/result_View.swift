@@ -14,6 +14,8 @@ struct result_View: View {
     @State var result_coin = 0
     //画面遷移
     @State private var showShould_home_View = false
+    //coin
+    @Binding var coin: Int
     
     var body: some View {
         NavigationView{

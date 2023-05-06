@@ -35,16 +35,18 @@ struct main_View: View {
     @State var clear_or_not_clear = ""
     //スターの数
     @State var star_count = 3
+    //coin
+    @Binding var coin: Int
     
     var body: some View {
         NavigationView{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                    NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
+                     NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
-                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count), isActive: $showShould_result_View) {
+                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, coin: $coin), isActive: $showShould_result_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     HStack{
@@ -232,10 +234,5 @@ struct main_View: View {
                 showShould_result_View = true
             }))
         }
-    }
-}
-struct main_View_Previews: PreviewProvider {
-    static var previews: some View {
-        main_View()
     }
 }
