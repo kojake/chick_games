@@ -68,6 +68,7 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE1").font(.title2).fontWeight(.black)
+                                stage_1_star_count()
                                 Button(action: {
                                     selected_STAGE = 1
                                 }) {
@@ -83,6 +84,7 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE2").font(.title2).fontWeight(.black)
+                                stage_2_star_count()
                                 Button(action: {
                                     selected_STAGE = 2
                                 }) {
@@ -132,5 +134,65 @@ struct BlueButtonStyle: ButtonStyle {
             .shadow(color:.black, radius: 4)
             .opacity(configuration.isPressed ? 0.6 : 1.0)
             .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+    }
+}
+
+//各ステージの星の数
+struct stage_1_star_count: View{
+    var body: some View{
+        //stage1の星の数
+        HStack{
+            let stage1_stars = number_of_stars_in_each_stage[0]
+            
+            if stage1_stars == "3"{
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage1_stars == "2"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage1_stars == "1"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage1_stars == "0"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+            }
+        }.foregroundColor(Color.yellow)
+    }
+}
+struct stage_2_star_count: View{
+    var body: some View{
+        //stage1の星の数
+        HStack{
+            let stage2_stars = number_of_stars_in_each_stage.suffix(from: 1)
+            
+            if stage2_stars.first == "3"{
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage2_stars.first == "2"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage2_stars.first == "1"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage2_stars.first == "0"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+            }
+        }.foregroundColor(Color.yellow)
     }
 }
