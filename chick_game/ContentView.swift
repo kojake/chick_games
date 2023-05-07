@@ -29,6 +29,7 @@ struct ContentView: View {
                 }.navigationBarBackButtonHidden(true)
                 
                 HStack{
+                    Text("シーズン１").font(.largeTitle).fontWeight(.black)
                     Spacer()
                     Button(action: {
                         showShould_shop_View = true
