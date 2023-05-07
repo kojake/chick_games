@@ -15,24 +15,20 @@ struct ContentView: View {
     @State private var showShould_shop_View = false
     @State private var showShould_dressing_up_View = false
     
-    @State var coin = 490
-    
     var body: some View {
         NavigationView{
             VStack {
-                NavigationLink(destination: main_View(coin: $coin), isActive: $showShould_main_View) {
+                NavigationLink(destination: main_View(), isActive: $showShould_main_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
-                NavigationLink(destination: shop_View(coin: $coin), isActive: $showShould_shop_View) {
+                NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
-                NavigationLink(destination: dressing_up_View(coin: $coin), isActive: $showShould_dressing_up_View) {
+                NavigationLink(destination: dressing_up_View(), isActive: $showShould_dressing_up_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 
                 HStack{
-                    Image("money").resizable().frame(width: 70, height: 70)
-                    Text("\(coin)").font(.largeTitle).fontWeight(.black)
                     Spacer()
                     Button(action: {
                         showShould_shop_View = true

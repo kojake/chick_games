@@ -24,8 +24,9 @@ struct shop_View: View {
     let lightColor = Color.init(red: 0.54, green: 0.41, blue: 0.95)
     let shadowColor = Color.init(red: 0.25, green: 0.17, blue: 0.75)
     let radius = CGFloat(25)
+    
     //coin
-    @Binding var coin: Int
+    @State var coin = 500
     
     var body: some View {
         NavigationView{
@@ -305,6 +306,11 @@ struct shop_View: View {
                         .frame(width: 250, height: 115)
                         .foregroundColor(Color.white)
                         .background(Color.gray).shadow(radius: 10)
+                }.onAppear{
+                    //リザルト画面で増やされたcoin_upの分をcoinに増やす
+                    coin += coin_up
+                    //coin_upを0にする
+                    coin_up = 0
                 }
                 Spacer()
                 //ルーレットバージョン

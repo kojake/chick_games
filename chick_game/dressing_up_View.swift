@@ -18,13 +18,11 @@ struct dressing_up_View: View {
     @State var Currently_worn_skin = "赤ひよこ"
     //装着されているひよこの色に合わせて背景を変える
     @State var Attachment_confirmation_background_color = Color.red
-    //coin
-    @Binding var coin: Int
     
     var body: some View {
         NavigationView{
             VStack{
-                NavigationLink(destination: shop_View(coin: $coin), isActive: $showShould_shop_View) {
+                NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 HStack{
