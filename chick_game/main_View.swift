@@ -35,7 +35,9 @@ struct main_View: View {
     @State var clear_or_not_clear = ""
     //スターの数
     @State var star_count = 3
-    
+    //選択されたステージを取得する
+    @Binding var select_stage: Int
+
     var body: some View {
         NavigationView{
             ZStack{
@@ -44,7 +46,7 @@ struct main_View: View {
                      NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
-                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count), isActive: $showShould_result_View) {
+                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     HStack{
@@ -67,7 +69,7 @@ struct main_View: View {
                     }
                     
                     VStack{
-                        Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(x_position), y: CGFloat(y_position))
+                        Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(x_position), y: CGFloat(y_position)).colorMultiply(chick_selected_color)
                         Image("goal_frag").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(goal_x_position), y: CGFloat(goal_y_position))
                     }
                     

@@ -15,9 +15,9 @@ struct dressing_up_View: View {
     //選択されているひよこを回す
     @State private var degrees = 0.0
     //現在装着されているひよこを検知する
-    @State var Currently_worn_skin = "赤ひよこ"
-    //装着されているひよこの色に合わせて背景を変える
-    @State var Attachment_confirmation_background_color = Color.red
+    @State var Currently_worn_skin = "ひよこ"
+    //装着されているひよこの色に変える
+    @State var chick_color = Color.white
     
     var body: some View {
         NavigationView{
@@ -42,7 +42,7 @@ struct dressing_up_View: View {
                 Text("現在きているひよこのスキン").font(.title).fontWeight(.black)
                 ZStack{
                     RoundedRectangle(cornerRadius: 30)
-                        .fill(Attachment_confirmation_background_color)
+                        .fill(Color.white)
                         .frame(width:390,height: 260)
                         .shadow(radius: 30)
                     HStack{
@@ -64,7 +64,7 @@ struct dressing_up_View: View {
                                 .frame(width:200,height: 200)
                                 .shadow(radius: 30)
                             VStack{
-                                Text("\(Currently_worn_skin)").font(.largeTitle).fontWeight(.black).foregroundColor(Attachment_confirmation_background_color)
+                                Text("\(Currently_worn_skin)").font(.largeTitle).fontWeight(.black).foregroundColor(chick_color)
                             }
                         }
                         Spacer()
@@ -75,6 +75,35 @@ struct dressing_up_View: View {
                 ScrollView(.horizontal) {
                     VStack{
                         HStack{
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.gray)
+                                    .frame(width:240,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("ノーマルひよこ").font(.largeTitle).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Button(action: {
+                                        Currently_worn_skin = "ひよこ"
+                                        chick_color = Color.white
+                                        chick_selected_color = Color.white
+                                    }) {
+                                        Text("装着する")
+                                        .fontWeight(.bold)
+                                        .font(.title2)
+                                        .padding()
+                                        .background(Color.black)
+                                        .cornerRadius(40)
+                                        .foregroundColor(.white)
+                                        .padding(10)
+                                        .overlay(
+                                        RoundedRectangle(cornerRadius: 60)
+                                            .stroke(Color.black, lineWidth: 5)
+                                        )
+                                    }
+                                }
+                            }
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.red)
@@ -89,7 +118,8 @@ struct dressing_up_View: View {
                                         
                                         if red_chick_value == "get"{
                                             Currently_worn_skin = "赤ひよこ"
-                                            Attachment_confirmation_background_color = Color.red
+                                            chick_color = Color.red
+                                            chick_selected_color = Color.red
                                         }
                                         else{
                                             showShould_shop_View = true
@@ -142,7 +172,8 @@ struct dressing_up_View: View {
                                         
                                         if blue_chick_value == "get"{
                                             Currently_worn_skin = "青ひよこ"
-                                            Attachment_confirmation_background_color = Color.blue
+                                            chick_color = Color.blue
+                                            chick_selected_color = Color.blue
                                         }
                                         else{
                                             showShould_shop_View = true
@@ -177,59 +208,6 @@ struct dressing_up_View: View {
                                                     RoundedRectangle(cornerRadius: 60)
                                                         .stroke(Color.black, lineWidth: 5)
                                                 )
-                                        }
-                                    }
-                                }
-                            }
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.yellow)
-                                    .frame(width:190,height: 260)
-                                    .shadow(radius: 30)
-                                
-                                VStack{
-                                    Text("黄ひよこ").font(.largeTitle).fontWeight(.black)
-                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
-                                    Button(action: {
-                                        let (yellow_chick, yellow_chick_value) = chicks_that_are_getting_or_not.dropFirst(2).first(where: { _ in true })!
-                                        
-                                        if yellow_chick_value == "get"{
-                                            Currently_worn_skin = "黄ひよこ"
-                                            Attachment_confirmation_background_color = Color.yellow
-                                        }
-                                        else{
-                                            showShould_shop_View = true
-                                        }
-                                    }) {
-                                        let (yellow_chick, yellow_chick_value) = chicks_that_are_getting_or_not.dropFirst(2).first(where: { _ in true })!
-                                        
-                                        if yellow_chick_value == "get"{
-                                            Text("装着する")
-                                            .fontWeight(.bold)
-                                            .font(.title2)
-                                            .padding()
-                                            .background(Color.black)
-                                            .cornerRadius(40)
-                                            .foregroundColor(.white)
-                                            .padding(10)
-                                            .overlay(
-                                            RoundedRectangle(cornerRadius: 60)
-                                                .stroke(Color.black, lineWidth: 5)
-                                            )
-                                        }
-                                        else if yellow_chick_value == "not_get"{
-                                            Text("shopに行く")
-                                            .fontWeight(.bold)
-                                            .font(.title2)
-                                            .padding()
-                                            .background(Color.black)
-                                            .cornerRadius(40)
-                                            .foregroundColor(.white)
-                                            .padding(10)
-                                            .overlay(
-                                            RoundedRectangle(cornerRadius: 60)
-                                                .stroke(Color.black, lineWidth: 5)
-                                            )
                                         }
                                     }
                                 }

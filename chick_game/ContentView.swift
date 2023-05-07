@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack {
-                NavigationLink(destination: main_View(), isActive: $showShould_main_View) {
+                NavigationLink(destination: main_View(select_stage: $selected_STAGE), isActive: $showShould_main_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {

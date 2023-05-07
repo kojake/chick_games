@@ -56,13 +56,13 @@ struct shop_View: View {
                         HStack{
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.red)
+                                    .fill(Color.black)
                                     .frame(width:210,height: 270)
                                     .shadow(radius: 30)
                                 
                                 VStack{
-                                    Text("赤ひよこ").font(.largeTitle).fontWeight(.black)
-                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Text("赤ひよこ").font(.largeTitle).fontWeight(.black).foregroundColor(Color.red)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80).colorMultiply(Color.red)
                                     let (red_chick, red_chick_value) = chicks_that_are_getting_or_not.first(where: { _ in true })!
                                     
                                     if red_chick_value == "not_get"{
@@ -138,12 +138,12 @@ struct shop_View: View {
                             }
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.blue)
+                                    .fill(Color.black)
                                     .frame(width:190,height: 260)
                                     .shadow(radius: 30)
                                 VStack{
-                                    Text("青ひよこ").font(.largeTitle).fontWeight(.black)
-                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Text("青ひよこ").font(.largeTitle).fontWeight(.black).foregroundColor(Color.blue)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80).colorMultiply(Color.blue)
                                     
                                     let (blue_chick, blue_chick_value) = chicks_that_are_getting_or_not.dropFirst().first(where: { _ in true })!
                                     
@@ -215,72 +215,6 @@ struct shop_View: View {
                                                 // ボタンのshadowはボタンの色に合わせる
                                                     .shadow(color: buttonColor, radius: 20, y: 10)
                                             )
-                                    }
-                                }
-                            }
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.yellow)
-                                    .frame(width:190,height: 260)
-                                    .shadow(radius: 30)
-                                
-                                VStack{
-                                    Text("黄ひよこ").font(.largeTitle).fontWeight(.black)
-                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
-                                    
-                                    let (yellow_chick, yellow_chick_value) = chicks_that_are_getting_or_not.dropFirst(2).first(where: { _ in true })!
-                                    
-                                    if yellow_chick_value == "not_get"{
-                                        Button(action: {
-                                            if coin >= 400{
-                                                //お金を減らす
-                                                coin -= 400
-                                                //赤ひよこをゲットした判定に変える
-                                                chicks_that_are_getting_or_not["黄ひよこ"] = "get"
-                                            }
-                                            else{
-                                                money_shortage_alert = true
-                                                //どれぐらいお金が足りないのかを計算する
-                                                money_shortage = 400 - coin
-                                            }
-                                        }){
-                                            VStack{
-                                                Spacer()
-                                                Text("購入する")
-                                                HStack{
-                                                    Image("money").resizable().scaledToFit().frame(width: 30, height: 40)
-                                                    Text("400").foregroundColor(Color.black)
-                                                }.bold()
-                                                    .padding()
-                                                    .frame(width: 130, height: 30)
-                                                    .foregroundColor(Color.white)
-                                                    .background(Color.white)
-                                            }.font(.title)
-                                                .fontWeight(.black)
-                                                .frame(width: 120, height: 50)
-                                                .foregroundColor(.white)
-                                                .padding(.horizontal, 35)
-                                                .padding(.vertical, 20)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: radius)
-                                                        .fill(
-                                                            // shadowでボタン上部に光沢を持たせる
-                                                            // .innerはiOS16から対応
-                                                            .shadow(.inner(color: lightColor, radius: 6, x: 4, y: 4))
-                                                            // shadowでボタン下部に影を落とす
-                                                                .shadow(.inner(color: shadowColor, radius: 6, x: -2, y: -2))
-                                                        )
-                                                        .foregroundColor(buttonColor)
-                                                    // ボタンのshadowはボタンの色に合わせる
-                                                        .shadow(color: buttonColor, radius: 20, y: 10)
-                                                )
-                                        }
-                                    }
-                                    else if yellow_chick_value == "get"{
-                                        VStack{
-                                            Text("所持済み")
-                                        }.background(Color.white)
-
                                     }
                                 }
                             }

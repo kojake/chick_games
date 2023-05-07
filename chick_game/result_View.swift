@@ -11,6 +11,7 @@ struct result_View: View {
     @Binding var result: String
     @Binding var remaining_timer: Int
     @Binding var result_star_count: Int
+    @Binding var select_stage: Int
     @State var result_coin = 0
     //画面遷移
     @State private var showShould_home_View = false
@@ -20,7 +21,7 @@ struct result_View: View {
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                    NavigationLink(destination: ContentView (), isActive: $showShould_home_View) {
+                    NavigationLink(destination: ContentView(), isActive: $showShould_home_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     
@@ -85,11 +86,41 @@ struct result_View: View {
                             Image("money").resizable().scaledToFit().frame(width: 100)
                             Text("x0").font(.largeTitle).fontWeight(.black)
                         }
+                        Spacer()
+                        //home戻る
+                        Button(action: {
+                            showShould_home_View = true
+                        }) {
+                            HStack {
+                                Image(systemName: "house.fill")
+                                Text("ホームに戻る")
+                            }
+                        }.buttonStyle(GradientButtonStyle())
                     }
                 }
             }.onAppear{
                 result_coin = remaining_timer * result_star_count
+                //お金を増やす
                 coin_up += result_coin
+                //星を増やす
+                //ネストは許して下さい
+                if select_stage == 1{
+                    let stage1_stars = number_of_stars_in_each_stage[0]
+                    if Int(stage1_stars)! < result_star_count{
+                        if result_star_count == 3{
+                            number_of_stars_in_each_stage[0] = "3"
+                        }
+                        else if result_star_count == 2{
+                            number_of_stars_in_each_stage[0] = "2"
+                        }
+                        else if result_star_count == 1{
+                            number_of_stars_in_each_stage[0] = "1"
+                        }
+                    }
+                    else{
+                        //何もしない
+                    }
+                }
             }
         }.navigationBarBackButtonHidden(true)
     }
