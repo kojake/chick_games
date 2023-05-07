@@ -9,6 +9,23 @@ import SwiftUI
 import UIKit
 
 struct main_View: View {
+    //選択されたステージを取得する
+    @Binding var select_stage: Int
+    
+    var body: some View{
+        NavigationView{
+            VStack{
+                //選択されたステージを表示する
+                if select_stage == 1{
+                    stage1(select_stage: $select_stage)
+                }
+            }
+        }.navigationBarBackButtonHidden(true)
+    }
+}
+
+//各ステージ
+struct stage1: View{
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss2
     //menu画面へ遷移

@@ -106,6 +106,7 @@ struct ContentView: View {
                         Text("START")
                             .bold()
                             .padding()
+                            .font(.largeTitle)
                             .frame(width: 200, height: 100)
                             .foregroundColor(Color.white)
                             .background(Color.purple)
