@@ -10,13 +10,15 @@ import SwiftUI
 struct clatter_result: View {
     var body: some View {
         NavigationView{
-            //シングルの場合
-            if single_or_Third == "シングル"{
-                single_clatter_result()
-            }
-            //サード
-            else if single_or_Third == "サード"{
-                Third_clatter_result()
+            VStack{
+                //シングルの場合
+                if single_or_Third == "シングル"{
+                    single_clatter_result()
+                }
+                //サード
+                else if single_or_Third == "サード"{
+                    Third_clatter_result()
+                }
             }
         }.navigationBarBackButtonHidden(true)
     }
@@ -216,8 +218,62 @@ struct Third_clatter_result: View{
                     }
                 }
             }.onAppear{
+                //一つ目
                 if clatter_therrd_result[0] == 1{
-                    
+                    hiyoko1 = Color.red
+                }
+                else if clatter_therrd_result[1] == 2{
+                    hiyoko1 = Color.blue
+                }
+                else if clatter_therrd_result[2] == 3{
+                    hiyoko1 = Color.yellow
+                }
+                else if clatter_therrd_result[3] == 4{
+                    hiyoko1 = Color.green
+                }
+                else if clatter_therrd_result[4] == 5{
+                    hiyoko1 = Color.purple
+                }
+                else if clatter_therrd_result[5] == 6{
+                    hiyoko1 = Color.orange
+                }
+                //二つ目
+                if clatter_therrd_result[0] == 1{
+                    hiyoko2 = Color.red
+                }
+                else if clatter_therrd_result[1] == 2{
+                    hiyoko2 = Color.blue
+                }
+                else if clatter_therrd_result[2] == 3{
+                    hiyoko2 = Color.yellow
+                }
+                else if clatter_therrd_result[3] == 4{
+                    hiyoko2 = Color.green
+                }
+                else if clatter_therrd_result[4] == 5{
+                    hiyoko2 = Color.purple
+                }
+                else if clatter_therrd_result[5] == 6{
+                    hiyoko2 = Color.orange
+                }
+                //三つ目
+                if clatter_therrd_result[0] == 1{
+                    hiyoko3 = Color.red
+                }
+                else if clatter_therrd_result[1] == 2{
+                    hiyoko3 = Color.blue
+                }
+                else if clatter_therrd_result[2] == 3{
+                    hiyoko3 = Color.yellow
+                }
+                else if clatter_therrd_result[3] == 4{
+                    hiyoko3 = Color.green
+                }
+                else if clatter_therrd_result[4] == 5{
+                    hiyoko3 = Color.purple
+                }
+                else if clatter_therrd_result[5] == 6{
+                    hiyoko3 = Color.orange
                 }
             }
         }
