@@ -326,27 +326,27 @@ struct dressing_up_View: View {
                             //ピンクひよこ
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.pink)
+                                    .fill(Color.purple)
                                     .frame(width:190,height: 260)
                                     .shadow(radius: 30)
                                 
                                 VStack{
-                                    Text("ピンクひよこ").font(.title).fontWeight(.black)
+                                    Text("紫ひよこ").font(.title).fontWeight(.black)
                                     Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
                                     Button(action: {
-                                        let pink_chick_value = chicks_that_are_getting_or_not["ピンクひよこ"]
+                                        let purple_chick_value = chicks_that_are_getting_or_not["紫ひよこ"]
                                         
-                                        if pink_chick_value == "get"{
-                                            Currently_worn_skin = "ピンクひよこ"
-                                            chick_color = Color.pink
-                                            chick_selected_color = Color.pink
+                                        if purple_chick_value == "get"{
+                                            Currently_worn_skin = "紫ひよこ"
+                                            chick_color = Color.purple
+                                            chick_selected_color = Color.purple
                                         }
                                         else{
                                             showShould_shop_View = true
                                         }
                                     }) {
-                                        let pink_chick_value = chicks_that_are_getting_or_not["ピンクひよこ"]
-                                        if pink_chick_value == "get"{
+                                        let purple_chick_value = chicks_that_are_getting_or_not["紫ひよこ"]
+                                        if purple_chick_value == "get"{
                                             Text("装着する")
                                                 .fontWeight(.bold)
                                                 .font(.title2)
@@ -360,7 +360,7 @@ struct dressing_up_View: View {
                                                         .stroke(Color.black, lineWidth: 5)
                                                 )
                                         }
-                                        else if pink_chick_value == "not_get"{
+                                        else if purple_chick_value == "not_get"{
                                             Text("shopに行く")
                                                 .fontWeight(.bold)
                                                 .font(.title2)
@@ -380,7 +380,7 @@ struct dressing_up_View: View {
                             //オレンジひよこ
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.pink)
+                                    .fill(Color.orange)
                                     .frame(width:190,height: 260)
                                     .shadow(radius: 30)
                                 

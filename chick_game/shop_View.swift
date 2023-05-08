@@ -79,7 +79,7 @@ struct shop_View: View {
                 ZStack{
                     RoundedRectangle(cornerRadius: 30)
                         .fill(Color.yellow)
-                        .frame(width:350,height: 350)
+                        .frame(width:350,height: 400)
                         .shadow(radius: 30)
                     VStack{
                         Text("ガチャ").font(.largeTitle).fontWeight(.black)

@@ -26,19 +26,21 @@ struct clatter_View: View {
 
 //シングルの場合
 struct clatter_single: View{
-    //画面を閉じるために使う
-    @Environment(\.dismiss) var dismiss
+    //画面遷移
+    @State private var showShouldclatter_result = false
     
     //ルーレットitem
-    @State private var roulette_color_list = [1,2,3,4,5,6,7,8,9]
+    @State private var roulette_color_list = [1,2,3,4,5,6]
     @State var roulette_color_1 = Color.white
     @State var timer_count2 = 0
     @State var button_text = "ガチャを回す"
-    @State private var roulette_popup = false
     
     
     var body: some View{
         VStack{
+            NavigationLink(destination: clatter_result(), isActive: $showShouldclatter_result) {
+                EmptyView()
+            }.navigationBarBackButtonHidden(true)
             ZStack{
                 RoundedRectangle(cornerRadius: 30)
                     .fill(Color.yellow)
@@ -76,7 +78,8 @@ struct clatter_single: View{
                         }
                         else if button_text == "ガチャを止める"{
                             button_text = "ガチャを回す"
-                            roulette_popup = true
+                            showShouldclatter_result = true
+                            clatter_single_result = timer_count2
                         }
                     }
                     ) {
@@ -92,19 +95,6 @@ struct clatter_single: View{
                 }
             }
         }
-        
-        .alert(isPresented: $roulette_popup) {
-            Alert(
-                title: Text("ガチャ結果"),
-                message: Text("あなたがゲットしたひよこは"),
-                primaryButton: .default(Text("ゲットしない"),action: {
-                    dismiss()
-                }),
-                secondaryButton: .default(Text("ゲットする"),action: {
-                    dismiss()
-                })
-            )
-        }
     }
 }
 
@@ -114,7 +104,7 @@ struct clatter_third: View{
     @Environment(\.dismiss) var dismiss
     
     //ルーレットitem
-    @State private var roulette_color_list = [1,2,3,4,5,6,7,8,9]
+    @State private var roulette_color_list = [1,2,3,4,5,6]
     @State var roulette_color_1 = Color.white
     @State var timer_count2 = 0
     @State var button_text = "ガチャを回す"
