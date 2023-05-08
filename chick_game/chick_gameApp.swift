@@ -14,7 +14,7 @@ var number_of_stars_in_each_stage = ["0","0"]
 //現在装着しているひよこの色
 var chick_selected_color = Color.white
 //前ひよこでゲットされているひよことゲットされていないひよこ
-var chicks_that_are_getting_or_not: [String:String] = ["赤ひよこ": "not_get", "青ひよこ": "get"]
+var chicks_that_are_getting_or_not: [String:String] = ["赤ひよこ": "not_get", "青ひよこ": "get","黄ひよこ": "not_get", "緑ひよこ": "get", "紫ひよこ": "get", "オレンジひよこ": "not_get"]
 
 @main
 struct chick_gameApp: App {

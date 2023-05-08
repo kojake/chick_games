@@ -50,6 +50,7 @@ struct dressing_up_View: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 180, height: 180)
+                            .colorMultiply(chick_color)
                             .rotationEffect(.degrees(degrees)) // 回転角度を適用
                             .animation(.default) // アニメーションを適用
                             .onAppear { // 画面が開かれたときの挙動を定義
@@ -104,6 +105,7 @@ struct dressing_up_View: View {
                                     }
                                 }
                             }
+                            //赤ひよこ
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.red)
@@ -158,6 +160,7 @@ struct dressing_up_View: View {
                                     }
                                 }
                             }
+                            //青ひよこ
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.blue)
@@ -196,6 +199,222 @@ struct dressing_up_View: View {
                                                 )
                                         }
                                         else if blue_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                    }
+                                }
+                            }
+                            //黄ひよこ
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.yellow)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("黄ひよこ").font(.largeTitle).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Button(action: {
+                                        let yellow_chick_value = chicks_that_are_getting_or_not["黄ひよこ"]
+                                        
+                                        if yellow_chick_value == "get"{
+                                            Currently_worn_skin = "黄ひよこ"
+                                            chick_color = Color.yellow
+                                            chick_selected_color = Color.yellow
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
+                                    }) {
+                                        let yellow_chick_value = chicks_that_are_getting_or_not["黄ひよこ"]
+                                        if yellow_chick_value == "get"{
+                                            Text("装着する")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                        else if yellow_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                    }
+                                }
+                            }
+                            //緑ひよこ
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.green)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("緑ひよこ").font(.largeTitle).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Button(action: {
+                                        let green_chick_value = chicks_that_are_getting_or_not["緑ひよこ"]
+                                        
+                                        if green_chick_value == "get"{
+                                            Currently_worn_skin = "黄ひよこ"
+                                            chick_color = Color.green
+                                            chick_selected_color = Color.green
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
+                                    }) {
+                                        let green_chick_value = chicks_that_are_getting_or_not["緑ひよこ"]
+                                        if green_chick_value == "get"{
+                                            Text("装着する")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                        else if green_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                    }
+                                }
+                            }
+                            //ピンクひよこ
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.pink)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("ピンクひよこ").font(.title).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Button(action: {
+                                        let pink_chick_value = chicks_that_are_getting_or_not["ピンクひよこ"]
+                                        
+                                        if pink_chick_value == "get"{
+                                            Currently_worn_skin = "ピンクひよこ"
+                                            chick_color = Color.pink
+                                            chick_selected_color = Color.pink
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
+                                    }) {
+                                        let pink_chick_value = chicks_that_are_getting_or_not["ピンクひよこ"]
+                                        if pink_chick_value == "get"{
+                                            Text("装着する")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                        else if pink_chick_value == "not_get"{
+                                            Text("shopに行く")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                    }
+                                }
+                            }
+                            //オレンジひよこ
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.pink)
+                                    .frame(width:190,height: 260)
+                                    .shadow(radius: 30)
+                                
+                                VStack{
+                                    Text("オレンジひよこ").font(.title).fontWeight(.black)
+                                    Image("hiyoko").resizable().scaledToFit().frame(width: 80, height: 80)
+                                    Button(action: {
+                                        let orange_chick_value = chicks_that_are_getting_or_not["オレンジひよこ"]
+                                        
+                                        if orange_chick_value == "get"{
+                                            Currently_worn_skin = "オレンジひよこ"
+                                            chick_color = Color.orange
+                                            chick_selected_color = Color.orange
+                                        }
+                                        else{
+                                            showShould_shop_View = true
+                                        }
+                                    }) {
+                                        let orange_chick_value = chicks_that_are_getting_or_not["オレンジひよこ"]
+                                        if orange_chick_value == "get"{
+                                            Text("装着する")
+                                                .fontWeight(.bold)
+                                                .font(.title2)
+                                                .padding()
+                                                .background(Color.black)
+                                                .cornerRadius(40)
+                                                .foregroundColor(.white)
+                                                .padding(10)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 60)
+                                                        .stroke(Color.black, lineWidth: 5)
+                                                )
+                                        }
+                                        else if orange_chick_value == "not_get"{
                                             Text("shopに行く")
                                                 .fontWeight(.bold)
                                                 .font(.title2)
