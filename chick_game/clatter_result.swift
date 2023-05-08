@@ -199,82 +199,72 @@ struct Third_clatter_result: View{
                                     .fill(Color.white)
                                     .frame(width:100,height: 100)
                                     .shadow(radius: 30)
-                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                                Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko1).frame(width: 100, height: 100)
                             }
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.white)
                                     .frame(width:100,height: 100)
                                     .shadow(radius: 30)
-                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                                Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko2).frame(width: 100, height: 100)
                             }
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.white)
                                     .frame(width:100,height: 100)
-                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                                    Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko3).frame(width: 100, height: 100)
                             }
                         }
                     }
                 }
             }.onAppear{
                 //一つ目
-                if clatter_therrd_result[0] == 1{
+                if clatter_therrd_result.indices.contains(0), clatter_therrd_result[0] == 0 {
                     hiyoko1 = Color.red
-                }
-                else if clatter_therrd_result[1] == 2{
+                } else if clatter_therrd_result.indices.contains(1), clatter_therrd_result[1] == 1 {
                     hiyoko1 = Color.blue
-                }
-                else if clatter_therrd_result[2] == 3{
+                } else if clatter_therrd_result.indices.contains(2), clatter_therrd_result[2] == 2 {
                     hiyoko1 = Color.yellow
-                }
-                else if clatter_therrd_result[3] == 4{
+                } else if clatter_therrd_result.indices.contains(3), clatter_therrd_result[3] == 3 {
                     hiyoko1 = Color.green
-                }
-                else if clatter_therrd_result[4] == 5{
+                } else if clatter_therrd_result.indices.contains(4), clatter_therrd_result[4] == 4 {
                     hiyoko1 = Color.purple
-                }
-                else if clatter_therrd_result[5] == 6{
+                } else if clatter_therrd_result.indices.contains(5), clatter_therrd_result[5] == 5 {
                     hiyoko1 = Color.orange
                 }
                 //二つ目
-                if clatter_therrd_result[0] == 1{
+                if clatter_therrd_result.indices.contains(0), clatter_therrd_result[1] == 0 {
                     hiyoko2 = Color.red
-                }
-                else if clatter_therrd_result[1] == 2{
+                } else if clatter_therrd_result.indices.contains(1), clatter_therrd_result[1] == 1 {
                     hiyoko2 = Color.blue
-                }
-                else if clatter_therrd_result[2] == 3{
+                } else if clatter_therrd_result.indices.contains(2), clatter_therrd_result[2] == 2 {
                     hiyoko2 = Color.yellow
-                }
-                else if clatter_therrd_result[3] == 4{
+                } else if clatter_therrd_result.indices.contains(3), clatter_therrd_result[3] == 3 {
                     hiyoko2 = Color.green
-                }
-                else if clatter_therrd_result[4] == 5{
+                } else if clatter_therrd_result.indices.contains(4), clatter_therrd_result[4] == 4 {
                     hiyoko2 = Color.purple
-                }
-                else if clatter_therrd_result[5] == 6{
+                } else if clatter_therrd_result.indices.contains(5), clatter_therrd_result[5] == 5 {
                     hiyoko2 = Color.orange
                 }
-                //三つ目
-                if clatter_therrd_result[0] == 1{
+                //三つ
+                if clatter_therrd_result.indices.contains(0), clatter_therrd_result[2] == 0 {
                     hiyoko3 = Color.red
-                }
-                else if clatter_therrd_result[1] == 2{
+                } else if clatter_therrd_result.indices.contains(1), clatter_therrd_result[1] == 1 {
                     hiyoko3 = Color.blue
-                }
-                else if clatter_therrd_result[2] == 3{
+                } else if clatter_therrd_result.indices.contains(2), clatter_therrd_result[2] == 2 {
                     hiyoko3 = Color.yellow
-                }
-                else if clatter_therrd_result[3] == 4{
+                } else if clatter_therrd_result.indices.contains(3), clatter_therrd_result[3] == 3 {
                     hiyoko3 = Color.green
-                }
-                else if clatter_therrd_result[4] == 5{
+                } else if clatter_therrd_result.indices.contains(4), clatter_therrd_result[4] == 4 {
                     hiyoko3 = Color.purple
-                }
-                else if clatter_therrd_result[5] == 6{
+                } else if clatter_therrd_result.indices.contains(5), clatter_therrd_result[5] == 5 {
                     hiyoko3 = Color.orange
                 }
+                
+                print("")
+                print(hiyoko1)
+                print(hiyoko2)
+                print(hiyoko3)
             }
         }
     }

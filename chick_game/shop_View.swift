@@ -133,10 +133,10 @@ struct shop_View: View {
                                 }
                             }
                             Button(action: {
-                                if coin >= 600{
+                                if coin >= 500{
                                     showShould_clatter_View = true
                                     //お金を減らす
-                                    coin -= 600
+                                    coin -= 500
                                     //シングルに選択されたことを保存する
                                     clatter_single_or_Third_selected = "サード"
                                 }

@@ -80,6 +80,7 @@ struct clatter_single: View{
                             button_text = "ガチャを回す"
                             showShouldclatter_result = true
                             clatter_single_result = timer_count2
+                            single_or_Third = "シングル"
                         }
                     }
                     ) {
@@ -114,6 +115,9 @@ struct clatter_third: View{
     var body: some View {
         NavigationView{
             VStack{
+                NavigationLink(destination: clatter_result(), isActive: $showShouldclatter_result) {
+                    EmptyView()
+                }.navigationBarBackButtonHidden(true)
                 ZStack{
                     RoundedRectangle(cornerRadius: 30)
                         .fill(Color.yellow)
@@ -144,8 +148,8 @@ struct clatter_third: View{
                                     if button_text == "ガチャを回す"{
                                         timer?.invalidate()
                                     }
-                                    if timer_count2 == 9{
-                                        timer_count2 = 0
+                                    if timer_count2 == 6{
+                                        timer_count2 = 1
                                     }
                                 }
                             }
@@ -155,6 +159,8 @@ struct clatter_third: View{
                                 chick_out_list.append(timer_count2)
                                 if Remaining_number_of_gacha == 0{
                                     clatter_therrd_result = chick_out_list
+                                    showShouldclatter_result = true
+                                    single_or_Third = "サード"
                                 }
                             }
                         }

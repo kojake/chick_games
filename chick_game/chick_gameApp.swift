@@ -18,7 +18,7 @@ var chicks_that_are_getting_or_not: [String:String] = ["赤ひよこ": "not_get"
 //ガチャ結果
 var clatter_single_result = 0
 var clatter_therrd_result = [Int]()
-var single_or_Third = "サード"
+var single_or_Third = ""
 
 @main
 struct chick_gameApp: App {
