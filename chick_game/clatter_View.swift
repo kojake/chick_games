@@ -100,15 +100,13 @@ struct clatter_single: View{
 
 //3回の場合
 struct clatter_third: View{
-    //画面を閉じるために使う
-    @Environment(\.dismiss) var dismiss
-    
+    //画面遷移
+    @State private var showShouldclatter_result = false
     //ルーレットitem
     @State private var roulette_color_list = [1,2,3,4,5,6]
     @State var roulette_color_1 = Color.white
     @State var timer_count2 = 0
     @State var button_text = "ガチャを回す"
-    @State private var roulette_popup = false
     @State var chick_out_list = [Int]()
     @State var Remaining_number_of_gacha = 3
     
@@ -156,7 +154,7 @@ struct clatter_third: View{
                                 Remaining_number_of_gacha -= 1
                                 chick_out_list.append(timer_count2)
                                 if Remaining_number_of_gacha == 0{
-                                    roulette_popup = true
+                                    clatter_therrd_result = chick_out_list
                                 }
                             }
                         }
@@ -210,19 +208,6 @@ struct clatter_third: View{
                         }
                     }
                 }
-            }
-            
-            .alert(isPresented: $roulette_popup) {
-                Alert(
-                    title: Text("ガチャ結果"),
-                    message: Text("あなたがゲットしたひよこは"),
-                    primaryButton: .default(Text("ゲットしない"),action: {
-                        dismiss()
-                    }),
-                    secondaryButton: .default(Text("ゲットする"),action: {
-                        dismiss()
-                    })
-                )
             }
         }
     }

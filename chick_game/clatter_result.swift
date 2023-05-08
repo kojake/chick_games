@@ -14,10 +14,15 @@ struct clatter_result: View {
             if single_or_Third == "シングル"{
                 single_clatter_result()
             }
+            //サード
+            else if single_or_Third == "サード"{
+                Third_clatter_result()
+            }
         }.navigationBarBackButtonHidden(true)
     }
 }
 
+//シングルガチャの場合
 struct single_clatter_result: View{
     //buttondesign
     let bgColor = Color.init(red:0.90, green: 0.92, blue: 0.98)
@@ -153,6 +158,69 @@ struct single_clatter_result: View{
                           dismissButton: .default(Text("OK"),
                                                   action: {showShouldContentView = true}))
                 }
+    }
+}
+//トリプルガチャの場合
+struct Third_clatter_result: View{
+    //buttondesign
+    let bgColor = Color.init(red:0.90, green: 0.92, blue: 0.98)
+    let buttonColor = Color.init(red: 0.38, green: 0.28, blue: 0.86)
+    let lightColor = Color.init(red: 0.54, green: 0.41, blue: 0.95)
+    let shadowColor = Color.init(red: 0.25, green: 0.17, blue: 0.75)
+    let radius = CGFloat(25)
+    //画面遷移
+    @State private var showShouldContentView = false
+    
+    @State var hiyoko1 = Color.white
+    @State var hiyoko2 = Color.white
+    @State var hiyoko3 = Color.white
+    
+    var body: some View{
+        NavigationView{
+            VStack{
+                NavigationLink(destination: ContentView(), isActive: $showShouldContentView) {
+                    EmptyView()
+                }.navigationBarBackButtonHidden(true)
+                Text("ガチャ結果").font(.largeTitle).fontWeight(.black)
+                
+                ZStack{
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color.gray)
+                        .frame(width:350,height: 250)
+                        .shadow(radius: 30)
+                    VStack{
+                        Text("ガチャから出たひよこ達").font(.title).fontWeight(.black)
+                        
+                        HStack{
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.white)
+                                    .frame(width:100,height: 100)
+                                    .shadow(radius: 30)
+                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                            }
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.white)
+                                    .frame(width:100,height: 100)
+                                    .shadow(radius: 30)
+                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                            }
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.white)
+                                    .frame(width:100,height: 100)
+                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                            }
+                        }
+                    }
+                }
+            }.onAppear{
+                if clatter_therrd_result[0] == 1{
+                    
+                }
+            }
+        }
     }
 }
 struct clatter_result_Previews: PreviewProvider {
