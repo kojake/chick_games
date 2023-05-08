@@ -57,6 +57,10 @@ struct dressing_up_View: View {
                                 Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
                                     degrees += 1 // 10度回転させる
                                 }
+                                
+                                //スキンリストがたまにバグるのでここでもう一度読み込ませる
+                                let a = chicks_that_are_getting_or_not
+                                chicks_that_are_getting_or_not = a
                             }
                         Spacer()
                         ZStack{

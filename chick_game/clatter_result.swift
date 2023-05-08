@@ -69,7 +69,6 @@ struct single_clatter_result: View{
                 HStack{
                     Button(action: {
                         chicks_that_are_getting_or_not[clatter_result_skin] = "get"
-                        print(chicks_that_are_getting_or_not)
                         get_alert = true
                     }) {
                         VStack{
