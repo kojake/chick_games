@@ -167,15 +167,24 @@ struct Third_clatter_result: View{
     //buttondesign
     let bgColor = Color.init(red:0.90, green: 0.92, blue: 0.98)
     let buttonColor = Color.init(red: 0.38, green: 0.28, blue: 0.86)
+    let buttonColor2 = Color.brown
     let lightColor = Color.init(red: 0.54, green: 0.41, blue: 0.95)
     let shadowColor = Color.init(red: 0.25, green: 0.17, blue: 0.75)
     let radius = CGFloat(25)
     //画面遷移
     @State private var showShouldContentView = false
-    
+    //ガチャから出たそれぞれのひよこの色
     @State var hiyoko1 = Color.white
     @State var hiyoko2 = Color.white
     @State var hiyoko3 = Color.white
+    //ガチャから出たひよこの名前
+    @State var hiyoko1_name = ""
+    @State var hiyoko2_name = ""
+    @State var hiyoko3_name = ""
+    //ガチャから出たひよこをゲットするかしないか
+    @State var hiyoko1_get_or_not_get: Bool = false
+    @State var hiyoko2_get_or_not_get: Bool = false
+    @State var hiyoko3_get_or_not_get: Bool = false
     
     var body: some View{
         NavigationView{
@@ -188,79 +197,249 @@ struct Third_clatter_result: View{
                 ZStack{
                     RoundedRectangle(cornerRadius: 30)
                         .fill(Color.gray)
-                        .frame(width:350,height: 250)
+                        .frame(width:390,height: 340)
                         .shadow(radius: 30)
                     VStack{
                         Text("ガチャから出たひよこ達").font(.title).fontWeight(.black)
-                        
                         HStack{
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.white)
-                                    .frame(width:100,height: 100)
+                                    .frame(width:110,height: 245)
                                     .shadow(radius: 30)
-                                Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko1).frame(width: 100, height: 100)
+                                VStack{
+                                    Text("\(hiyoko1_name)").font(.title3).fontWeight(.black).foregroundColor(hiyoko1)
+                                    Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko1).frame(width: 100, height: 100)
+                                    Button(action: {
+                                        self.hiyoko1_get_or_not_get.toggle()
+                                    }) {
+                                        if hiyoko1_get_or_not_get {
+                                            Image(systemName: "checkmark.square")
+                                        } else {
+                                            Image(systemName: "square")
+                                        }
+                                    }.font(.title2)
+                                        .fontWeight(.black)
+                                        .frame(width: 20, height: 30)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 35)
+                                        .padding(.vertical, 20)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: radius)
+                                                .fill(
+                                                    // shadowでボタン上部に光沢を持たせる
+                                                    // .innerはiOS16から対応
+                                                    .shadow(.inner(color: lightColor, radius: 6, x: 4, y: 4))
+                                                    // shadowでボタン下部に影を落とす
+                                                        .shadow(.inner(color: shadowColor, radius: 6, x: -2, y: -2))
+                                                )
+                                                .foregroundColor(buttonColor)
+                                            // ボタンのshadowはボタンの色に合わせる
+                                                .shadow(color: buttonColor, radius: 20, y: 10)
+                                        )
+                                }
                             }
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.white)
-                                    .frame(width:100,height: 100)
+                                    .frame(width:110,height: 245)
                                     .shadow(radius: 30)
-                                Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko2).frame(width: 100, height: 100)
+                                VStack{
+                                    Text("\(hiyoko2_name)").font(.title3).fontWeight(.black).foregroundColor(hiyoko2)
+                                    Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko2).frame(width: 100, height: 100)
+                                    Button(action: {
+                                        self.hiyoko2_get_or_not_get.toggle()
+                                    }) {
+                                        if hiyoko2_get_or_not_get {
+                                            Image(systemName: "checkmark.square")
+                                        } else {
+                                            Image(systemName: "square")
+                                        }
+                                    }.font(.title2)
+                                        .fontWeight(.black)
+                                        .frame(width: 20, height: 30)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 35)
+                                        .padding(.vertical, 20)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: radius)
+                                                .fill(
+                                                    // shadowでボタン上部に光沢を持たせる
+                                                    // .innerはiOS16から対応
+                                                    .shadow(.inner(color: lightColor, radius: 6, x: 4, y: 4))
+                                                    // shadowでボタン下部に影を落とす
+                                                        .shadow(.inner(color: shadowColor, radius: 6, x: -2, y: -2))
+                                                )
+                                                .foregroundColor(buttonColor)
+                                            // ボタンのshadowはボタンの色に合わせる
+                                                .shadow(color: buttonColor, radius: 20, y: 10)
+                                        )
+                                }
                             }
                             ZStack{
                                 RoundedRectangle(cornerRadius: 30)
                                     .fill(Color.white)
-                                    .frame(width:100,height: 100)
+                                    .frame(width:110,height: 245)
+                                VStack{
+                                    Text("\(hiyoko3_name)").font(.title3).fontWeight(.black).foregroundColor(hiyoko3)
                                     Image("hiyoko").resizable().scaledToFit().colorMultiply(hiyoko3).frame(width: 100, height: 100)
+                                    Button(action: {
+                                        self.hiyoko3_get_or_not_get.toggle()
+                                    }) {
+                                        if hiyoko3_get_or_not_get {
+                                            Image(systemName: "checkmark.square")
+                                        } else {
+                                            Image(systemName: "square")
+                                        }
+                                    }.font(.title2)
+                                        .fontWeight(.black)
+                                        .frame(width: 20, height: 30)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 35)
+                                        .padding(.vertical, 20)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: radius)
+                                                .fill(
+                                                    // shadowでボタン上部に光沢を持たせる
+                                                    // .innerはiOS16から対応
+                                                    .shadow(.inner(color: lightColor, radius: 6, x: 4, y: 4))
+                                                    // shadowでボタン下部に影を落とす
+                                                        .shadow(.inner(color: shadowColor, radius: 6, x: -2, y: -2))
+                                                )
+                                                .foregroundColor(buttonColor)
+                                            // ボタンのshadowはボタンの色に合わせる
+                                                .shadow(color: buttonColor, radius: 20, y: 10)
+                                        )
+                                }
                             }
                         }
                     }
                 }
+                VStack{
+                    Text("欲しいひよこにチェックマークをつければゲット!")
+                }.font(.title2)
+                    .fontWeight(.black)
+                    .frame(width: 320, height: 100)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 35)
+                    .padding(.vertical, 20)
+                    .background(
+                        RoundedRectangle(cornerRadius: radius)
+                            .fill(
+                                // shadowでボタン上部に光沢を持たせる
+                                // .innerはiOS16から対応
+                                .shadow(.inner(color: lightColor, radius: 6, x: 4, y: 4))
+                                // shadowでボタン下部に影を落とす
+                                    .shadow(.inner(color: shadowColor, radius: 6, x: -2, y: -2))
+                            )
+                            .foregroundColor(buttonColor2)
+                        // ボタンのshadowはボタンの色に合わせる
+                            .shadow(color: buttonColor2, radius: 20, y: 10)
+                    )
+                Spacer()
+                VStack{
+                    Button(action: {
+                        //どのひよこをゲットするかを確認する
+                        if hiyoko1_get_or_not_get == true{
+                            chicks_that_are_getting_or_not[hiyoko1_name] = "get"
+                        }
+                        else if hiyoko2_get_or_not_get == true{
+                            chicks_that_are_getting_or_not[hiyoko2_name] = "get"
+                        }
+                        else if hiyoko3_get_or_not_get == true{
+                            chicks_that_are_getting_or_not[hiyoko3_name] = "get"
+                        }
+                        //homeに戻る
+                        showShouldContentView = true
+                    }) {
+                        VStack{
+                            Text("完了する")
+                        }.font(.title2)
+                            .fontWeight(.black)
+                            .frame(width: 120, height: 70)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 35)
+                            .padding(.vertical, 20)
+                            .background(
+                                RoundedRectangle(cornerRadius: radius)
+                                    .fill(
+                                        // shadowでボタン上部に光沢を持たせる
+                                        // .innerはiOS16から対応
+                                        .shadow(.inner(color: lightColor, radius: 6, x: 4, y: 4))
+                                        // shadowでボタン下部に影を落とす
+                                            .shadow(.inner(color: shadowColor, radius: 6, x: -2, y: -2))
+                                    )
+                                    .foregroundColor(buttonColor)
+                                // ボタンのshadowはボタンの色に合わせる
+                                    .shadow(color: buttonColor, radius: 20, y: 10)
+                            )
+                    }
+                }
             }.onAppear{
                 //一つ目
-                if clatter_therrd_result.indices.contains(0), clatter_therrd_result[0] == 0 {
-                    hiyoko1 = Color.red
-                } else if clatter_therrd_result.indices.contains(1), clatter_therrd_result[1] == 1 {
-                    hiyoko1 = Color.blue
-                } else if clatter_therrd_result.indices.contains(2), clatter_therrd_result[2] == 2 {
-                    hiyoko1 = Color.yellow
-                } else if clatter_therrd_result.indices.contains(3), clatter_therrd_result[3] == 3 {
-                    hiyoko1 = Color.green
-                } else if clatter_therrd_result.indices.contains(4), clatter_therrd_result[4] == 4 {
-                    hiyoko1 = Color.purple
-                } else if clatter_therrd_result.indices.contains(5), clatter_therrd_result[5] == 5 {
-                    hiyoko1 = Color.orange
+                if clatter_therrd_result.firstIndex(of: 0) != nil {
+                    hiyoko1 = .red
+                    hiyoko1_name = "赤ひよこ"
+                } else if clatter_therrd_result.firstIndex(of: 1) != nil {
+                    hiyoko1 = .blue
+                    hiyoko1_name = "青ひよこ"
+                } else if clatter_therrd_result.firstIndex(of: 2) != nil {
+                    hiyoko1 = .yellow
+                    hiyoko1_name = "黄ひよこ"
+                } else if clatter_therrd_result.firstIndex(of: 3) != nil {
+                    hiyoko1 = .green
+                    hiyoko1_name = "緑ひよこ"
+                } else if clatter_therrd_result.firstIndex(of: 4) != nil {
+                    hiyoko1 = .purple
+                    hiyoko1_name = "紫ひよこ"
+                } else if clatter_therrd_result.firstIndex(of: 5) != nil {
+                    hiyoko1 = .orange
+                    hiyoko1_name = "オレンジひよこ"
                 }
                 //二つ目
-                if clatter_therrd_result.indices.contains(0), clatter_therrd_result[1] == 0 {
-                    hiyoko2 = Color.red
-                } else if clatter_therrd_result.indices.contains(1), clatter_therrd_result[1] == 1 {
-                    hiyoko2 = Color.blue
-                } else if clatter_therrd_result.indices.contains(2), clatter_therrd_result[2] == 2 {
-                    hiyoko2 = Color.yellow
-                } else if clatter_therrd_result.indices.contains(3), clatter_therrd_result[3] == 3 {
-                    hiyoko2 = Color.green
-                } else if clatter_therrd_result.indices.contains(4), clatter_therrd_result[4] == 4 {
-                    hiyoko2 = Color.purple
-                } else if clatter_therrd_result.indices.contains(5), clatter_therrd_result[5] == 5 {
-                    hiyoko2 = Color.orange
+                if clatter_therrd_result.indices.contains(0) {
+                    if clatter_therrd_result[0] == 0 {
+                        hiyoko2 = Color.red
+                        hiyoko2_name = "赤ひよこ"
+                    } else if clatter_therrd_result[0] == 1 {
+                        hiyoko2 = Color.blue
+                        hiyoko2_name = "青ひよこ"
+                    } else if clatter_therrd_result[0] == 2 {
+                        hiyoko2 = Color.yellow
+                        hiyoko2_name = "黄ひよこ"
+                    } else if clatter_therrd_result[0] == 3 {
+                        hiyoko2 = Color.green
+                        hiyoko2_name = "緑ひよこ"
+                    } else if clatter_therrd_result[0] == 4 {
+                        hiyoko2 = Color.purple
+                        hiyoko2_name = "紫ひよこ"
+                    } else if clatter_therrd_result[0] == 5 {
+                        hiyoko2 = Color.orange
+                        hiyoko2_name = "オレンジひよこ"
+                    }
                 }
-                //三つ
-                if clatter_therrd_result.indices.contains(0), clatter_therrd_result[2] == 0 {
-                    hiyoko3 = Color.red
-                } else if clatter_therrd_result.indices.contains(1), clatter_therrd_result[1] == 1 {
-                    hiyoko3 = Color.blue
-                } else if clatter_therrd_result.indices.contains(2), clatter_therrd_result[2] == 2 {
-                    hiyoko3 = Color.yellow
-                } else if clatter_therrd_result.indices.contains(3), clatter_therrd_result[3] == 3 {
-                    hiyoko3 = Color.green
-                } else if clatter_therrd_result.indices.contains(4), clatter_therrd_result[4] == 4 {
-                    hiyoko3 = Color.purple
-                } else if clatter_therrd_result.indices.contains(5), clatter_therrd_result[5] == 5 {
-                    hiyoko3 = Color.orange
+                //三つ目
+                if clatter_therrd_result.indices.contains(0) {
+                    if clatter_therrd_result[1] == 0 {
+                        hiyoko3 = Color.red
+                        hiyoko3_name = "赤ひよこ"
+                    } else if clatter_therrd_result[1] == 1 {
+                        hiyoko3 = Color.blue
+                        hiyoko3_name = "青ひよこ"
+                    } else if clatter_therrd_result[1] == 2 {
+                        hiyoko3 = Color.yellow
+                        hiyoko3_name = "黄ひよこ"
+                    } else if clatter_therrd_result[1] == 3 {
+                        hiyoko3 = Color.green
+                        hiyoko3_name = "緑ひよこ"
+                    } else if clatter_therrd_result[1] == 4 {
+                        hiyoko3 = Color.purple
+                        hiyoko3_name = "紫ひよこ"
+                    } else if clatter_therrd_result[1] == 5 {
+                        hiyoko3 = Color.orange
+                        hiyoko3_name = "オレンジひよこ"
+                    }
                 }
-                
                 print("")
                 print(hiyoko1)
                 print(hiyoko2)
