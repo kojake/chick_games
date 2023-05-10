@@ -63,7 +63,7 @@ struct stage1: View{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                     NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
+                     NavigationLink(destination: menu_View(), isActive: $showShould_menu_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
@@ -180,13 +180,6 @@ struct stage1: View{
                         Spacer()
                     }
                 }.onAppear{
-                    if interrupt_the_game == 1{
-                        interrupt_the_game = 0
-                        dismiss2()
-                        sleep(1)
-                        dismiss2()
-                    }
-                    
                     //timerstart
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -255,7 +248,7 @@ struct stage1: View{
     }
 }
 
-//各ステージ
+//ステージ2
 struct stage2: View{
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss2
@@ -266,11 +259,12 @@ struct stage2: View{
     //button_color
     @State private var isTapped = true
     @State private var isTapped2 = true
-    //ひよこ座標&ゴール旗の座標
-    @State var x_position = 200
-    @State var y_position = 430
+    //ひよこ座標
+    @State var chick_x_position = 200
+    @State var chick_y_position = 350
+    //ゴールフラッグの座標
     @State var goal_x_position = 200
-    @State var goal_y_position = -250
+    @State var goal_y_position = 0
     //clear_alert
     @State private var clear_alert = false
     @State var alert_message = ""
@@ -285,13 +279,15 @@ struct stage2: View{
     @State var star_count = 3
     //選択されたステージを取得する
     @Binding var select_stage: Int
+    //車の位置
+    @State private var carPosition = CGPoint(x: CGFloat(460), y: CGFloat(150))
 
     var body: some View {
         NavigationView{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                     NavigationLink(destination: menu_View(interrupt_the_game: $interrupt_the_game), isActive: $showShould_menu_View) {
+                     NavigationLink(destination: menu_View(), isActive: $showShould_menu_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
@@ -317,10 +313,27 @@ struct stage2: View{
                     }
                     
                     VStack{
-                        Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(x_position), y: CGFloat(y_position)).colorMultiply(chick_selected_color)
                         Image("goal_frag").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(goal_x_position), y: CGFloat(goal_y_position))
+                        ZStack{
+                            Image("car_road").resizable().scaledToFit().position(x: CGFloat(150), y: CGFloat(200)).rotationEffect(.degrees(270)).frame(width: 200, height: 400)
+                            Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position)).colorMultiply(chick_selected_color)
+                            Image("car").resizable().scaledToFit().frame(width: 250, height: 200).position(carPosition).onAppear{
+                                Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                                    carPosition.x -= 1
+                                    
+                                    if ((Int(carPosition.x) - chick_x_position) <= 10) && ((Int(carPosition.y) - chick_y_position) <= 10 ){
+                                        clear_alert = true
+                                        alert_message = "くるまにあたってやられてしまいました。リザルト画面に移動します"
+                                        result = "car_crash"
+                                    }
+                                    
+                                    if carPosition.x == -100{
+                                        carPosition.x = 400
+                                    }
+                                }
+                            }
+                        }
                     }
-                    
                     Spacer()
                     HStack{
                         Spacer()
@@ -336,12 +349,11 @@ struct stage2: View{
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
                                 self.isTapped = false
-                                if y_position == 480{
+                                if chick_y_position == 480{
                                 }
                                 else{
-                                    y_position += 10
+                                    chick_y_position += 10
                                 }
-                                print(y_position)
                             }.onEnded { _ in
                                 self.isTapped = true
                             })
@@ -357,17 +369,16 @@ struct stage2: View{
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
                                 self.isTapped2 = true
-                                if y_position == 0{
+                                if chick_y_position == 0{
                                 }
                                 else{
-                                    y_position -= 10
+                                    chick_y_position -= 10
                                     
-                                    if y_position == 0{
+                                    if chick_y_position == goal_y_position{
                                         clear_alert = true
                                         clear_or_not_clear = "clear"
                                     }
                                 }
-                                print(y_position)
                             }.onEnded { _ in
                                 self.isTapped2 = false
                             })
@@ -408,13 +419,6 @@ struct stage2: View{
                         Spacer()
                     }
                 }.onAppear{
-                    if interrupt_the_game == 1{
-                        interrupt_the_game = 0
-                        dismiss2()
-                        sleep(1)
-                        dismiss2()
-                    }
-                    
                     //timerstart
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -475,8 +479,7 @@ struct stage2: View{
         }.navigationBarBackButtonHidden(true)
         .alert(isPresented: $clear_alert) {
             Alert(title: Text("結果"), message: Text(alert_message),
-                  dismissButton: .default(Text("OK"),
-                                          action: {
+                  dismissButton: .default(Text("OK"), action: {
                 showShould_result_View = true
             }))
         }
