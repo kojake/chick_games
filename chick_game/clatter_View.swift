@@ -71,7 +71,7 @@ struct clatter_single: View{
                                 if button_text == "ガチャを回す"{
                                     timer?.invalidate()
                                 }
-                                if timer_count2 == 9{
+                                if timer_count2 == 6{
                                     timer_count2 = 0
                                 }
                             }

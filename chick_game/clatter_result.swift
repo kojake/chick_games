@@ -343,10 +343,10 @@ struct Third_clatter_result: View{
                         if hiyoko1_get_or_not_get == true{
                             chicks_that_are_getting_or_not[hiyoko1_name] = "get"
                         }
-                        else if hiyoko2_get_or_not_get == true{
+                        if hiyoko2_get_or_not_get == true{
                             chicks_that_are_getting_or_not[hiyoko2_name] = "get"
                         }
-                        else if hiyoko3_get_or_not_get == true{
+                        if hiyoko3_get_or_not_get == true{
                             chicks_that_are_getting_or_not[hiyoko3_name] = "get"
                         }
                         //homeに戻る
@@ -440,10 +440,6 @@ struct Third_clatter_result: View{
                         hiyoko3_name = "オレンジひよこ"
                     }
                 }
-                print("")
-                print(hiyoko1)
-                print(hiyoko2)
-                print(hiyoko3)
             }
         }
     }

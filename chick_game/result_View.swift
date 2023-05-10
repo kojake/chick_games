@@ -121,6 +121,23 @@ struct result_View: View {
                         //何もしない
                     }
                 }
+                else if select_stage == 1{
+                    let stage1_stars = number_of_stars_in_each_stage[0]
+                    if Int(stage1_stars)! < result_star_count{
+                        if result_star_count == 3{
+                            number_of_stars_in_each_stage[0] = "3"
+                        }
+                        else if result_star_count == 2{
+                            number_of_stars_in_each_stage[0] = "2"
+                        }
+                        else if result_star_count == 1{
+                            number_of_stars_in_each_stage[0] = "1"
+                        }
+                    }
+                    else{
+                        //何もしない
+                    }
+                }
             }
         }.navigationBarBackButtonHidden(true)
     }

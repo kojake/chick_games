@@ -38,6 +38,13 @@ struct dressing_up_View: View {
                             .clipShape(Circle())
                     }
                     Spacer()
+                    Button(action: {
+                        //スキンリストがたまにバグるのでここでもう一度読み込ませる
+                        let update_skin_list = chicks_that_are_getting_or_not
+                        chicks_that_are_getting_or_not = update_skin_list
+                    }){
+                        Text("更新")
+                    }.buttonStyle(BlueButtonStyle())
                 }
                 Text("現在きているひよこのスキン").font(.title).fontWeight(.black)
                 ZStack{
@@ -59,8 +66,8 @@ struct dressing_up_View: View {
                                 }
                                 
                                 //スキンリストがたまにバグるのでここでもう一度読み込ませる
-                                let a = chicks_that_are_getting_or_not
-                                chicks_that_are_getting_or_not = a
+                                let update_skin_list = chicks_that_are_getting_or_not
+                                chicks_that_are_getting_or_not = update_skin_list
                             }
                         Spacer()
                         ZStack{
@@ -441,5 +448,19 @@ struct dressing_up_View: View {
                 Spacer()
             }
         }.navigationBarBackButtonHidden(true)
+    }
+    struct BlueButtonStyle: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .font(.system(size: 28, weight:.bold, design: .rounded))
+                .foregroundColor(.white)
+                .padding(.horizontal)
+                .padding(5)
+                .background(Color.blue.opacity(0.8))
+                .cornerRadius(20)
+                .shadow(color:.black, radius: 4)
+                .opacity(configuration.isPressed ? 0.6 : 1.0)
+                .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+        }
     }
 }
