@@ -264,7 +264,7 @@ struct stage2: View{
     @State var chick_y_position = 350
     //ゴールフラッグの座標
     @State var goal_x_position = 200
-    @State var goal_y_position = 0
+    @State var goal_y_position = 100
     //clear_alert
     @State private var clear_alert = false
     @State var alert_message = ""
@@ -321,7 +321,7 @@ struct stage2: View{
                                 Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
                                     carPosition.x -= 1
                                     
-                                    if ((Int(carPosition.x) - chick_x_position) <= 10) && ((Int(carPosition.y) - chick_y_position) <= 10 ){
+                                    if ((Int(carPosition.x) - chick_x_position) <= 10) && (chick_y_position <= 250 && chick_y_position >= 50){
                                         clear_alert = true
                                         alert_message = "くるまにあたってやられてしまいました。リザルト画面に移動します"
                                         result = "car_crash"
@@ -353,6 +353,7 @@ struct stage2: View{
                                 }
                                 else{
                                     chick_y_position += 10
+                                    print(chick_y_position)
                                 }
                             }.onEnded { _ in
                                 self.isTapped = true
@@ -373,8 +374,9 @@ struct stage2: View{
                                 }
                                 else{
                                     chick_y_position -= 10
+                                    print(chick_y_position)
                                     
-                                    if chick_y_position == goal_y_position{
+                                    if chick_y_position == 0{
                                         clear_alert = true
                                         clear_or_not_clear = "clear"
                                     }
@@ -475,14 +477,14 @@ struct stage2: View{
                         }
                     }
                 }
+                .alert(isPresented: $clear_alert) {
+                    Alert(title: Text("結果"),
+                          message: Text(alert_message),
+                          dismissButton: .default(Text("OK"),
+                                                  action: {showShould_result_View = true}))
+                }
             }
         }.navigationBarBackButtonHidden(true)
-        .alert(isPresented: $clear_alert) {
-            Alert(title: Text("結果"), message: Text(alert_message),
-                  dismissButton: .default(Text("OK"), action: {
-                showShould_result_View = true
-            }))
-        }
     }
 }
 
