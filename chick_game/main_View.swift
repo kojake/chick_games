@@ -317,18 +317,27 @@ struct stage2: View{
                         ZStack{
                             Image("car_road").resizable().scaledToFit().position(x: CGFloat(150), y: CGFloat(200)).rotationEffect(.degrees(270)).frame(width: 200, height: 400)
                             Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position)).colorMultiply(chick_selected_color)
-                            Image("car").resizable().scaledToFit().frame(width: 250, height: 200).position(carPosition).onAppear{
-                                Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                            Image("car").resizable().scaledToFit().frame(width: 250, height: 200).position(carPosition)
+                                .onAppear{
+                                var timer2: Timer?
+                                timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
                                     carPosition.x -= 1
                                     
+                                    if clear_or_not_clear == "collision"{
+                                        timer2?.invalidate()
+                                    }
+                                    if clear_or_not_clear == "clear"{
+                                        timer2?.invalidate()
+                                    }
                                     if ((Int(carPosition.x) - chick_x_position) <= 10) && (chick_y_position <= 250 && chick_y_position >= 50){
                                         clear_alert = true
                                         alert_message = "くるまにあたってやられてしまいました。リザルト画面に移動します"
-                                        result = "car_crash"
+                                        result = "collision"
+                                        timer2?.invalidate()
                                     }
-                                    
                                     if carPosition.x == -100{
                                         carPosition.x = 400
+                                        timer2 = nil
                                     }
                                 }
                             }
@@ -435,6 +444,9 @@ struct stage2: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
+                            else if result == "collision"{
+                                timer?.invalidate()
+                            }
                         }
                         else if star_count == 2{
                             if timer_count == 0 {
@@ -443,6 +455,9 @@ struct stage2: View{
                                 star_count -= 1
                             }
                             else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "collision"{
                                 timer?.invalidate()
                             }
                         }
@@ -455,6 +470,9 @@ struct stage2: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
+                            else if result == "collision"{
+                                timer?.invalidate()
+                            }
                         }
                         else if star_count == 0{
                             if timer_count == 0 {
@@ -465,6 +483,9 @@ struct stage2: View{
                                 result = "out_of_time"
                             }
                             else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "collision"{
                                 timer?.invalidate()
                             }
                         }

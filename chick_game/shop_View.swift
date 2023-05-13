@@ -133,17 +133,17 @@ struct shop_View: View {
                                 }
                             }
                             Button(action: {
-                                if coin >= 500{
+                                if coin >= 200{
                                     showShould_clatter_View = true
                                     //お金を減らす
-                                    coin -= 500
+                                    coin -= 200
                                     //シングルに選択されたことを保存する
                                     clatter_single_or_Third_selected = "サード"
                                 }
                                 else{
                                     money_shortage_alert = true
                                     //どれぐらいお金が足りないのかを計算する
-                                    money_shortage = 500 - coin
+                                    money_shortage = 200 - coin
                                 }
 
                             }) {
@@ -153,7 +153,7 @@ struct shop_View: View {
                                         Text("3回")
                                         HStack{
                                             Image("money").resizable().scaledToFit().frame(width: 100, height: 50)
-                                            Text("600").foregroundColor(Color.black).font(.title2)
+                                            Text("200").foregroundColor(Color.black).font(.title2)
                                             Spacer()
                                         }.bold()
                                             .padding()
