@@ -31,8 +31,8 @@ struct main_View: View {
 struct stage1: View{
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss2
-    //menu画面へ遷移
-    @State private var showShould_menu_View = false
+    //contentview画面へ遷移
+    @State private var showShould_Content_View = false
     //ゲーム中断
     @State var interrupt_the_game = 0
     //button_color
@@ -63,7 +63,7 @@ struct stage1: View{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                     NavigationLink(destination: menu_View(), isActive: $showShould_menu_View) {
+                     NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
@@ -76,15 +76,16 @@ struct stage1: View{
                         }
                         Spacer()
                         Button(action: {
-                            showShould_menu_View = true
+                            showShould_Content_View = true
+                            result = "interruption"
                         }) {
-                            Text("MENU")
-                                .fontWeight(.black)
+                            Text("ゲームを中断")
+                                .bold()
                                 .padding()
-                                .frame(width: 100, height: 100)
+                                .frame(width: 100, height: 50)
                                 .foregroundColor(Color.white)
-                                .background(Color.yellow)
-                                .clipShape(Circle())
+                                .background(Color.purple)
+                                .cornerRadius(10)
                         }
                     }
                     
@@ -253,7 +254,7 @@ struct stage2: View{
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss2
     //menu画面へ遷移
-    @State private var showShould_menu_View = false
+    @State private var showShould_Content_View = false
     //ゲーム中断
     @State var interrupt_the_game = 0
     //button_color
@@ -287,7 +288,7 @@ struct stage2: View{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                     NavigationLink(destination: menu_View(), isActive: $showShould_menu_View) {
+                    NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
@@ -300,15 +301,15 @@ struct stage2: View{
                         }
                         Spacer()
                         Button(action: {
-                            showShould_menu_View = true
+                            showShould_Content_View = true
                         }) {
-                            Text("MENU")
-                                .fontWeight(.black)
+                            Text("ゲームを中断")
+                                .bold()
                                 .padding()
-                                .frame(width: 100, height: 100)
+                                .frame(width: 100, height: 50)
                                 .foregroundColor(Color.white)
-                                .background(Color.yellow)
-                                .clipShape(Circle())
+                                .background(Color.purple)
+                                .cornerRadius(10)
                         }
                     }
                     
@@ -319,28 +320,30 @@ struct stage2: View{
                             Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position)).colorMultiply(chick_selected_color)
                             Image("car").resizable().scaledToFit().frame(width: 250, height: 200).position(carPosition)
                                 .onAppear{
-                                var timer2: Timer?
-                                timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
-                                    carPosition.x -= 1
-                                    
-                                    if clear_or_not_clear == "collision"{
-                                        timer2?.invalidate()
-                                    }
-                                    if clear_or_not_clear == "clear"{
-                                        timer2?.invalidate()
-                                    }
-                                    if ((Int(carPosition.x) - chick_x_position) <= 10) && (chick_y_position <= 250 && chick_y_position >= 50){
-                                        clear_alert = true
-                                        alert_message = "くるまにあたってやられてしまいました。リザルト画面に移動します"
-                                        result = "collision"
-                                        timer2?.invalidate()
-                                    }
-                                    if carPosition.x == -100{
-                                        carPosition.x = 400
-                                        timer2 = nil
+                                    var timer2: Timer?
+                                    timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                                        print(result)
+                                        if clear_or_not_clear == "collision"{
+                                            timer2?.invalidate()
+                                            print("timer stop")
+                                        }
+                                        if clear_or_not_clear == "clear"{
+                                            timer2?.invalidate()
+                                        }
+                                        if (chick_y_position - Int(carPosition.y)) <= 10 && (chick_x_position - Int(carPosition.x)) <= 10 {
+                                            clear_alert = true
+                                            alert_message = "くるまにあたってやられてしまいました。リザルト画面に移動します"
+                                            result = "collision"
+                                            timer2?.invalidate()
+                                        }
+                                        if carPosition.x == -100{
+                                            carPosition.x = 400
+                                            timer2 = nil
+                                        }
+                                        
+                                        carPosition.x -= 1
                                     }
                                 }
-                            }
                         }
                     }
                     Spacer()
@@ -447,6 +450,9 @@ struct stage2: View{
                             else if result == "collision"{
                                 timer?.invalidate()
                             }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
                         }
                         else if star_count == 2{
                             if timer_count == 0 {
@@ -460,6 +466,9 @@ struct stage2: View{
                             else if result == "collision"{
                                 timer?.invalidate()
                             }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
                         }
                         else if star_count == 1{
                             if timer_count == 0 {
@@ -471,6 +480,9 @@ struct stage2: View{
                                 timer?.invalidate()
                             }
                             else if result == "collision"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
                                 timer?.invalidate()
                             }
                         }
@@ -488,9 +500,10 @@ struct stage2: View{
                             else if result == "collision"{
                                 timer?.invalidate()
                             }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
                         }
-                        
-                        
                         if clear_or_not_clear == "clear"{
                             timer?.invalidate()
                             alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"

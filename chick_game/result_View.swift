@@ -37,7 +37,7 @@ struct result_View: View {
                             Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(Double(degrees)), axis: (0, 1, 0))
                                 .animation(.default) // アニメーションを適用
                                 .onAppear { // 画面が開かれたときの挙動を定義
-                                    Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                                    Timer.scheduledTimer(withTimeInterval: 0.7, repeats: true) { _ in
                                         if Number_of_reversals == 0{
                                             degrees = 180
                                             Number_of_reversals = 1
@@ -49,22 +49,22 @@ struct result_View: View {
                                     }
                                 }
                             Text("!GOAL!").font(.largeTitle).fontWeight(.black)
-//                            VStack{
-//                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(Double(degrees2)), axis: (0, 1, 0))
-//                                    .animation(.default) // アニメーションを適用
-//                                    .onAppear { // 画面が開かれたときの挙動を定義
-//                                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-//                                            if Number_of_reversals2 == 0{
-//                                                degrees2 = 0
-//                                                Number_of_reversals = 1
-//                                            }
-//                                            else if Number_of_reversals2 == 1{
-//                                                degrees2 = 180
-//                                                Number_of_reversals = 0
-//                                            }
-//                                        }
-//                                    }
-//                            }
+                            VStack{
+                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(Double(degrees2)), axis: (0, 1, 0))
+                                    .animation(.default) // アニメーションを適用
+                                    .onAppear { // 画面が開かれたときの挙動を定義
+                                        Timer.scheduledTimer(withTimeInterval: 0.7, repeats: true) { _ in
+                                            if Number_of_reversals2 == 0{
+                                                degrees2 = 0
+                                                Number_of_reversals2 = 1
+                                            }
+                                            else if Number_of_reversals2 == 1{
+                                                degrees2 = 180
+                                                Number_of_reversals2 = 0
+                                            }
+                                        }
+                                    }
+                            }
                         }
                         Text("").frame(height: 10)
                         //星の数
