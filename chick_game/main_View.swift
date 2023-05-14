@@ -261,7 +261,7 @@ struct stage2: View{
     @State private var isTapped = true
     @State private var isTapped2 = true
     //ひよこ座標
-    @State var chick_x_position = 200
+    @State var chick_x_position = 100
     @State var chick_y_position = 350
     //ゴールフラッグの座標
     @State var goal_x_position = 200
@@ -322,7 +322,7 @@ struct stage2: View{
                                 .onAppear{
                                     var timer2: Timer?
                                     timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
-                                        if (abs(chick_y_position - Int(carPosition.y)) <= 10) && (abs(chick_x_position - Int(carPosition.x)) <= 10){
+                                        if (abs(chick_y_position - Int(carPosition.y)) <= 110) && ((abs(chick_x_position - Int(carPosition.x + -150)) <= 10) || ((abs(chick_x_position - Int(carPosition.x + -150)) >= abs(chick_x_position - Int(carPosition.x + 150))))){
                                             alert_message = "くるまにあたってやられてしまいました。車が端につき止まりましたら、okボタンを押しリザルト画面に移動して下さい"
                                             result = "collision"
                                             clear_alert = true
@@ -338,6 +338,7 @@ struct stage2: View{
                                         }
                                         else{
                                             carPosition.x -= 1
+                                            print(carPosition.x)
                                         }
                                     }
                                 }
