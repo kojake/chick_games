@@ -182,18 +182,18 @@ struct result_View: View {
                     }
                 }
                 else if select_stage == 2{
-                    let stage1_stars = number_of_stars_in_each_stage[0]
+                    let stage2_stars = number_of_stars_in_each_stage[1]
                     
                     if result == "clear"{
-                        if Int(stage1_stars)! < result_star_count{
+                        if Int(stage2_stars)! < result_star_count{
                             if result_star_count == 3{
-                                number_of_stars_in_each_stage[0] = "3"
+                                number_of_stars_in_each_stage[1] = "3"
                             }
                             else if result_star_count == 2{
-                                number_of_stars_in_each_stage[0] = "2"
+                                number_of_stars_in_each_stage[1] = "2"
                             }
                             else if result_star_count == 1{
-                                number_of_stars_in_each_stage[0] = "1"
+                                number_of_stars_in_each_stage[1] = "1"
                             }
                         }
                         else{

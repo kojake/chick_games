@@ -303,10 +303,10 @@ struct stage2: View{
                         Button(action: {
                             showShould_Content_View = true
                         }) {
-                            Text("ゲームを中断")
+                            Text("ゲーム中断")
                                 .bold()
                                 .padding()
-                                .frame(width: 100, height: 50)
+                                .frame(width: 140, height: 50)
                                 .foregroundColor(Color.white)
                                 .background(Color.purple)
                                 .cornerRadius(10)
@@ -322,26 +322,23 @@ struct stage2: View{
                                 .onAppear{
                                     var timer2: Timer?
                                     timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
-                                        print(result)
-                                        if clear_or_not_clear == "collision"{
-                                            timer2?.invalidate()
-                                            print("timer stop")
-                                        }
-                                        if clear_or_not_clear == "clear"{
-                                            timer2?.invalidate()
-                                        }
-                                        if (chick_y_position - Int(carPosition.y)) <= 10 && (chick_x_position - Int(carPosition.x)) <= 10 {
-                                            clear_alert = true
-                                            alert_message = "くるまにあたってやられてしまいました。リザルト画面に移動します"
+                                        if (abs(chick_y_position - Int(carPosition.y)) <= 10) && (abs(chick_x_position - Int(carPosition.x)) <= 10){
+                                            alert_message = "くるまにあたってやられてしまいました。車が端につき止まりましたら、okボタンを押しリザルト画面に移動して下さい"
                                             result = "collision"
-                                            timer2?.invalidate()
+                                            clear_alert = true
                                         }
                                         if carPosition.x == -100{
-                                            carPosition.x = 400
-                                            timer2 = nil
+                                            if result == "collision" || result == "clear"{
+                                                timer2?.invalidate()
+                                            }
+                                            else{
+                                                carPosition.x = 400
+                                                timer2 = nil
+                                            }
                                         }
-                                        
-                                        carPosition.x -= 1
+                                        else{
+                                            carPosition.x -= 1
+                                        }
                                     }
                                 }
                         }
@@ -437,6 +434,7 @@ struct stage2: View{
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                         timer_count -= 1
+                        print(timer_count)
                         
                         if star_count == 3{
                             if timer_count == 0 {
@@ -506,7 +504,7 @@ struct stage2: View{
                         }
                         if clear_or_not_clear == "clear"{
                             timer?.invalidate()
-                            alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
+                            alert_message = "ゴール旗に触れましたクリアです、車が端につき止まりましたら、okボタンを押しリザルト画面に移動して下さい"
                             result = "clear"
                         }
                     }
