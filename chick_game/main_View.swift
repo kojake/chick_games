@@ -195,6 +195,9 @@ struct stage1: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
                         }
                         else if star_count == 2{
                             if timer_count == 0 {
@@ -203,6 +206,9 @@ struct stage1: View{
                                 star_count -= 1
                             }
                             else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
                                 timer?.invalidate()
                             }
                         }
@@ -215,6 +221,9 @@ struct stage1: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
                         }
                         else if star_count == 0{
                             if timer_count == 0 {
@@ -225,6 +234,9 @@ struct stage1: View{
                                 result = "out_of_time"
                             }
                             else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
                                 timer?.invalidate()
                             }
                         }
