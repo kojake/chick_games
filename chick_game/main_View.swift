@@ -550,7 +550,7 @@ struct stage3: View{
     @State private var isTapped2 = true
     //ひよこ座標
     @State var chick_x_position = 200
-    @State var chick_y_position = 190
+    @State var chick_y_position = 120
     //ゴールフラッグの座標
     @State var goal_x_position = 190
     @State var goal_y_position = 100
@@ -574,6 +574,7 @@ struct stage3: View{
     //バリアが適用されているかされていないか
     @State var Are_barriers_applied = 0
     @State var barriers_button_text = "バリア"
+    @State var image_text = ""
     
     var body: some View {
         NavigationView{
@@ -608,15 +609,22 @@ struct stage3: View{
                     
                     VStack{
                         Image("goal_frag").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(goal_x_position), y: CGFloat(goal_y_position))
-                        Image("meteorite").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(meteorite_x_position), y: CGFloat(meteorite_y_position))
+                        Image("meteorite").resizable().scaledToFit().frame(width: 150, height: 150).position(x: CGFloat(meteorite_x_position), y: CGFloat(meteorite_y_position))
                             .onAppear{
                                 var timer2: Timer?
                                 timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
                                     
+                                    //バリア検出
+                                    if Are_barriers_applied == 1{
+
+                                    }
                                 }
                             }
+                        ZStack{
+                            Image(image_text).resizable().scaledToFit().frame(width: 250, height: 250).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position))
+                            Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position + -10), y: CGFloat(chick_y_position + -10)).colorMultiply(chick_selected_color)
+                        }
                     }
-                    Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position)).colorMultiply(chick_selected_color)
                     Spacer()
                     HStack{
                         Spacer()
@@ -681,10 +689,12 @@ struct stage3: View{
                                 if Are_barriers_applied == 0{
                                     Are_barriers_applied = 1
                                     barriers_button_text = "解除"
+                                    image_text = "barrier"
                                 }
                                 else{
                                     Are_barriers_applied = 0
                                     barriers_button_text = "バリア"
+                                    image_text = ""
                                 }
                             }) {
                                 Text(barriers_button_text)
