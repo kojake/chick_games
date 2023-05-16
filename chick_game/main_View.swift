@@ -60,13 +60,13 @@ struct stage1: View{
     @State var star_count = 3
     //選択されたステージを取得する
     @Binding var select_stage: Int
-
+    
     var body: some View {
         NavigationView{
             ZStack{
                 Color.green.ignoresSafeArea()
                 VStack{
-                     NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
+                    NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
                         EmptyView()
                     }.navigationBarBackButtonHidden(true)
                     NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
@@ -254,13 +254,13 @@ struct stage1: View{
                 }
             }
         }.navigationBarBackButtonHidden(true)
-        .alert(isPresented: $clear_alert) {
-            Alert(title: Text("結果"), message: Text(alert_message),
-                  dismissButton: .default(Text("OK"),
-                                          action: {
-                showShould_result_View = true
-            }))
-        }
+            .alert(isPresented: $clear_alert) {
+                Alert(title: Text("結果"), message: Text(alert_message),
+                      dismissButton: .default(Text("OK"),
+                                              action: {
+                    showShould_result_View = true
+                }))
+            }
     }
 }
 
@@ -297,7 +297,7 @@ struct stage2: View{
     @Binding var select_stage: Int
     //車の位置
     @State private var carPosition = CGPoint(x: CGFloat(460), y: CGFloat(150))
-
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -550,7 +550,7 @@ struct stage3: View{
     @State private var isTapped2 = true
     //ひよこ座標
     @State var chick_x_position = 200
-    @State var chick_y_position = 190
+    @State var chick_y_position = 140
     //ゴールフラッグの座標
     @State var goal_x_position = 190
     @State var goal_y_position = 100
@@ -628,216 +628,217 @@ struct stage3: View{
                                         meteorite_y_position = -70
                                     }
                                 }
-                                ZStack{
-                                    Image(image_text).resizable().scaledToFit().frame(width: 250, height: 250).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position))
-                                    Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position + -10), y: CGFloat(chick_y_position + -10)).colorMultiply(chick_selected_color)
-                                }
                             }
+                        ZStack{
+                            Image(image_text).resizable().scaledToFit().frame(width: 250, height: 250).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position))
+                            Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position + -10), y: CGFloat(chick_y_position + -10)).colorMultiply(chick_selected_color)
+                        }
+                    }
+                    Spacer()
+                    HStack{
                         Spacer()
                         HStack{
-                            Spacer()
-                            HStack{
-                                Button(action: {
-                                    self.isTapped.toggle()
-                                }) {
-                                    Image(systemName: "arrowtriangle.down.fill")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .foregroundColor(isTapped ? Color.yellow : Color.red)
-                                    
-                                }
-                                .simultaneousGesture(LongPressGesture().onChanged { _ in
-                                    if Are_barriers_applied == 0{
-                                        self.isTapped = false
-                                        if chick_y_position == 480{
-                                        }
-                                        else{
-                                            chick_y_position += 10
-                                            print(chick_y_position)
-                                        }
-                                    }
-                                    else{
-                                        
-                                    }
-                                }.onEnded { _ in
-                                    self.isTapped = true
-                                })
+                            Button(action: {
+                                self.isTapped.toggle()
+                            }) {
+                                Image(systemName: "arrowtriangle.down.fill")
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(isTapped ? Color.yellow : Color.red)
                                 
-                                Button(action: {
-                                    self.isTapped2.toggle()
-                                }) {
-                                    Image(systemName: "arrowtriangle.up.fill")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .foregroundColor(isTapped2 ? Color.yellow : Color.red)
+                            }
+                            .simultaneousGesture(LongPressGesture().onChanged { _ in
+                                if Are_barriers_applied == 0{
+                                    self.isTapped = false
+                                    if chick_y_position == 480{
+                                    }
+                                    else{
+                                        chick_y_position += 10
+                                        print(chick_y_position)
+                                    }
+                                }
+                                else{
                                     
                                 }
-                                .simultaneousGesture(LongPressGesture().onChanged { _ in
-                                    if Are_barriers_applied == 0{
-                                        self.isTapped2 = true
-                                        if chick_y_position == -180{
-                                        }
-                                        else{
-                                            chick_y_position -= 10
-                                            print(chick_y_position)
-                                            
-                                            if chick_y_position == -180{
-                                                clear_alert = true
-                                                clear_or_not_clear = "clear"
-                                            }
-                                        }
-                                    }
-                                    else{
-                                        
-                                    }
-                                }.onEnded { _ in
-                                    self.isTapped2 = false
-                                })
-                                Button(action: {
-                                    if Are_barriers_applied == 0{
-                                        Are_barriers_applied = 1
-                                        barriers_button_text = "解除"
-                                        image_text = "barrier"
-                                    }
-                                    else{
-                                        Are_barriers_applied = 0
-                                        barriers_button_text = "バリア"
-                                        image_text = ""
-                                    }
-                                }) {
-                                    Text(barriers_button_text)
-                                        .bold()
-                                        .padding()
-                                        .font(.footnote)
-                                        .frame(width: 75, height: 75)
-                                        .foregroundColor(Color.white)
-                                        .background(Color.yellow)
-                                        .clipShape(Circle())
-                                }
-                            }.frame(width: 220, height: 90).overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.red, lineWidth: 5))
-                            Spacer()
-                            VStack{
-                                HStack{
-                                    if star_count == 3{
-                                        Image(systemName: "star.fill").font(.title)
-                                        Image(systemName: "star.fill").font(.title)
-                                        Image(systemName: "star.fill").font(.title)
-                                    }
-                                    else if star_count == 2{
-                                        Image(systemName: "star").font(.title)
-                                        Image(systemName: "star.fill").font(.title)
-                                        Image(systemName: "star.fill").font(.title)
-                                    }
-                                    else if star_count == 1{
-                                        Image(systemName: "star").font(.title)
-                                        Image(systemName: "star").font(.title)
-                                        Image(systemName: "star.fill").font(.title)
-                                    }
-                                    else if star_count == 0{
-                                        Image(systemName: "star").font(.title)
-                                        Image(systemName: "star").font(.title)
-                                        Image(systemName: "star").font(.title)
-                                    }
-                                }.foregroundColor(Color.yellow)
-                                HStack{
-                                    Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
-                                    Text("\(timer_count)").font(.title2).fontWeight(.black)
-                                }
-                            }.frame(width: 160, height: 130).overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 5))
-                            Spacer()
-                        }
-                    }.onAppear{
-                        //timerstart
-                        var timer: Timer? = nil
-                        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                            timer_count -= 1
-                            print(timer_count)
+                            }.onEnded { _ in
+                                self.isTapped = true
+                            })
                             
-                            if star_count == 3{
-                                if timer_count == 0 {
-                                    timer = nil
-                                    timer_count = 15
-                                    star_count -= 1
-                                }
-                                else if clear_or_not_clear == "clear"{
-                                    timer?.invalidate()
-                                }
-                                else if result == "collision"{
-                                    timer?.invalidate()
-                                }
-                                else if result == "interruption"{
-                                    timer?.invalidate()
-                                }
+                            Button(action: {
+                                self.isTapped2.toggle()
+                            }) {
+                                Image(systemName: "arrowtriangle.up.fill")
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(isTapped2 ? Color.yellow : Color.red)
+                                
                             }
-                            else if star_count == 2{
-                                if timer_count == 0 {
-                                    timer = nil
-                                    timer_count = 15
-                                    star_count -= 1
+                            .simultaneousGesture(LongPressGesture().onChanged { _ in
+                                if Are_barriers_applied == 0{
+                                    self.isTapped2 = true
+                                    if chick_y_position == -180{
+                                    }
+                                    else{
+                                        chick_y_position -= 10
+                                        print(chick_y_position)
+                                        
+                                        if chick_y_position == -180{
+                                            clear_alert = true
+                                            clear_or_not_clear = "clear"
+                                        }
+                                    }
                                 }
-                                else if clear_or_not_clear == "clear"{
-                                    timer?.invalidate()
+                                else{
+                                    
                                 }
-                                else if result == "collision"{
-                                    timer?.invalidate()
+                            }.onEnded { _ in
+                                self.isTapped2 = false
+                            })
+                            Button(action: {
+                                if Are_barriers_applied == 0{
+                                    Are_barriers_applied = 1
+                                    barriers_button_text = "解除"
+                                    image_text = "barrier"
                                 }
-                                else if result == "interruption"{
-                                    timer?.invalidate()
+                                else{
+                                    Are_barriers_applied = 0
+                                    barriers_button_text = "バリア"
+                                    image_text = ""
                                 }
+                            }) {
+                                Text(barriers_button_text)
+                                    .bold()
+                                    .padding()
+                                    .font(.footnote)
+                                    .frame(width: 75, height: 75)
+                                    .foregroundColor(Color.white)
+                                    .background(Color.yellow)
+                                    .clipShape(Circle())
                             }
-                            else if star_count == 1{
-                                if timer_count == 0 {
-                                    timer = nil
-                                    timer_count = 15
-                                    star_count -= 1
+                        }.frame(width: 220, height: 90).overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.red, lineWidth: 5))
+                        Spacer()
+                        VStack{
+                            HStack{
+                                if star_count == 3{
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
                                 }
-                                else if clear_or_not_clear == "clear"{
-                                    timer?.invalidate()
+                                else if star_count == 2{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
                                 }
-                                else if result == "collision"{
-                                    timer?.invalidate()
+                                else if star_count == 1{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
                                 }
-                                else if result == "interruption"{
-                                    timer?.invalidate()
+                                else if star_count == 0{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
                                 }
+                            }.foregroundColor(Color.yellow)
+                            HStack{
+                                Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
+                                Text("\(timer_count)").font(.title2).fontWeight(.black)
                             }
-                            else if star_count == 0{
-                                if timer_count == 0 {
-                                    timer?.invalidate()
-                                    timer = nil
-                                    clear_alert = true
-                                    alert_message = "時間切れになりました。隕石が恥についたらokボタンを押しリザルト画面に移動して下さい"
-                                    result = "out_of_time"
-                                }
-                                else if clear_or_not_clear == "clear"{
-                                    timer?.invalidate()
-                                }
-                                else if result == "collision"{
-                                    timer?.invalidate()
-                                }
-                                else if result == "interruption"{
-                                    timer?.invalidate()
-                                }
+                        }.frame(width: 160, height: 130).overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 5))
+                        Spacer()
+                    }
+                }.onAppear{
+                    //timerstart
+                    var timer: Timer? = nil
+                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                        timer_count -= 1
+                        print(timer_count)
+                        
+                        if star_count == 3{
+                            if timer_count == 0 {
+                                timer = nil
+                                timer_count = 15
+                                star_count -= 1
                             }
-                            if clear_or_not_clear == "clear"{
+                            else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
-                                alert_message = "ゴール旗に触れましたクリアです、隕石が恥についたらokボタンを押しリザルト画面に移動して下さい"
-                                result = "clear"
+                            }
+                            else if result == "collision"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
+                                timer?.invalidate()
                             }
                         }
-                    }
-                    .alert(isPresented: $clear_alert) {
-                        Alert(title: Text("結果"),
-                              message: Text(alert_message),
-                              dismissButton: .default(Text("OK"),
-                                                      action: {showShould_result_View = true}))
+                        else if star_count == 2{
+                            if timer_count == 0 {
+                                timer = nil
+                                timer_count = 15
+                                star_count -= 1
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "collision"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
+                        }
+                        else if star_count == 1{
+                            if timer_count == 0 {
+                                timer = nil
+                                timer_count = 15
+                                star_count -= 1
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "collision"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
+                        }
+                        else if star_count == 0{
+                            if timer_count == 0 {
+                                timer?.invalidate()
+                                timer = nil
+                                clear_alert = true
+                                alert_message = "時間切れになりました。隕石が恥についたらokボタンを押しリザルト画面に移動して下さい"
+                                result = "out_of_time"
+                            }
+                            else if clear_or_not_clear == "clear"{
+                                timer?.invalidate()
+                            }
+                            else if result == "collision"{
+                                timer?.invalidate()
+                            }
+                            else if result == "interruption"{
+                                timer?.invalidate()
+                            }
+                        }
+                        if clear_or_not_clear == "clear"{
+                            timer?.invalidate()
+                            alert_message = "ゴール旗に触れましたクリアです、隕石が恥についたらokボタンを押しリザルト画面に移動して下さい"
+                            result = "clear"
+                        }
                     }
                 }
-            }.navigationBarBackButtonHidden(true)
-        }
+                .alert(isPresented: $clear_alert) {
+                    Alert(title: Text("結果"),
+                          message: Text(alert_message),
+                          dismissButton: .default(Text("OK"),
+                                                  action: {showShould_result_View = true}))
+                }
+            }
+        }.navigationBarBackButtonHidden(true)
     }
 }
+
