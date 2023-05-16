@@ -117,7 +117,6 @@ struct stage1: View{
                                 else{
                                     y_position += 10
                                 }
-                                print(y_position)
                             }.onEnded { _ in
                                 self.isTapped = true
                             })
@@ -143,7 +142,6 @@ struct stage1: View{
                                         clear_or_not_clear = "clear"
                                     }
                                 }
-                                print(y_position)
                             }.onEnded { _ in
                                 self.isTapped2 = false
                             })
@@ -336,7 +334,7 @@ struct stage2: View{
                             Image("car").resizable().scaledToFit().frame(width: 250, height: 200).position(carPosition)
                                 .onAppear{
                                     var timer2: Timer?
-                                    timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                                    timer2 = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
                                         if (abs(chick_y_position - Int(carPosition.y)) <= 110) && ((abs(chick_x_position - Int(carPosition.x + -150)) <= 10)){
                                             alert_message = "くるまにあたってやられてしまいました。車が端につき止まりましたら、okボタンを押しリザルト画面に移動して下さい"
                                             result = "collision"
@@ -353,7 +351,6 @@ struct stage2: View{
                                         }
                                         else{
                                             carPosition.x -= 1
-                                            print(carPosition.x)
                                         }
                                     }
                                 }
@@ -379,7 +376,6 @@ struct stage2: View{
                                 }
                                 else{
                                     chick_y_position += 10
-                                    print(chick_y_position)
                                 }
                             }.onEnded { _ in
                                 self.isTapped = true
@@ -400,7 +396,6 @@ struct stage2: View{
                                 }
                                 else{
                                     chick_y_position -= 10
-                                    print(chick_y_position)
                                     
                                     if chick_y_position == 0{
                                         clear_alert = true
@@ -451,7 +446,6 @@ struct stage2: View{
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                         timer_count -= 1
-                        print(timer_count)
                         
                         if star_count == 3{
                             if timer_count == 0 {
@@ -550,13 +544,13 @@ struct stage3: View{
     @State private var isTapped2 = true
     //ひよこ座標
     @State var chick_x_position = 200
-    @State var chick_y_position = 140
+    @State var chick_y_position = 100
     //ゴールフラッグの座標
     @State var goal_x_position = 190
-    @State var goal_y_position = 100
+    @State var goal_y_position = 120
     //隕石の座標
     @State var meteorite_x_position = 210
-    @State var meteorite_y_position = -70
+    @State var meteorite_y_position = -200
     //clear_alert
     @State private var clear_alert = false
     @State var alert_message = ""
@@ -590,7 +584,7 @@ struct stage3: View{
                     HStack{
                         VStack{
                             Text("STAGE3").font(.title3).fontWeight(.black)
-                            Text("隕石を避けながら").font(.title).fontWeight(.black)
+                            Text("隕石をバリアで守りながら").font(.title).fontWeight(.black)
                         }
                         Spacer()
                         Button(action: {
@@ -606,26 +600,29 @@ struct stage3: View{
                                 .cornerRadius(10)
                         }
                     }
-                    
                     VStack{
                         Image("goal_frag").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(goal_x_position), y: CGFloat(goal_y_position))
                         Image("meteorite").resizable().scaledToFit().frame(width: 150, height: 150).position(x: CGFloat(meteorite_x_position), y: CGFloat(meteorite_y_position))
                             .onAppear{
                                 var timer2: Timer?
-                                timer2 = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
-                                    if result == "interruption"{
+                                timer2 = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
+                                    if result == "interruption" || result == "collision2" || result == "clear"{
                                         timer2?.invalidate()
                                     }
-                                    
-                                    meteorite_x_position = Int(Float.random(in: 180...210))
-                                    meteorite_y_position += 1
-                                    print(meteorite_y_position)
-                                    //バリア検出
-                                    if Are_barriers_applied == 1{
-                                        
+                                    if (chick_y_position - meteorite_y_position) <= -70{
+                                        //バリア検出
+                                        if Are_barriers_applied == 1{
+                                            meteorite_y_position = -200
+                                        }
+                                        else{
+                                            result = "collision2"
+                                            alert_message = "隕石に衝突してしまいました。リザルト画面に移動します"
+                                            clear_alert = true
+                                        }
                                     }
-                                    if meteorite_y_position >= 240{
-                                        meteorite_y_position = -70
+                                    else{
+                                        meteorite_x_position = Int(Float.random(in: 180...210))
+                                        meteorite_y_position += 1
                                     }
                                 }
                             }
@@ -654,7 +651,6 @@ struct stage3: View{
                                     }
                                     else{
                                         chick_y_position += 10
-                                        print(chick_y_position)
                                     }
                                 }
                                 else{
@@ -680,7 +676,6 @@ struct stage3: View{
                                     }
                                     else{
                                         chick_y_position -= 10
-                                        print(chick_y_position)
                                         
                                         if chick_y_position == -180{
                                             clear_alert = true
@@ -756,7 +751,6 @@ struct stage3: View{
                     var timer: Timer? = nil
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                         timer_count -= 1
-                        print(timer_count)
                         
                         if star_count == 3{
                             if timer_count == 0 {
@@ -767,7 +761,7 @@ struct stage3: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
-                            else if result == "collision"{
+                            else if result == "collision2"{
                                 timer?.invalidate()
                             }
                             else if result == "interruption"{
@@ -783,7 +777,7 @@ struct stage3: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
-                            else if result == "collision"{
+                            else if result == "collision2"{
                                 timer?.invalidate()
                             }
                             else if result == "interruption"{
@@ -799,7 +793,7 @@ struct stage3: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
-                            else if result == "collision"{
+                            else if result == "collision2"{
                                 timer?.invalidate()
                             }
                             else if result == "interruption"{
@@ -817,7 +811,7 @@ struct stage3: View{
                             else if clear_or_not_clear == "clear"{
                                 timer?.invalidate()
                             }
-                            else if result == "collision"{
+                            else if result == "collision2"{
                                 timer?.invalidate()
                             }
                             else if result == "interruption"{
@@ -826,7 +820,7 @@ struct stage3: View{
                         }
                         if clear_or_not_clear == "clear"{
                             timer?.invalidate()
-                            alert_message = "ゴール旗に触れましたクリアです、隕石が恥についたらokボタンを押しリザルト画面に移動して下さい"
+                            alert_message = "ゴール旗に触れましたクリアです。リザルト画面に移動して下さい"
                             result = "clear"
                         }
                     }

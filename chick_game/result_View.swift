@@ -157,6 +157,30 @@ struct result_View: View {
                             }
                         }.buttonStyle(GradientButtonStyle())
                     }
+                    if result == "collision2"{
+                        Text("結果").font(.largeTitle).fontWeight(.black)
+                        
+                        //goal_text
+                        Text("隕石に衝突された").font(.largeTitle).fontWeight(.black)
+                        Text("").frame(height: 10)
+                        //コインの獲得数
+                        Text("").frame(height: 10)
+                        Text("獲得コイン").font(.largeTitle).fontWeight(.black)
+                        HStack{
+                            Image("money").resizable().scaledToFit().frame(width: 100)
+                            Text("x0").font(.largeTitle).fontWeight(.black)
+                        }
+                        Spacer()
+                        //home戻る
+                        Button(action: {
+                            showShould_home_View = true
+                        }) {
+                            HStack {
+                                Image(systemName: "house.fill")
+                                Text("ホームに戻る")
+                            }
+                        }.buttonStyle(GradientButtonStyle())
+                    }
                 }
             }.onAppear{
                 result_coin = remaining_timer * result_star_count
