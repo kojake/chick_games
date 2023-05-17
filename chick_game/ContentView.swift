@@ -111,6 +111,22 @@ struct ContentView: View {
                                 }.buttonStyle(BlueButtonStyle())
                             }
                         }
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                .fill(Color.gray)
+                                .frame(width: 250, height: 200)
+                            VStack{
+                                Text("STAGE4").font(.title2).fontWeight(.black)
+                                stage_3_star_count()
+                                Button(action: {
+                                    selected_STAGE = 4
+                                }) {
+                                    HStack {
+                                        Text("選択")
+                                    }
+                                }.buttonStyle(BlueButtonStyle())
+                            }
+                        }
                     }
                 }
                 Spacer()
