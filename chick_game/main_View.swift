@@ -836,3 +836,4 @@ struct stage3: View{
     }
 }
 
+//ステージ4
