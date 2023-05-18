@@ -881,9 +881,7 @@ struct stage4: View{
     //青黄ブロックの保管庫座標
     @State var storage_blue_position = CGPoint(x:CGFloat(55), y:CGFloat(-30))
     @State var storage_yellow_position = CGPoint(x:CGFloat(335), y:CGFloat(-60))
-    //青黄ブロック保管庫に何ブロックが入っているのかリスト
-    @State var storage_blue_of_what = [0]
-    @State var storage_yellow_of_what = [0]
+    @State var Number_of_times_removed = ["blue1": "no", "blue2": "no","yellow1": "no", "yellow2": "no"]
     
     var body: some View {
         NavigationView{
@@ -916,65 +914,81 @@ struct stage4: View{
                         }
                     }
                     VStack{
-                        Image("goal_frag").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(goal_x_position), y: CGFloat(goal_y_position))
+                        if Number_of_times_removed["yellow1"] == "yes" && Number_of_times_removed["yellow2"] == "yes" && Number_of_times_removed["blue1"] == "yes" && Number_of_times_removed["blue2"] == "yes"{
+                            Image("goal_frag").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(goal_x_position), y: CGFloat(goal_y_position))
+                        }
                         Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position)).colorMultiply(chick_selected_color)
                         
                         VStack{
                             VStack{
                                 Button(action: {
-                                    print("Button")
+                                    blue_block_position1 = CGPoint(x:CGFloat(55), y:CGFloat(155))
+                                    Number_of_times_removed["blue1"] = "yes"
                                 }) {
                                     Text("←")
                                         .bold()
+                                        .font(.title)
+                                        .fontWeight(.black)
                                         .padding()
                                         .frame(width: 100, height: 50)
                                         .foregroundColor(Color.white)
                                         .background(Color.blue)
                                         
                                 }
-                            }.position(blue_block_position1)
+                            }.position(blue_block_position1).zIndex(1)
                             VStack{
                                 Button(action: {
-                                    print("Button")
+                                    yellow_block_position1 = CGPoint(x:CGFloat(335), y:CGFloat(90))
+                                    Number_of_times_removed["yellow1"] = "yes"
                                 }) {
                                     Text("→")
                                         .bold()
+                                        .font(.title)
+                                        .fontWeight(.black)
                                         .padding()
                                         .frame(width: 100, height: 50)
                                         .foregroundColor(Color.white)
                                         .background(Color.yellow)
                                         
                                 }
-                            }.position(yellow_block_position1)
+                            }.position(yellow_block_position1).zIndex(1)
                             VStack{
                                 Button(action: {
-                                    print("Button")
+                                    blue_block_position2 = CGPoint(x:CGFloat(55), y:CGFloat(30))
+                                    Number_of_times_removed["blue2"] = "yes"
                                 }) {
                                     Text("←")
                                         .bold()
+                                        .font(.title)
+                                        .fontWeight(.black)
                                         .padding()
                                         .frame(width: 100, height: 50)
                                         .foregroundColor(Color.white)
                                         .background(Color.blue)
                                         
                                 }
-                            }.position(blue_block_position2)
+                            }.position(blue_block_position2).zIndex(1)
                             VStack{
                                 Button(action: {
-                                    print("Button")
+                                    yellow_block_position2 = CGPoint(x:CGFloat(335), y:CGFloat(-35))
+                                    Number_of_times_removed["yellow2"] = "yes"
                                 }) {
                                     Text("→")
                                         .bold()
+                                        .font(.title)
+                                        .fontWeight(.black)
                                         .padding()
                                         .frame(width: 100, height: 50)
                                         .foregroundColor(Color.white)
                                         .background(Color.yellow)
                                 }
-                            }.position(yellow_block_position2)
-                            //青ブロック保管庫
-                            Image("Storage_of_blue_blocks_image").resizable().scaledToFit().frame(width: 100, height: 220).position(storage_blue_position)
-                            //黄ブロック保管庫
-                            Image("Storage_of_yellow_blocks_image").resizable().scaledToFit().frame(width: 100, height: 220).position(storage_yellow_position)
+                            }.position(yellow_block_position2).zIndex(1)
+                            ZStack{
+                                //青ブロック保管庫
+                                Image("Storage_of_blue_blocks_image").resizable().scaledToFit().frame(width: 100, height: 220).position(storage_blue_position)
+                                //黄ブロック保管庫
+                                Image("Storage_of_yellow_blocks_image").resizable().scaledToFit().frame(width: 100, height: 220).position(storage_yellow_position)
+                            }
                         }
                     }
                     Spacer()
