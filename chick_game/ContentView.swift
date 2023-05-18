@@ -29,7 +29,7 @@ struct ContentView: View {
                 }.navigationBarBackButtonHidden(true)
                 
                 HStack{
-                    Text("シーズン１").font(.largeTitle).fontWeight(.black)
+                    Text("シーズン１").fontWeight(.black).font(.system(size: 45, weight: .black, design: .default))
                     Spacer()
                     Button(action: {
                         showShould_shop_View = true
@@ -41,6 +41,7 @@ struct ContentView: View {
                             .foregroundColor(Color.white)
                             .background(Color.green)
                             .clipShape(Circle())
+                            .shadow(radius: 20)
                     }
                     Button(action: {
                         showShould_dressing_up_View = true
@@ -52,12 +53,13 @@ struct ContentView: View {
                             .foregroundColor(Color.white)
                             .background(Color.green)
                             .clipShape(Circle())
+                            .shadow(radius: 20)
                     }
                 }
                 Spacer()
                 HStack{
                     Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
-                    Text("ひよこゲーム").font(.largeTitle).fontWeight(.black).foregroundColor(.yellow)
+                    Text("ひよこゲーム").font(.system(size: 50, weight: .black, design: .default)).foregroundColor(.yellow)
                     Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(180), axis: (0, 1, 0))
                 }
                 Text("ステージ選択").padding().fontWeight(.black).font(.largeTitle)
@@ -128,22 +130,23 @@ struct ContentView: View {
                             }
                         }
                     }
-                }
+                }.shadow(radius: 20)
                 Spacer()
                 //スタートボタン
-                VStack{
-                    Text("STAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
-                    Button(action: {
-                        showShould_main_View = true
-                    }) {
-                        Text("START")
-                            .bold()
-                            .padding()
-                            .font(.largeTitle)
-                            .frame(width: 200, height: 100)
-                            .foregroundColor(Color.white)
-                            .background(Color.purple)
-                            .cornerRadius(10)
+                HStack{
+                    VStack{
+                        Text("選択されたSTAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
+                        Button(action: {
+                            showShould_main_View = true
+                        }) {
+                            Image("chick_game_start_button_image").resizable().scaledToFit()
+                                .bold()
+                                .padding()
+                                .frame(width: 300, height: 150)
+                                .foregroundColor(Color.white)
+                                .background(Color.yellow)
+                                .cornerRadius(10)
+                        }
                     }
                 }
             }
