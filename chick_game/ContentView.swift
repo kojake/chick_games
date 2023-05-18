@@ -117,7 +117,7 @@ struct ContentView: View {
                                 .frame(width: 250, height: 200)
                             VStack{
                                 Text("STAGE4").font(.title2).fontWeight(.black)
-                                stage_3_star_count()
+                                stage_4_star_count()
                                 Button(action: {
                                     selected_STAGE = 4
                                 }) {
@@ -259,3 +259,34 @@ struct stage_3_star_count: View{
         }.foregroundColor(Color.yellow)
     }
 }
+
+struct stage_4_star_count: View{
+    var body: some View{
+        //stage1の星の数
+        HStack{
+            let stage4_stars = number_of_stars_in_each_stage.suffix(from: 3)
+            
+            if stage4_stars.first == "3"{
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage4_stars.first == "2"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage4_stars.first == "1"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage4_stars.first == "0"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+            }
+        }.foregroundColor(Color.yellow)
+    }
+}
+

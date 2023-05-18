@@ -1009,7 +1009,9 @@ struct stage4: View{
                                 if chick_y_position == 480{
                                 }
                                 else{
-                                    chick_y_position += 10
+                                    if Number_of_times_removed["yellow1"] == "yes" && Number_of_times_removed["yellow2"] == "yes" && Number_of_times_removed["blue1"] == "yes" && Number_of_times_removed["blue2"] == "yes"{
+                                        chick_y_position += 10
+                                    }
                                 }
                             }.onEnded { _ in
                                 self.isTapped = true
@@ -1026,12 +1028,10 @@ struct stage4: View{
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
                                 self.isTapped2 = true
-                                if chick_y_position == 0{
-                                }
-                                else{
+                                if Number_of_times_removed["yellow1"] == "yes" && Number_of_times_removed["yellow2"] == "yes" && Number_of_times_removed["blue1"] == "yes" && Number_of_times_removed["blue2"] == "yes"{
                                     chick_y_position -= 10
                                     
-                                    if chick_y_position == 0{
+                                    if chick_y_position == -140{
                                         clear_alert = true
                                         clear_or_not_clear = "clear"
                                     }
