@@ -27,7 +27,7 @@ struct clatter_View: View {
 //シングルの場合
 struct clatter_single: View{
     //画面遷移
-    @State private var showShouldclatter_result = false
+    @State private var showShouldclatter_expression_View = false
     
     //ルーレットitem
     @State private var roulette_color_list = [1,2,3,4,5,6]
@@ -38,7 +38,7 @@ struct clatter_single: View{
     
     var body: some View{
         VStack{
-            NavigationLink(destination: clatter_result(), isActive: $showShouldclatter_result) {
+            NavigationLink(destination: clatter_expression_View(), isActive: $showShouldclatter_expression_View) {
                 EmptyView()
             }.navigationBarBackButtonHidden(true)
             ZStack{
@@ -78,7 +78,7 @@ struct clatter_single: View{
                         }
                         else if button_text == "ガチャを止める"{
                             button_text = "ガチャを回す"
-                            showShouldclatter_result = true
+                            showShouldclatter_expression_View = true
                             clatter_single_result = timer_count2
                             single_or_Third = "シングル"
                         }
@@ -102,7 +102,7 @@ struct clatter_single: View{
 //3回の場合
 struct clatter_third: View{
     //画面遷移
-    @State private var showShouldclatter_result = false
+    @State private var showShouldclatter_expression_View = false
     //ルーレットitem
     @State private var roulette_color_list = [1,2,3,4,5,6]
     @State var roulette_color_1 = Color.white
@@ -115,7 +115,7 @@ struct clatter_third: View{
     var body: some View {
         NavigationView{
             VStack{
-                NavigationLink(destination: clatter_result(), isActive: $showShouldclatter_result) {
+                NavigationLink(destination: clatter_expression_View(), isActive: $showShouldclatter_expression_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
                 ZStack{
@@ -159,7 +159,7 @@ struct clatter_third: View{
                                 chick_out_list.append(timer_count2)
                                 if Remaining_number_of_gacha == 0{
                                     clatter_therrd_result = chick_out_list
-                                    showShouldclatter_result = true
+                                    showShouldclatter_expression_View = true
                                     single_or_Third = "サード"
                                 }
                             }

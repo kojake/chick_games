@@ -8,29 +8,41 @@
 import SwiftUI
 
 struct clatter_expression_View: View {
-    @State private var isAnimating = false
+    @State var showShould_clatter_result_VIew = false
+    @State var degress = 1
     
     var body: some View {
-        ZStack {
-            Color.black // 背景を黒に設定
-            
-            Image("egg") // 表示する画像の名前を指定
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200) // 画像のサイズを適切に設定
-                .rotationEffect(isAnimating ? .degrees(30) : .degrees(0))
-                .animation(Animation.easeInOut(duration: 0.5).repeatCount(6))
-                .onAppear {
-                    isAnimating = true // アニメーションを開始
+        NavigationView{
+            ZStack {
+                Color.yellow
+                     .ignoresSafeArea()
+                NavigationLink(destination: clatter_result(), isActive: $showShould_clatter_result_VIew){
+                    EmptyView()
                 }
-            if isAnimating {
-                Color.white // ものすごい光を表す白いビューを表示
-                    .opacity(0.5)
-                    .blendMode(.screen)
-                    .animation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true))
+                Image("egg") // 表示する画像の名前を指定
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .rotationEffect(.degrees(Double(degress)))
+                    .onAppear {
+                        var loop: Timer?
+                        loop = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+                            if degress >= 0{
+                                degress += 1
+                            }
+                            
+                            if degress == 360{
+                                showShould_clatter_result_VIew = true
+                                loop?.invalidate()
+                            }
+                        }
+                    }
             }
-        }
-        .edgesIgnoringSafeArea(.all)
+            .edgesIgnoringSafeArea(.all)
+        }.navigationBarBackButtonHidden(true)
+    }
+    func End_processing(){
+        showShould_clatter_result_VIew
     }
 }
 
