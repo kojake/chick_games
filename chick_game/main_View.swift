@@ -920,31 +920,57 @@ struct stage4: View{
                         Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).position(x: CGFloat(chick_x_position), y: CGFloat(chick_y_position)).colorMultiply(chick_selected_color)
                         
                         VStack{
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color.blue)
-                                    .frame(width:90, height: 50)
-                                    .position(blue_block_position1)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color.yellow)
-                                    .frame(width:90, height: 50)
-                                    .position(yellow_block_position1)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color.blue)
-                                    .frame(width:90, height: 50)
-                                    .position(blue_block_position2)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color.yellow)
-                                    .frame(width:90, height: 50)
-                                    .position(yellow_block_position2)
-                            }
-                            
+                            VStack{
+                                Button(action: {
+                                    print("Button")
+                                }) {
+                                    Text("←")
+                                        .bold()
+                                        .padding()
+                                        .frame(width: 100, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.blue)
+                                        
+                                }
+                            }.position(blue_block_position1)
+                            VStack{
+                                Button(action: {
+                                    print("Button")
+                                }) {
+                                    Text("→")
+                                        .bold()
+                                        .padding()
+                                        .frame(width: 100, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.yellow)
+                                        
+                                }
+                            }.position(yellow_block_position1)
+                            VStack{
+                                Button(action: {
+                                    print("Button")
+                                }) {
+                                    Text("←")
+                                        .bold()
+                                        .padding()
+                                        .frame(width: 100, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.blue)
+                                        
+                                }
+                            }.position(blue_block_position2)
+                            VStack{
+                                Button(action: {
+                                    print("Button")
+                                }) {
+                                    Text("→")
+                                        .bold()
+                                        .padding()
+                                        .frame(width: 100, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.yellow)
+                                }
+                            }.position(yellow_block_position2)
                             //青ブロック保管庫
                             Image("Storage_of_blue_blocks_image").resizable().scaledToFit().frame(width: 100, height: 220).position(storage_blue_position)
                             //黄ブロック保管庫
@@ -1094,7 +1120,7 @@ struct stage4: View{
                                 timer?.invalidate()
                                 timer = nil
                                 clear_alert = true
-                                alert_message = "時間切れになりました。車が端につき止まりましたら、okボタンを押しリザルト画面に移動して下さい"
+                                alert_message = "時間切れになりました。リザルト画面に移動します"
                                 result = "out_of_time"
                             }
                             else if clear_or_not_clear == "clear"{
@@ -1109,7 +1135,7 @@ struct stage4: View{
                         }
                         if clear_or_not_clear == "clear"{
                             timer?.invalidate()
-                            alert_message = "ゴール旗に触れましたクリアです、車が端につき止まりましたら、okボタンを押しリザルト画面に移動して下さい"
+                            alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
                             result = "clear"
                         }
                     }
