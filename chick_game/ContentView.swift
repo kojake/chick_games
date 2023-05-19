@@ -129,6 +129,23 @@ struct ContentView: View {
                                 }.buttonStyle(BlueButtonStyle())
                             }
                         }
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                .fill(Color.gray)
+                                .frame(width: 250, height: 200)
+                            VStack{
+                                Text("STAGE5").font(.title2).fontWeight(.black)
+                                stage_5_star_count()
+                                Button(action: {
+                                    selected_STAGE = 5
+                                }) {
+                                    HStack {
+                                        Text("選択")
+                                    }
+                                }.buttonStyle(BlueButtonStyle())
+                            }
+                        }
+
                     }
                 }.shadow(radius: 20)
                 Spacer()
@@ -293,3 +310,32 @@ struct stage_4_star_count: View{
     }
 }
 
+struct stage_5_star_count: View{
+    var body: some View{
+        //stage1の星の数
+        HStack{
+            let stage5_stars = number_of_stars_in_each_stage.suffix(from: 4)
+            
+            if stage5_stars.first == "3"{
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage5_stars.first == "2"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage5_stars.first == "1"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star.fill").font(.title)
+            }
+            else if stage5_stars.first == "0"{
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+                Image(systemName: "star").font(.title)
+            }
+        }.foregroundColor(Color.yellow)
+    }
+}
