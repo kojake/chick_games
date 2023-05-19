@@ -1200,6 +1200,12 @@ struct stage5: View{
     //選択されたステージを取得する
     @Binding var select_stage: Int
     
+    //カード
+    @State var card_status = ["card1": "not_overturned","card2": "not_overturned","card3": "not_overturned","card4": "not_overturned","card5": "not_overturned","card": "not_overturned"]
+    @State var card_designation = ["card1": "","card2": "","card3": "","card4": "","card5": "","card6": ""]
+    //カードめくりアニメーション
+    @State var isFront = false
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -1234,9 +1240,15 @@ struct stage5: View{
                     VStack{
                         HStack{
                             Button(action: {
-
+                                isFront = true
                             }) {
-                                Image("神経衰弱_カード_?").resizable().scaledToFit()
+                                Flip(isFront: isFront,
+                                     front: {
+                                    Image("神経衰弱_カード_1")
+                                },
+                                     back: {
+                                    Image("神経衰弱_カード_?")
+                                })
                             }
                             Button(action: {
 
@@ -1265,6 +1277,16 @@ struct stage5: View{
                             }) {
                                 Image("神経衰弱_カード_?").resizable().scaledToFit()
                             }
+                        }
+                    }.onAppear{
+                        //何のカードかを決める
+                        for i in 0..<6 {
+                            let card_random = Int.random(in: 1..<3)
+                            
+                            if i == 1{
+                                
+                            }
+                            
                         }
                     }
                     Spacer()
@@ -1389,5 +1411,45 @@ struct stage5: View{
                 }
             }
         }.navigationBarBackButtonHidden(true)
+    }
+}
+//ステージ5のカードめくりアニメーション
+struct Flip<Front: View, Back: View>: View {
+    var isFront: Bool
+    @State var canShowFrontView: Bool
+    let duration: Double
+    let front: () -> Front
+    let back: () -> Back
+
+    init(isFront: Bool,
+         duration: Double = 1.0,
+         @ViewBuilder front: @escaping () -> Front,
+         @ViewBuilder back: @escaping () -> Back) {
+        self.isFront = isFront
+        self._canShowFrontView = State(initialValue: isFront)
+        self.duration = duration
+        self.front = front
+        self.back = back
+    }
+
+    var body: some View {
+        ZStack {
+            if self.canShowFrontView {
+                front()
+            }
+            else {
+                back()
+                    .rotation3DEffect(Angle(degrees: 180), axis: (x: 0, y: 1, z: 0))
+            }
+        }
+        .onChange(of: isFront, perform: {
+            value in
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration/2.0) {
+                self.canShowFrontView = value
+            }
+        })
+        .animation(nil)
+        .rotation3DEffect(isFront ? Angle(degrees: 0): Angle(degrees: 180), axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0)))
+        .animation(.easeInOut(duration: duration))
     }
 }
