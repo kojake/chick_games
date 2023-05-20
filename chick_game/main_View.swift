@@ -1169,6 +1169,13 @@ struct stage4: View{
 }
 
 //ステージ5
+struct Card: Identifiable {
+    let id: UUID = UUID()
+    var imageName: String
+    var isFaceUp: Bool = false
+    var isMatched: Bool = false
+}
+
 struct stage5: View{
     //画面を閉じるために使う
     @Environment(\.dismiss) var dismiss2
@@ -1201,8 +1208,16 @@ struct stage5: View{
     @Binding var select_stage: Int
     
     //カード
-    @State var card_status: [String:String] = ["card1": "not_overturned","card2": "not_overturned","card3": "not_overturned","card4": "not_overturned","card5": "not_overturned","card": "not_overturned"]
-    @State var card_designation = ["card1": "","card2": "","card3": "","card4": "","card5": "","card6": ""]
+    @State private var cards: [Card] = [
+        Card(imageName: "神経衰弱_カード_1"),
+        Card(imageName: "神経衰弱_カード_2"),
+        Card(imageName: "神経衰弱_カード_3"),
+        Card(imageName: "神経衰弱_カード_1"),
+        Card(imageName: "神経衰弱_カード_2"),
+        Card(imageName: "神経衰弱_カード_3")
+    ]
+    @State private var selectedCardIndices: [Int] = []
+    
     //カードめくりアニメーション
     @State var isFront1 = false
     @State var isFront2 = false
@@ -1242,353 +1257,182 @@ struct stage5: View{
                         }
                     }
                     Spacer()
-                    VStack{
-                        HStack{
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
+                        ForEach(cards) { card in
                             Button(action: {
-                                isFront1 = true
-                                card_status["card1"] = "overturned"
-                                mathingkey_serach()
+                                
+                                selectCard(card)
                             }) {
-                                Flip(isFront: isFront1,
-                                     front: {
-                                    if card_designation["card1"] == "1"{
-                                        Image("神経衰弱_カード_1")
-                                    }
-                                    else if card_designation["card1"] == "2"{
-                                        Image("神経衰弱_カード_2")
-                                    }
-                                    else if card_designation["card1"] == "3"{
-                                        Image("神経衰弱_カード_3")
-                                    }
-                                },
-                                     back: {
+                                if card.isFaceUp || card.isMatched {
+                                    Image(card.imageName)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding(8)
+                                } else {
                                     Image("神経衰弱_カード_?")
-                                })
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding(8)
+                                }
                             }
-                            Button(action: {
-                                isFront2 = true
-                                card_status["card2"] = "overturned"
-                                mathingkey_serach()
-                            }) {
-                                Flip(isFront: isFront2,
-                                     front: {
-                                    
-                                    if card_designation["card2"] == "1"{
-                                        Image("神経衰弱_カード_1")
-                                    }
-                                    else if card_designation["card2"] == "2"{
-                                        Image("神経衰弱_カード_2")
-                                    }
-                                    else if card_designation["card2"] == "3"{
-                                        Image("神経衰弱_カード_3")
-                                    }
-                                },
-                                     back: {
-                                    Image("神経衰弱_カード_?")
-                                })
-                            }
-                            Button(action: {
-                                isFront3 = true
-                                card_status["card3"] = "overturned"
-                                mathingkey_serach()
-                            }) {
-                                Flip(isFront: isFront3,
-                                     front: {
-                                    
-                                    if card_designation["card3"] == "1"{
-                                        Image("神経衰弱_カード_1")
-                                    }
-                                    else if card_designation["card3"] == "2"{
-                                        Image("神経衰弱_カード_2")
-                                    }
-                                    else if card_designation["card3"] == "3"{
-                                        Image("神経衰弱_カード_3")
-                                    }
-                                },
-                                     back: {
-                                    Image("神経衰弱_カード_?")
-                                })
-                            }
+                            .disabled(card.isMatched)
                         }
-                        HStack{
-                            Button(action: {
-                                isFront4 = true
-                                card_status["card4"] = "overturned"
-                                mathingkey_serach()
-                            }) {
-                                Flip(isFront: isFront4,
-                                     front: {
-                                    
-                                    if card_designation["card4"] == "1"{
-                                        Image("神経衰弱_カード_1")
-                                    }
-                                    else if card_designation["card4"] == "2"{
-                                        Image("神経衰弱_カード_2")
-                                    }
-                                    else if card_designation["card4"] == "3"{
-                                        Image("神経衰弱_カード_3")
-                                    }
-                                },
-                                     back: {
-                                    Image("神経衰弱_カード_?")
-                                })
-                            }
-                            Button(action: {
-                                isFront5 = true
-                                card_status["card5"] = "overturned"
-                                mathingkey_serach()
-                            }) {
-                                Flip(isFront: isFront5,
-                                     front: {
-                                    
-                                    if card_designation["card5"] == "1"{
-                                        Image("神経衰弱_カード_1")
-                                    }
-                                    else if card_designation["card5"] == "2"{
-                                        Image("神経衰弱_カード_2")
-                                    }
-                                    else if card_designation["card5"] == "3"{
-                                        Image("神経衰弱_カード_3")
-                                    }
-                                },
-                                     back: {
-                                    Image("神経衰弱_カード_?")
-                                })
-                            }
-                            Button(action: {
-                                isFront6 = true
-                                card_status["card6"] = "overturned"
-                                mathingkey_serach()
-                            }) {
-                                Flip(isFront: isFront6,
-                                     front: {
-                                    
-                                    if card_designation["card6"] == "1"{
-                                        Image("神経衰弱_カード_1")
-                                    }
-                                    else if card_designation["card6"] == "2"{
-                                        Image("神経衰弱_カード_2")
-                                    }
-                                    else if card_designation["card6"] == "3"{
-                                        Image("神経衰弱_カード_3")
-                                    }
-                                },
-                                     back: {
-                                    Image("神経衰弱_カード_?")
-                                })
-                            }
-                        }
-                    }.onAppear{
-                        //何のカードかを決める
-                        for i in 0..<6 {
-                            let card_random = Int.random(in: 1..<4)
-                            if i == 1{
-                                card_designation["card1"] = String(card_random)
-                            }
-                            else if i == 2{
-                                if card_designation["card1"] == "1"{
-                                    card_designation["card2"] = "1"
-                                }
-                                else if card_designation["card1"] == "2"{
-                                    card_designation["card2"] = "2"
-                                }
-                                else if card_designation["card1"] == "3"{
-                                    card_designation["card2"] = "3"
-                                }
-                            }
-                            else if i == 3{
-                                if card_designation["card1"] == "1"{
-                                    let card_random2 = Int.random(in: 2..<3)
-                                    card_designation["card3"] = String(card_random2)
-                                }
-                                else if card_designation["card1"] == "2"{
-                                    card_designation["card3"] = "3"
-                                }
-                                else{
-                                    card_designation["card3"] = "1"
-                                }
-                            }
-                            else if i == 4{
-                                if card_designation["card3"] == "1"{
-                                    card_designation["card4"] = "1"
-                                }
-                                else if card_designation["card3"] == "2"{
-                                    card_designation["card4"] = "2"
-                                }
-                                else if card_designation["card3"] == "3"{
-                                    card_designation["card4"] = "3"
-                                }
-                            }
-                            else if i == 5{
-                                if card_designation["card4"] == "1" && card_designation["card4"] == "2"{
-                                    card_designation["card5"] = "3"
-                                }
-                                else if card_designation["card4"] == "2" && card_designation["card4"] == "3"{
-                                    card_designation["card3"] = "1"
-                                }
-                                else{
-                                    card_designation["card3"] = "2"
-                                }
-                            }
-                            else if i == 6{
-                                if card_designation["card5"] == "1"{
-                                    card_designation["card6"] = "1"
-                                }
-                                else if card_designation["card5"] == "2"{
-                                    card_designation["card6"] = "2"
-                                }
-                                else if card_designation["card5"] == "3"{
-                                    card_designation["card6"] = "3"
-                                }
-                            }
-                        }
-                    }
-                    Spacer()
-                    HStack{
-                        Spacer()
-                        VStack{
-                            HStack{
-                                if star_count == 3{
-                                    Image(systemName: "star.fill").font(.title)
-                                    Image(systemName: "star.fill").font(.title)
-                                    Image(systemName: "star.fill").font(.title)
-                                }
-                                else if star_count == 2{
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star.fill").font(.title)
-                                    Image(systemName: "star.fill").font(.title)
-                                }
-                                else if star_count == 1{
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star.fill").font(.title)
-                                }
-                                else if star_count == 0{
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                    Image(systemName: "star").font(.title)
-                                }
-                            }.foregroundColor(Color.yellow)
-                            HStack{
-                                Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
-                                Text("\(timer_count)").font(.title2).fontWeight(.black)
-                            }
-                        }.frame(width: 180, height: 130).overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.blue, lineWidth: 5))
-                        Spacer()
                     }
                 }.onAppear{
-                    //timerstart
-                    var timer: Timer? = nil
-                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                        timer_count -= 1
-                        
+                    //何のカードかを決める
+                    
+                }
+            }
+            Spacer()
+            HStack{
+                Spacer()
+                VStack{
+                    HStack{
                         if star_count == 3{
-                            if timer_count == 0 {
-                                timer = nil
-                                timer_count = 15
-                                star_count -= 1
-                            }
-                            else if clear_or_not_clear == "clear"{
-                                timer?.invalidate()
-                            }
-                            else if result == "collision"{
-                                timer?.invalidate()
-                            }
-                            else if result == "interruption"{
-                                timer?.invalidate()
-                            }
+                            Image(systemName: "star.fill").font(.title)
+                            Image(systemName: "star.fill").font(.title)
+                            Image(systemName: "star.fill").font(.title)
                         }
                         else if star_count == 2{
-                            if timer_count == 0 {
-                                timer = nil
-                                timer_count = 15
-                                star_count -= 1
-                            }
-                            else if clear_or_not_clear == "clear"{
-                                timer?.invalidate()
-                            }
-                            else if result == "collision"{
-                                timer?.invalidate()
-                            }
-                            else if result == "interruption"{
-                                timer?.invalidate()
-                            }
+                            Image(systemName: "star").font(.title)
+                            Image(systemName: "star.fill").font(.title)
+                            Image(systemName: "star.fill").font(.title)
                         }
                         else if star_count == 1{
-                            if timer_count == 0 {
-                                timer = nil
-                                timer_count = 15
-                                star_count -= 1
-                            }
-                            else if clear_or_not_clear == "clear"{
-                                timer?.invalidate()
-                            }
-                            else if result == "collision"{
-                                timer?.invalidate()
-                            }
-                            else if result == "interruption"{
-                                timer?.invalidate()
-                            }
+                            Image(systemName: "star").font(.title)
+                            Image(systemName: "star").font(.title)
+                            Image(systemName: "star.fill").font(.title)
                         }
                         else if star_count == 0{
-                            if timer_count == 0 {
-                                timer?.invalidate()
-                                timer = nil
-                                clear_alert = true
-                                alert_message = "時間切れになりました。リザルト画面に移動します"
-                                result = "out_of_time"
-                            }
-                            else if clear_or_not_clear == "clear"{
-                                timer?.invalidate()
-                            }
-                            else if result == "collision"{
-                                timer?.invalidate()
-                            }
-                            else if result == "interruption"{
-                                timer?.invalidate()
-                            }
+                            Image(systemName: "star").font(.title)
+                            Image(systemName: "star").font(.title)
+                            Image(systemName: "star").font(.title)
                         }
-                        if clear_or_not_clear == "clear"{
-                            timer?.invalidate()
-                            alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
-                            result = "clear"
-                        }
+                    }.foregroundColor(Color.yellow)
+                    HStack{
+                        Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
+                        Text("\(timer_count)").font(.title2).fontWeight(.black)
+                    }
+                }.frame(width: 180, height: 130).overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.blue, lineWidth: 5))
+                Spacer()
+            }
+        }.onAppear{
+            //timerstart
+            var timer: Timer? = nil
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                timer_count -= 1
+                
+                if star_count == 3{
+                    if timer_count == 0 {
+                        timer = nil
+                        timer_count = 15
+                        star_count -= 1
+                    }
+                    else if clear_or_not_clear == "clear"{
+                        timer?.invalidate()
+                    }
+                    else if result == "collision"{
+                        timer?.invalidate()
+                    }
+                    else if result == "interruption"{
+                        timer?.invalidate()
                     }
                 }
-                .alert(isPresented: $clear_alert) {
-                    Alert(title: Text("結果"),
-                          message: Text(alert_message),
-                          dismissButton: .default(Text("OK"),
-                                                  action: {showShould_result_View = true}))
+                else if star_count == 2{
+                    if timer_count == 0 {
+                        timer = nil
+                        timer_count = 15
+                        star_count -= 1
+                    }
+                    else if clear_or_not_clear == "clear"{
+                        timer?.invalidate()
+                    }
+                    else if result == "collision"{
+                        timer?.invalidate()
+                    }
+                    else if result == "interruption"{
+                        timer?.invalidate()
+                    }
+                }
+                else if star_count == 1{
+                    if timer_count == 0 {
+                        timer = nil
+                        timer_count = 15
+                        star_count -= 1
+                    }
+                    else if clear_or_not_clear == "clear"{
+                        timer?.invalidate()
+                    }
+                    else if result == "collision"{
+                        timer?.invalidate()
+                    }
+                    else if result == "interruption"{
+                        timer?.invalidate()
+                    }
+                }
+                else if star_count == 0{
+                    if timer_count == 0 {
+                        timer?.invalidate()
+                        timer = nil
+                        clear_alert = true
+                        alert_message = "時間切れになりました。リザルト画面に移動します"
+                        result = "out_of_time"
+                    }
+                    else if clear_or_not_clear == "clear"{
+                        timer?.invalidate()
+                    }
+                    else if result == "collision"{
+                        timer?.invalidate()
+                    }
+                    else if result == "interruption"{
+                        timer?.invalidate()
+                    }
+                }
+                if clear_or_not_clear == "clear"{
+                    timer?.invalidate()
+                    alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
+                    result = "clear"
                 }
             }
         }.navigationBarBackButtonHidden(true)
+        .alert(isPresented: $clear_alert) {
+            Alert(title: Text("結果"),
+                  message: Text(alert_message),
+                  dismissButton: .default(Text("OK"),
+                                          action: {showShould_result_View = true}))
+        }
     }
-    func mathingkey_serach(){
-        let matchingKeys = card_status.reduce(into: [String]()) { result, element in
-            if element.value == "overturned" {
-                result.append(element.key)
-            }
+    private func selectCard(_ card: Card) {
+        guard let selectedIndex = cards.firstIndex(where: { $0.id == card.id }),
+              !cards[selectedIndex].isFaceUp,
+              !cards[selectedIndex].isMatched else {
+            return
         }
         
-        if matchingKeys.isEmpty {
-            print("No matching keys found")
-        } else {
-            print("Matching keys: \(matchingKeys)")
+        cards[selectedIndex].isFaceUp = true
+        selectedCardIndices.append(selectedIndex)
+        
+        if selectedCardIndices.count == 2 {
+            let firstIndex = selectedCardIndices[0]
+            let secondIndex = selectedCardIndices[1]
             
-            let mathingKeys1 = matchingKeys[0]
-            let mathingKeys2 = matchingKeys[1]
-            if card_designation[mathingKeys1] == card_designation[mathingKeys2]{
-                print("一致")
+            if cards[firstIndex].imageName == cards[secondIndex].imageName {
+                cards[firstIndex].isMatched = true
+                cards[secondIndex].isMatched = true
             }
-            else{
-                print("一致しない")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                cards[firstIndex].isFaceUp = false
+                cards[secondIndex].isFaceUp = false
+                selectedCardIndices.removeAll()
             }
         }
     }
 }
+
+
 //ステージ5のカードめくりアニメーション
 struct Flip<Front: View, Back: View>: View {
     var isFront: Bool
