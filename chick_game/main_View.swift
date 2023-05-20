@@ -1248,10 +1248,10 @@ struct stage5: View{
                                     if card_designation["card1"] == "1"{
                                         Image("神経衰弱_カード_1")
                                     }
-                                    else if card_designation["card2"] == "2"{
+                                    else if card_designation["card1"] == "2"{
                                         Image("神経衰弱_カード_2")
                                     }
-                                    else if card_designation["card3"] == "3"{
+                                    else if card_designation["card1"] == "3"{
                                         Image("神経衰弱_カード_3")
                                     }
                                 },
