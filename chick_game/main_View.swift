@@ -1201,7 +1201,7 @@ struct stage5: View{
     @Binding var select_stage: Int
     
     //カード
-    @State var card_status = ["card1": "not_overturned","card2": "not_overturned","card3": "not_overturned","card4": "not_overturned","card5": "not_overturned","card": "not_overturned"]
+    @State var card_status: [String:String] = ["card1": "not_overturned","card2": "not_overturned","card3": "not_overturned","card4": "not_overturned","card5": "not_overturned","card": "not_overturned"]
     @State var card_designation = ["card1": "","card2": "","card3": "","card4": "","card5": "","card6": ""]
     //カードめくりアニメーション
     @State var isFront1 = false
@@ -1246,10 +1246,11 @@ struct stage5: View{
                         HStack{
                             Button(action: {
                                 isFront1 = true
+                                card_status["card1"] = "overturned"
+                                mathingkey_serach()
                             }) {
                                 Flip(isFront: isFront1,
                                      front: {
-                                    
                                     if card_designation["card1"] == "1"{
                                         Image("神経衰弱_カード_1")
                                     }
@@ -1266,6 +1267,8 @@ struct stage5: View{
                             }
                             Button(action: {
                                 isFront2 = true
+                                card_status["card2"] = "overturned"
+                                mathingkey_serach()
                             }) {
                                 Flip(isFront: isFront2,
                                      front: {
@@ -1286,6 +1289,8 @@ struct stage5: View{
                             }
                             Button(action: {
                                 isFront3 = true
+                                card_status["card3"] = "overturned"
+                                mathingkey_serach()
                             }) {
                                 Flip(isFront: isFront3,
                                      front: {
@@ -1308,6 +1313,8 @@ struct stage5: View{
                         HStack{
                             Button(action: {
                                 isFront4 = true
+                                card_status["card4"] = "overturned"
+                                mathingkey_serach()
                             }) {
                                 Flip(isFront: isFront4,
                                      front: {
@@ -1328,6 +1335,8 @@ struct stage5: View{
                             }
                             Button(action: {
                                 isFront5 = true
+                                card_status["card5"] = "overturned"
+                                mathingkey_serach()
                             }) {
                                 Flip(isFront: isFront5,
                                      front: {
@@ -1348,6 +1357,8 @@ struct stage5: View{
                             }
                             Button(action: {
                                 isFront6 = true
+                                card_status["card6"] = "overturned"
+                                mathingkey_serach()
                             }) {
                                 Flip(isFront: isFront6,
                                      front: {
@@ -1554,6 +1565,28 @@ struct stage5: View{
                 }
             }
         }.navigationBarBackButtonHidden(true)
+    }
+    func mathingkey_serach(){
+        let matchingKeys = card_status.reduce(into: [String]()) { result, element in
+            if element.value == "overturned" {
+                result.append(element.key)
+            }
+        }
+        
+        if matchingKeys.isEmpty {
+            print("No matching keys found")
+        } else {
+            print("Matching keys: \(matchingKeys)")
+            
+            let mathingKeys1 = matchingKeys[0]
+            let mathingKeys2 = matchingKeys[1]
+            if card_designation[mathingKeys1] == card_designation[mathingKeys2]{
+                print("一致")
+            }
+            else{
+                print("一致しない")
+            }
+        }
     }
 }
 //ステージ5のカードめくりアニメーション
