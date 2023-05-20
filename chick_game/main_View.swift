@@ -1386,7 +1386,16 @@ struct stage5: View{
                                 }
                             }
                             else if i == 3{
-                                card_designation["card3"] = String(card_random)
+                                if card_designation["card1"] == "1"{
+                                    let card_random2 = Int.random(in: 2..<3)
+                                    card_designation["card3"] = String(card_random2)
+                                }
+                                else if card_designation["card1"] == "2"{
+                                    card_designation["card3"] = "3"
+                                }
+                                else{
+                                    card_designation["card3"] = "1"
+                                }
                             }
                             else if i == 4{
                                 if card_designation["card3"] == "1"{
@@ -1400,7 +1409,15 @@ struct stage5: View{
                                 }
                             }
                             else if i == 5{
-                                card_designation["card5"] = String(card_random)
+                                if card_designation["card4"] == "1" && card_designation["card4"] == "2"{
+                                    card_designation["card5"] = "3"
+                                }
+                                else if card_designation["card4"] == "2" && card_designation["card4"] == "3"{
+                                    card_designation["card3"] = "1"
+                                }
+                                else{
+                                    card_designation["card3"] = "2"
+                                }
                             }
                             else if i == 6{
                                 if card_designation["card5"] == "1"{
