@@ -1204,7 +1204,12 @@ struct stage5: View{
     @State var card_status = ["card1": "not_overturned","card2": "not_overturned","card3": "not_overturned","card4": "not_overturned","card5": "not_overturned","card": "not_overturned"]
     @State var card_designation = ["card1": "","card2": "","card3": "","card4": "","card5": "","card6": ""]
     //カードめくりアニメーション
-    @State var isFront = false
+    @State var isFront1 = false
+    @State var isFront2 = false
+    @State var isFront3 = false
+    @State var isFront4 = false
+    @State var isFront5 = false
+    @State var isFront6 = false
     
     var body: some View {
         NavigationView{
@@ -1240,9 +1245,9 @@ struct stage5: View{
                     VStack{
                         HStack{
                             Button(action: {
-                                isFront = true
+                                isFront1 = true
                             }) {
-                                Flip(isFront: isFront,
+                                Flip(isFront: isFront1,
                                      front: {
                                     
                                     if card_designation["card1"] == "1"{
@@ -1260,31 +1265,106 @@ struct stage5: View{
                                 })
                             }
                             Button(action: {
-
+                                isFront2 = true
                             }) {
-                                Image("神経衰弱_カード_?").resizable().scaledToFit()
+                                Flip(isFront: isFront2,
+                                     front: {
+                                    
+                                    if card_designation["card2"] == "1"{
+                                        Image("神経衰弱_カード_1")
+                                    }
+                                    else if card_designation["card2"] == "2"{
+                                        Image("神経衰弱_カード_2")
+                                    }
+                                    else if card_designation["card2"] == "3"{
+                                        Image("神経衰弱_カード_3")
+                                    }
+                                },
+                                     back: {
+                                    Image("神経衰弱_カード_?")
+                                })
                             }
                             Button(action: {
-
+                                isFront3 = true
                             }) {
-                                Image("神経衰弱_カード_?").resizable().scaledToFit()
+                                Flip(isFront: isFront3,
+                                     front: {
+                                    
+                                    if card_designation["card3"] == "1"{
+                                        Image("神経衰弱_カード_1")
+                                    }
+                                    else if card_designation["card3"] == "2"{
+                                        Image("神経衰弱_カード_2")
+                                    }
+                                    else if card_designation["card3"] == "3"{
+                                        Image("神経衰弱_カード_3")
+                                    }
+                                },
+                                     back: {
+                                    Image("神経衰弱_カード_?")
+                                })
                             }
                         }
                         HStack{
                             Button(action: {
-
+                                isFront4 = true
                             }) {
-                                Image("神経衰弱_カード_?").resizable().scaledToFit()
+                                Flip(isFront: isFront4,
+                                     front: {
+                                    
+                                    if card_designation["card4"] == "1"{
+                                        Image("神経衰弱_カード_1")
+                                    }
+                                    else if card_designation["card4"] == "2"{
+                                        Image("神経衰弱_カード_2")
+                                    }
+                                    else if card_designation["card4"] == "3"{
+                                        Image("神経衰弱_カード_3")
+                                    }
+                                },
+                                     back: {
+                                    Image("神経衰弱_カード_?")
+                                })
                             }
                             Button(action: {
-
+                                isFront5 = true
                             }) {
-                                Image("神経衰弱_カード_?").resizable().scaledToFit()
+                                Flip(isFront: isFront5,
+                                     front: {
+                                    
+                                    if card_designation["card5"] == "1"{
+                                        Image("神経衰弱_カード_1")
+                                    }
+                                    else if card_designation["card5"] == "2"{
+                                        Image("神経衰弱_カード_2")
+                                    }
+                                    else if card_designation["card5"] == "3"{
+                                        Image("神経衰弱_カード_3")
+                                    }
+                                },
+                                     back: {
+                                    Image("神経衰弱_カード_?")
+                                })
                             }
                             Button(action: {
-
+                                isFront6 = true
                             }) {
-                                Image("神経衰弱_カード_?").resizable().scaledToFit()
+                                Flip(isFront: isFront6,
+                                     front: {
+                                    
+                                    if card_designation["card6"] == "1"{
+                                        Image("神経衰弱_カード_1")
+                                    }
+                                    else if card_designation["card6"] == "2"{
+                                        Image("神経衰弱_カード_2")
+                                    }
+                                    else if card_designation["card6"] == "3"{
+                                        Image("神経衰弱_カード_3")
+                                    }
+                                },
+                                     back: {
+                                    Image("神経衰弱_カード_?")
+                                })
                             }
                         }
                     }.onAppear{
