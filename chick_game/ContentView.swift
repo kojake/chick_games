@@ -20,166 +20,166 @@ struct ContentView: View {
     @State private var showShould_stage3 = false
     @State private var showShould_stage4 = false
     @State private var showShould_stage5 = false
+    // offset変数でメニューを表示・非表示するためのオフセットを保持します
+    @State private var offset = CGFloat.zero
+    @State private var closeOffset = CGFloat.zero
+    @State private var openOffset = CGFloat.zero
     
     var body: some View {
         NavigationView{
-            VStack {
-                NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
-                    EmptyView()
-                }.navigationBarBackButtonHidden(true)
-                NavigationLink(destination: dressing_up_View(), isActive: $showShould_dressing_up_View) {
-                    EmptyView()
-                }.navigationBarBackButtonHidden(true)
-                
-                HStack{
-                    Text("Ver.1.0").fontWeight(.black).font(.system(size: 45, weight: .black, design: .default))
-                    Spacer()
-                    Button(action: {
-                        showShould_shop_View = true
-                    }) {
-                        Image(systemName: "cart.fill")
-                            .padding()
-                            .frame(width: 70, height: 70)
-                            .imageScale(.large)
-                            .foregroundColor(Color.white)
-                            .background(Color.green)
-                            .clipShape(Circle())
-                            .shadow(radius: 20)
+            GeometryReader { geometry in
+                NavigationView {
+                    ZStack(alignment: .topLeading) {
+                        // メインコンテンツ
+                        VStack {
+                            //各ステージの画面遷移
+                            NavigationLink(destination: stage1(select_stage: $selected_STAGE), isActive: $showShould_stage1) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            NavigationLink(destination: stage2(select_stage: $selected_STAGE), isActive: $showShould_stage2) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            NavigationLink(destination: stage3(select_stage: $selected_STAGE), isActive: $showShould_stage3) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            NavigationLink(destination: stage4(select_stage: $selected_STAGE), isActive: $showShould_stage4) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            NavigationLink(destination: stage5(select_stage: $selected_STAGE), isActive: $showShould_stage5) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            //画面遷移
+                            NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            NavigationLink(destination: dressing_up_View(), isActive: $showShould_dressing_up_View) {
+                                EmptyView()
+                            }.navigationBarBackButtonHidden(true)
+                            
+                            HStack{
+                                Text("Ver.1.0").fontWeight(.black).font(.system(size: 45, weight: .black, design: .default))
+                                Spacer()
+                                Button(action: {
+                                    showShould_shop_View = true
+                                }) {
+                                    Image(systemName: "cart.fill")
+                                        .padding()
+                                        .frame(width: 70, height: 70)
+                                        .imageScale(.large)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.green)
+                                        .clipShape(Circle())
+                                        .shadow(radius: 20)
+                                }
+                                Button(action: {
+                                    showShould_dressing_up_View = true
+                                }) {
+                                    Image(systemName: "arrow.left.arrow.right.square.fill")
+                                        .padding()
+                                        .frame(width: 70, height: 70)
+                                        .imageScale(.large)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.green)
+                                        .clipShape(Circle())
+                                        .shadow(radius: 20)
+                                }
+                                Button(action: {
+                                    if (self.offset == self.openOffset) {
+                                        self.offset = self.closeOffset
+                                    } else {
+                                        self.offset = self.openOffset
+                                    }
+                                }){
+                                    Image(systemName: "filemenu.and.selection")
+                                        .padding()
+                                        .frame(width: 70, height: 70)
+                                        .imageScale(.large)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.green)
+                                        .clipShape(Circle())
+                                        .shadow(radius: 20)
+                                }
+                            }
+                            HStack{
+                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
+                                Text("ひよこゲーム").font(.system(size: 50, weight: .black, design: .default)).foregroundColor(.yellow)
+                                Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(180), axis: (0, 1, 0))
+                            }
+                            //スタートボタン
+                            VStack{
+                                Text("選択されたSTAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
+                                Button(action: {
+                                    //選択されたステージを表示する
+                                    if selected_STAGE == 1{
+                                        showShould_stage1 = true
+                                    }
+                                    else if selected_STAGE == 2{
+                                        showShould_stage2 = true
+                                    }
+                                    else if selected_STAGE == 3{
+                                        showShould_stage3 = true
+                                    }
+                                    else if selected_STAGE == 4{
+                                        showShould_stage4 = true
+                                    }
+                                    else if selected_STAGE == 5{
+                                        showShould_stage5 = true
+                                    }
+                                }) {
+                                    Image("chick_game_start_button_image").resizable().scaledToFit()
+                                        .bold()
+                                        .padding()
+                                        .frame(width: 300, height: 150)
+                                        .foregroundColor(Color.white)
+                                        .background(Color.yellow)
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }
+                        
+                        .background(Color.white)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                        // スライドメニューがでてきたらメインコンテンツをグレイアウトします
+                        Color.gray.opacity(
+                            Double((self.closeOffset - self.offset)/self.closeOffset) - 0.4
+                        )
+                        // スライドメニュー
+                        select_stage_menu_View(selected_STAGE: $selected_STAGE)
+                            .background(Color.white)
+                            .frame(width: geometry.size.width, height: geometry.size.height * 0.7)
+                        // 最初に画面のオフセットの値をスライドメニュー分マイナスします。
+                            .onAppear(perform: {
+                                self.offset = (geometry.frame(in: .global).origin.y + geometry.size.height) * -1
+                                self.closeOffset = self.offset
+                                self.openOffset = .zero
+                            })
+                            .offset(y: self.offset)
+                        // スライドのアニメーションを設定します
+                            .animation(.default)
                     }
-                    Button(action: {
-                        showShould_dressing_up_View = true
-                    }) {
-                        Image(systemName: "arrow.left.arrow.right.square.fill")
-                            .padding()
-                            .frame(width: 70, height: 70)
-                            .imageScale(.large)
-                            .foregroundColor(Color.white)
-                            .background(Color.green)
-                            .clipShape(Circle())
-                            .shadow(radius: 20)
-                    }
-                }
-                Spacer()
-                HStack{
-                    Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
-                    Text("ひよこゲーム").font(.system(size: 50, weight: .black, design: .default)).foregroundColor(.yellow)
-                    Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100).rotation3DEffect(.degrees(180), axis: (0, 1, 0))
-                }
-                Text("ステージ選択").padding().fontWeight(.black).font(.largeTitle)
-                ScrollView(.horizontal) {
-                    HStack{
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(Color.gray)
-                                .frame(width: 250, height: 200)
-                            VStack{
-                                Text("STAGE1").font(.title2).fontWeight(.black)
-                                stage_1_star_count()
-                                Button(action: {
-                                    selected_STAGE = 1
-                                }) {
-                                    HStack {
-                                        Text("選択")
-                                    }
-                                }.buttonStyle(BlueButtonStyle())
+                    // ジェスチャーに関する実装をします
+                    // スワイプのしきい値を設定してユーザの思わぬメニューの出現を防ぎます
+                    .gesture(DragGesture(minimumDistance: 5)
+                        .onChanged{ value in
+                            // メインコンテンツの縦方向のスクロールを妨げないためにstartLocationを使用します
+                            // オフセットの値(メニューの位置)をスワイプした距離に応じて狭めていきます
+                            if (self.offset != self.openOffset && value.startLocation.y < 30) {
+                                self.offset = self.closeOffset + value.translation.height
                             }
                         }
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(Color.gray)
-                                .frame(width: 250, height: 200)
-                            VStack{
-                                Text("STAGE2").font(.title2).fontWeight(.black)
-                                stage_2_star_count()
-                                Button(action: {
-                                    selected_STAGE = 2
-                                }) {
-                                    HStack {
-                                        Text("選択")
-                                    }
-                                }.buttonStyle(BlueButtonStyle())
+                        .onEnded { value in
+                            // スワイプ開始位置よりも終了位置が下だったらメニューを開く
+                            if (value.startLocation.y < value.location.y) {
+                                if (value.startLocation.y < 30) {
+                                    self.offset = self.openOffset
+                                }
+                            } else {
+                                self.offset = self.closeOffset
                             }
                         }
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(Color.gray)
-                                .frame(width: 250, height: 200)
-                            VStack{
-                                Text("STAGE3").font(.title2).fontWeight(.black)
-                                stage_3_star_count()
-                                Button(action: {
-                                    selected_STAGE = 3
-                                }) {
-                                    HStack {
-                                        Text("選択")
-                                    }
-                                }.buttonStyle(BlueButtonStyle())
-                            }
-                        }
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(Color.gray)
-                                .frame(width: 250, height: 200)
-                            VStack{
-                                Text("STAGE4").font(.title2).fontWeight(.black)
-                                stage_4_star_count()
-                                Button(action: {
-                                    selected_STAGE = 4
-                                }) {
-                                    HStack {
-                                        Text("選択")
-                                    }
-                                }.buttonStyle(BlueButtonStyle())
-                            }
-                        }
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(Color.gray)
-                                .frame(width: 250, height: 200)
-                            VStack{
-                                Text("STAGE5").font(.title2).fontWeight(.black)
-                                stage_5_star_count()
-                                Button(action: {
-                                    selected_STAGE = 5
-                                }) {
-                                    HStack {
-                                        Text("選択")
-                                    }
-                                }.buttonStyle(BlueButtonStyle())
-                            }
-                        }
-                    }
-                }.shadow(radius: 20)
-                Spacer()
-                //スタートボタン
-                VStack{
-                    Text("選択されたSTAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
-                    Button(action: {
-                        //選択されたステージを表示する
-                        if selected_STAGE == 1{
-
-                        }
-                        else if selected_STAGE == 2{
-
-                        }
-                        else if selected_STAGE == 3{
-
-                        }
-                        else if selected_STAGE == 4{
-
-                        }
-                        else if selected_STAGE == 5{
-
-                        }
-                    }) {
-                        Image("chick_game_start_button_image").resizable().scaledToFit()
-                            .bold()
-                            .padding()
-                            .frame(width: 300, height: 150)
-                            .foregroundColor(Color.white)
-                            .background(Color.yellow)
-                            .cornerRadius(10)
-                    }
+                    )
+                    // 上部のNavigationBarに表示する項目を設定
+                    .edgesIgnoringSafeArea(.bottom)
                 }
             }
         }.navigationBarBackButtonHidden(true)
@@ -352,5 +352,110 @@ struct stage_5_star_count: View{
                 Image(systemName: "star").font(.title)
             }
         }.foregroundColor(Color.yellow)
+    }
+}
+
+struct select_stage_menu_View: View{
+    @Binding var selected_STAGE: Int
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View{
+        Text("ステージ選択").padding().fontWeight(.black).font(.largeTitle)
+        ScrollView(.horizontal) {
+            HStack{
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }){
+                    Text("閉じる")
+                        .padding()
+                        .frame(width: 100, height: 100)
+                        .imageScale(.large)
+                        .foregroundColor(Color.white)
+                        .background(Color.green)
+                        .clipShape(Circle())
+                        .shadow(radius: 20)
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color.gray)
+                        .frame(width: 250, height: 200)
+                    VStack{
+                        Text("STAGE1").font(.title2).fontWeight(.black)
+                        stage_1_star_count()
+                        Button(action: {
+                            selected_STAGE = 1
+                        }) {
+                            HStack {
+                                Text("選択")
+                            }
+                        }.buttonStyle(BlueButtonStyle())
+                    }
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color.gray)
+                        .frame(width: 250, height: 200)
+                    VStack{
+                        Text("STAGE2").font(.title2).fontWeight(.black)
+                        stage_2_star_count()
+                        Button(action: {
+                            selected_STAGE = 2
+                        }) {
+                            HStack {
+                                Text("選択")
+                            }
+                        }.buttonStyle(BlueButtonStyle())
+                    }
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color.gray)
+                        .frame(width: 250, height: 200)
+                    VStack{
+                        Text("STAGE3").font(.title2).fontWeight(.black)
+                        stage_3_star_count()
+                        Button(action: {
+                            selected_STAGE = 3
+                        }) {
+                            HStack {
+                                Text("選択")
+                            }
+                        }.buttonStyle(BlueButtonStyle())
+                    }
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color.gray)
+                        .frame(width: 250, height: 200)
+                    VStack{
+                        Text("STAGE4").font(.title2).fontWeight(.black)
+                        stage_4_star_count()
+                        Button(action: {
+                            selected_STAGE = 4
+                        }) {
+                            HStack {
+                                Text("選択")
+                            }
+                        }.buttonStyle(BlueButtonStyle())
+                    }
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color.gray)
+                        .frame(width: 250, height: 200)
+                    VStack{
+                        Text("STAGE5").font(.title2).fontWeight(.black)
+                        stage_5_star_count()
+                        Button(action: {
+                            selected_STAGE = 5
+                        }) {
+                            HStack {
+                                Text("選択")
+                            }
+                        }.buttonStyle(BlueButtonStyle())
+                    }
+                }
+            }
+        }.shadow(radius: 20)
     }
 }
