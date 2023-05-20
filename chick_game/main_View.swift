@@ -1370,26 +1370,49 @@ struct stage5: View{
                     }.onAppear{
                         //何のカードかを決める
                         for i in 0..<6 {
-                            let card_random = Int.random(in: 1..<3)
+                            let card_random = Int.random(in: 1..<4)
                             if i == 1{
                                 card_designation["card1"] = String(card_random)
                             }
                             else if i == 2{
-                                card_designation["card2"] = String(card_random)
+                                if card_designation["card1"] == "1"{
+                                    card_designation["card2"] = "1"
+                                }
+                                else if card_designation["card1"] == "2"{
+                                    card_designation["card2"] = "2"
+                                }
+                                else if card_designation["card1"] == "3"{
+                                    card_designation["card2"] = "3"
+                                }
                             }
                             else if i == 3{
                                 card_designation["card3"] = String(card_random)
                             }
                             else if i == 4{
-                                card_designation["card4"] = String(card_random)
+                                if card_designation["card3"] == "1"{
+                                    card_designation["card4"] = "1"
+                                }
+                                else if card_designation["card3"] == "2"{
+                                    card_designation["card4"] = "2"
+                                }
+                                else if card_designation["card3"] == "3"{
+                                    card_designation["card4"] = "3"
+                                }
                             }
                             else if i == 5{
                                 card_designation["card5"] = String(card_random)
                             }
                             else if i == 6{
-                                card_designation["card6"] = String(card_random)
+                                if card_designation["card5"] == "1"{
+                                    card_designation["card6"] = "1"
+                                }
+                                else if card_designation["card5"] == "2"{
+                                    card_designation["card6"] = "2"
+                                }
+                                else if card_designation["card5"] == "3"{
+                                    card_designation["card6"] = "3"
+                                }
                             }
-                            print(card_designation)
                         }
                     }
                     Spacer()
