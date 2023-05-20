@@ -51,17 +51,17 @@ struct stage1: View{
                     HStack{
                         VStack{
                             Text("STAGE1").font(.title3).fontWeight(.black)
-                            Text("フラッグを目指して").font(.title).fontWeight(.black)
+                            Text("フラッグ目指して").font(.title).fontWeight(.black)
                         }
                         Spacer()
                         Button(action: {
                             showShould_Content_View = true
                             result = "interruption"
                         }) {
-                            Text("ゲームを中断")
+                            Text("ゲーム中断")
                                 .bold()
                                 .padding()
-                                .frame(width: 100, height: 50)
+                                .frame(width: 140, height: 50)
                                 .foregroundColor(Color.white)
                                 .background(Color.purple)
                                 .cornerRadius(10)

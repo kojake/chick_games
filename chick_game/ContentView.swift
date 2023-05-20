@@ -107,7 +107,32 @@ struct ContentView: View {
                             }
                             //スタートボタン
                             VStack{
-                                Text("選択されたSTAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .fill(Color.gray)
+                                        .frame(width:400, height: 300)
+                                    
+                                    HStack{
+                                        Text("選択している\nSTAGE\(selected_STAGE)").font(.system(size: 50, weight: .black, design: .default))
+                                        Spacer()
+                                        if selected_STAGE == 1{
+                                            Image("stage1_image").resizable().scaledToFit().frame(width: 200,height: 300)
+                                        }
+                                        else if selected_STAGE == 2{
+                                            Image("stage2_image").resizable().scaledToFit().frame(width: 200,height: 300)
+                                        }
+                                        else if selected_STAGE == 3{
+                                            Image("stage3_image").resizable().scaledToFit().frame(width: 200,height: 300)
+                                        }
+                                        else if selected_STAGE == 4{
+                                            Image("stage4_image").resizable().scaledToFit().frame(width: 200,height: 300)
+                                        }
+                                        else if selected_STAGE == 5{
+                                            
+                                        }
+                                    }
+                                }
+                                
                                 Button(action: {
                                     //選択されたステージを表示する
                                     if selected_STAGE == 1{
@@ -163,7 +188,7 @@ struct ContentView: View {
                         .onChanged{ value in
                             // メインコンテンツの縦方向のスクロールを妨げないためにstartLocationを使用します
                             // オフセットの値(メニューの位置)をスワイプした距離に応じて狭めていきます
-                            if (self.offset != self.openOffset && value.startLocation.y < 30) {
+                            if (self.offset != self.openOffset && value.startLocation.y < 60) {
                                 self.offset = self.closeOffset + value.translation.height
                             }
                         }
