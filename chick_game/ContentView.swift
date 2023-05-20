@@ -14,13 +14,16 @@ struct ContentView: View {
     @State private var showShould_main_View = false
     @State private var showShould_shop_View = false
     @State private var showShould_dressing_up_View = false
+    //加kステージの画面遷移
+    @State private var showShould_stage1 = false
+    @State private var showShould_stage2 = false
+    @State private var showShould_stage3 = false
+    @State private var showShould_stage4 = false
+    @State private var showShould_stage5 = false
     
     var body: some View {
         NavigationView{
             VStack {
-                NavigationLink(destination: main_View(select_stage: $selected_STAGE), isActive: $showShould_main_View) {
-                    EmptyView()
-                }.navigationBarBackButtonHidden(true)
                 NavigationLink(destination: shop_View(), isActive: $showShould_shop_View) {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)
@@ -145,25 +148,37 @@ struct ContentView: View {
                                 }.buttonStyle(BlueButtonStyle())
                             }
                         }
-
                     }
                 }.shadow(radius: 20)
                 Spacer()
                 //スタートボタン
-                HStack{
-                    VStack{
-                        Text("選択されたSTAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
-                        Button(action: {
-                            showShould_main_View = true
-                        }) {
-                            Image("chick_game_start_button_image").resizable().scaledToFit()
-                                .bold()
-                                .padding()
-                                .frame(width: 300, height: 150)
-                                .foregroundColor(Color.white)
-                                .background(Color.yellow)
-                                .cornerRadius(10)
+                VStack{
+                    Text("選択されたSTAGE\(selected_STAGE)").font(.largeTitle).fontWeight(.black)
+                    Button(action: {
+                        //選択されたステージを表示する
+                        if selected_STAGE == 1{
+
                         }
+                        else if selected_STAGE == 2{
+
+                        }
+                        else if selected_STAGE == 3{
+
+                        }
+                        else if selected_STAGE == 4{
+
+                        }
+                        else if selected_STAGE == 5{
+
+                        }
+                    }) {
+                        Image("chick_game_start_button_image").resizable().scaledToFit()
+                            .bold()
+                            .padding()
+                            .frame(width: 300, height: 150)
+                            .foregroundColor(Color.white)
+                            .background(Color.yellow)
+                            .cornerRadius(10)
                     }
                 }
             }
