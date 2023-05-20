@@ -1244,7 +1244,16 @@ struct stage5: View{
                             }) {
                                 Flip(isFront: isFront,
                                      front: {
-                                    Image("神経衰弱_カード_1")
+                                    
+                                    if card_designation["card1"] == "1"{
+                                        Image("神経衰弱_カード_1")
+                                    }
+                                    else if card_designation["card2"] == "2"{
+                                        Image("神経衰弱_カード_2")
+                                    }
+                                    else if card_designation["card3"] == "3"{
+                                        Image("神経衰弱_カード_3")
+                                    }
                                 },
                                      back: {
                                     Image("神経衰弱_カード_?")
@@ -1282,11 +1291,25 @@ struct stage5: View{
                         //何のカードかを決める
                         for i in 0..<6 {
                             let card_random = Int.random(in: 1..<3)
-                            
                             if i == 1{
-                                
+                                card_designation["card1"] = String(card_random)
                             }
-                            
+                            else if i == 2{
+                                card_designation["card2"] = String(card_random)
+                            }
+                            else if i == 3{
+                                card_designation["card3"] = String(card_random)
+                            }
+                            else if i == 4{
+                                card_designation["card4"] = String(card_random)
+                            }
+                            else if i == 5{
+                                card_designation["card5"] = String(card_random)
+                            }
+                            else if i == 6{
+                                card_designation["card6"] = String(card_random)
+                            }
+                            print(card_designation)
                         }
                     }
                     Spacer()
