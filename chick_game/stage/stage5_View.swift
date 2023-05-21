@@ -9,7 +9,7 @@ import SwiftUI
 
 //ステージ5
 struct Card: Identifiable {
-    let id: UUID = UUID()
+    let id = UUID()
     var imageName: String
     var isFaceUp: Bool = false
     var isMatched: Bool = false
@@ -86,25 +86,36 @@ struct stage5: View{
                                 .cornerRadius(10)
                         }
                     }
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color.gray)
+                            .frame(width:300, height: 170)
+                        HStack{
+                            Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
+                            Text("X").font(.largeTitle).fontWeight(.black)
+                            Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
+                        }
+                    }
                     Spacer()
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                        ForEach(cards) { card in
-                            Button(action: {
-                                selectCard(card)
-                            }) {
-                                if card.isFaceUp || card.isMatched {
-                                    Image(card.imageName)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(8)
-                                } else {
-                                    Image("card-back")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(8)
+                    VStack {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
+                            ForEach(cards) { card in
+                                Button(action: {
+                                    selectCard(card)
+                                }) {
+                                    Flip(isFront: card.isFaceUp || card.isMatched,
+                                         front: {
+                                            Image(card.imageName)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .padding(8)
+                                         },
+                                         back: {
+                                            Image("card-back").resizable().scaledToFit()
+                                         })
                                 }
+                                .disabled(card.isMatched)
                             }
-                            .disabled(card.isMatched)
                         }
                     }
                 }
@@ -257,7 +268,6 @@ struct stage5: View{
         }
     }
 }
-
 
 //ステージ5のカードめくりアニメーション
 struct Flip<Front: View, Back: View>: View {
