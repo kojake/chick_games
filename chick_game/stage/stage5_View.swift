@@ -36,15 +36,16 @@ struct stage5: View{
     @State var star_count = 3
     //選択されたステージを取得する
     @Binding var select_stage: Int
-    
     //カード
+    @State var each_card_list = ["","","","","",""]
+    let card_random_list = ["神経衰弱_カード_1","神経衰弱_カード_2","神経衰弱_カード_3"]
     @State private var cards: [Card] = [
-        Card(imageName: "神経衰弱_カード_1"),
-        Card(imageName: "神経衰弱_カード_2"),
-        Card(imageName: "神経衰弱_カード_3"),
-        Card(imageName: "神経衰弱_カード_1"),
-        Card(imageName: "神経衰弱_カード_2"),
-        Card(imageName: "神経衰弱_カード_3"),
+        Card(imageName: ""),
+        Card(imageName: ""),
+        Card(imageName: ""),
+        Card(imageName: ""),
+        Card(imageName: ""),
+        Card(imageName: ""),
     ]
     @State private var selectedCardIndices: [Int] = []
     
@@ -85,16 +86,6 @@ struct stage5: View{
                                     .foregroundColor(Color.white)
                                     .background(Color.purple)
                                     .cornerRadius(10)
-                            }
-                        }
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.gray)
-                                .frame(width:300, height: 170)
-                            HStack{
-                                Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
-                                Text("X").font(.largeTitle).fontWeight(.black)
-                                Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
                             }
                         }
                         Spacer()
@@ -160,6 +151,8 @@ struct stage5: View{
                     }
                 }
             }.onAppear{
+                //カードランダム関数実行
+                card_decision()
                 //timerstart
                 var timer: Timer? = nil
                 timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -246,6 +239,69 @@ struct stage5: View{
                 }
         }.navigationBarBackButtonHidden(true)
     }
+    func card_decision(){
+        //カードランダム
+        for i in 0..<7{
+            print(i)
+            let card_random_value_get = card_random_list.randomElement()
+            if i == 1{
+                each_card_list[0] = card_random_value_get!
+                cards[0].imageName = each_card_list[0]
+            }
+            else if i == 2{
+                if each_card_list[0] == "神経衰弱_カード_1"{
+                    each_card_list[1] = "神経衰弱_カード_1"
+                    cards[1].imageName = each_card_list[1]
+                }
+                else if each_card_list[0] == "神経衰弱_カード_2"{
+                    each_card_list[1] = "神経衰弱_カード_2"
+                    cards[1].imageName = each_card_list[1]
+                }
+                else if each_card_list[0] == "神経衰弱_カード_3"{
+                    each_card_list[1] = "神経衰弱_カード_3"
+                    cards[1].imageName = each_card_list[1]
+                }
+            }
+            else if i == 3{
+                each_card_list[2] = card_random_value_get!
+                cards[2].imageName = each_card_list[2]
+            }
+            else if i == 4{
+                if each_card_list[2] == "神経衰弱_カード_1"{
+                    each_card_list[3] = "神経衰弱_カード_1"
+                    cards[3].imageName = each_card_list[3]
+                }
+                else if each_card_list[2] == "神経衰弱_カード_2"{
+                    each_card_list[3] = "神経衰弱_カード_2"
+                    cards[3].imageName = each_card_list[3]
+                }
+                else if each_card_list[2] == "神経衰弱_カード_3"{
+                    each_card_list[3] = "神経衰弱_カード_3"
+                    cards[3].imageName = each_card_list[3]
+                }
+            }
+            else if i == 5{
+                each_card_list[4] = card_random_value_get!
+                cards[4].imageName = each_card_list[4]
+            }
+            else if i == 6{
+                if each_card_list[4] == "神経衰弱_カード_1"{
+                    each_card_list[5] = "神経衰弱_カード_1"
+                    cards[5].imageName = each_card_list[5]
+                }
+                else if each_card_list[4] == "神経衰弱_カード_2"{
+                    each_card_list[5] = "神経衰弱_カード_2"
+                    cards[5].imageName = each_card_list[5]
+                }
+                else if each_card_list[4] == "神経衰弱_カード_3"{
+                    each_card_list[5] = "神経衰弱_カード_3"
+                    cards[5].imageName = each_card_list[5]
+                }
+            }
+        }
+    }
+    
+    //カードが揃っているか
     private func selectCard(_ card: Card) {
         guard let selectedIndex = cards.firstIndex(where: { $0.id == card.id }),
               !cards[selectedIndex].isFaceUp,
