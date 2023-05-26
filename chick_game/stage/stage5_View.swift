@@ -57,189 +57,194 @@ struct stage5: View{
     @State var isFront6 = false
     
     var body: some View{
-        ZStack{
-            NavigationView{
-                Color.green.ignoresSafeArea()
-                VStack{
-                    NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
-                        EmptyView()
-                    }.navigationBarBackButtonHidden(true)
-                    NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
-                        EmptyView()
-                    }.navigationBarBackButtonHidden(true)
-                    HStack{
-                        VStack{
-                            Text("STAGE5").font(.title3).fontWeight(.black)
-                            Text("ひよこを揃えながら").font(.title).fontWeight(.black)
+        NavigationView{
+            VStack{
+                ZStack{
+                    Color.green.ignoresSafeArea()
+                    VStack{
+                        NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
+                            EmptyView()
+                        }.navigationBarBackButtonHidden(true)
+                        NavigationLink(destination: result_View(result: $result, remaining_timer: $timer_count, result_star_count: $star_count, select_stage: $select_stage), isActive: $showShould_result_View) {
+                            EmptyView()
+                        }.navigationBarBackButtonHidden(true)
+                        HStack{
+                            VStack{
+                                Text("STAGE5").font(.title3).fontWeight(.black)
+                                Text("ひよこを揃えながら").font(.title).fontWeight(.black)
+                            }
+                            Spacer()
+                            Button(action: {
+                                showShould_Content_View = true
+                                result = "interruption"
+                            }) {
+                                Text("ゲーム中断")
+                                    .bold()
+                                    .padding()
+                                    .frame(width: 140, height: 50)
+                                    .foregroundColor(Color.white)
+                                    .background(Color.purple)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(Color.gray)
+                                .frame(width:300, height: 170)
+                            HStack{
+                                Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
+                                Text("X").font(.largeTitle).fontWeight(.black)
+                                Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
+                            }
                         }
                         Spacer()
-                        Button(action: {
-                            showShould_Content_View = true
-                            result = "interruption"
-                        }) {
-                            Text("ゲーム中断")
-                                .bold()
-                                .padding()
-                                .frame(width: 140, height: 50)
-                                .foregroundColor(Color.white)
-                                .background(Color.purple)
-                                .cornerRadius(10)
-                        }
-                    }
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 30)
-                            .fill(Color.gray)
-                            .frame(width:300, height: 170)
-                        HStack{
-                            Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
-                            Text("X").font(.largeTitle).fontWeight(.black)
-                            Image("card-back").resizable().scaledToFit().frame(width: 100, height: 100)
-                        }
-                    }
-                    Spacer()
-                    VStack {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                            ForEach(cards) { card in
-                                Button(action: {
-                                    selectCard(card)
-                                }) {
-                                    Flip(isFront: card.isFaceUp || card.isMatched,
-                                         front: {
-                                        Image(card.imageName)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .padding(8)
-                                    },
-                                         back: {
-                                        Image("card-back").resizable().scaledToFit()
-                                    })
+                        VStack {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
+                                ForEach(cards) { card in
+                                    Button(action: {
+                                        selectCard(card)
+                                    }) {
+                                        Flip(isFront: card.isFaceUp || card.isMatched,
+                                             front: {
+                                            Image(card.imageName)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .padding(8)
+                                        },
+                                             back: {
+                                            Image("card-back").resizable().scaledToFit()
+                                        })
+                                    }
+                                    .disabled(card.isMatched)
                                 }
-                                .disabled(card.isMatched)
                             }
                         }
                     }
                 }
-            }
-            Spacer()
-            HStack{
                 Spacer()
-                VStack{
+                ZStack{
+                    Color.green.ignoresSafeArea()
                     HStack{
-                        if star_count == 3{
-                            Image(systemName: "star.fill").font(.title)
-                            Image(systemName: "star.fill").font(.title)
-                            Image(systemName: "star.fill").font(.title)
+                        Spacer()
+                        VStack{
+                            HStack{
+                                if star_count == 3{
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                }
+                                else if star_count == 2{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                }
+                                else if star_count == 1{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star.fill").font(.title)
+                                }
+                                else if star_count == 0{
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                    Image(systemName: "star").font(.title)
+                                }
+                            }.foregroundColor(Color.yellow)
+                            HStack{
+                                Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
+                                Text("\(timer_count)").font(.title2).fontWeight(.black)
+                            }
+                        }.frame(width: 180, height: 130).overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 5))
+                        Spacer()
+                    }
+                }
+            }.onAppear{
+                //timerstart
+                var timer: Timer? = nil
+                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                    timer_count -= 1
+                    
+                    if star_count == 3{
+                        if timer_count == 0 {
+                            timer = nil
+                            timer_count = 15
+                            star_count -= 1
                         }
-                        else if star_count == 2{
-                            Image(systemName: "star").font(.title)
-                            Image(systemName: "star.fill").font(.title)
-                            Image(systemName: "star.fill").font(.title)
+                        else if clear_or_not_clear == "clear"{
+                            timer?.invalidate()
                         }
-                        else if star_count == 1{
-                            Image(systemName: "star").font(.title)
-                            Image(systemName: "star").font(.title)
-                            Image(systemName: "star.fill").font(.title)
+                        else if result == "collision"{
+                            timer?.invalidate()
                         }
-                        else if star_count == 0{
-                            Image(systemName: "star").font(.title)
-                            Image(systemName: "star").font(.title)
-                            Image(systemName: "star").font(.title)
+                        else if result == "interruption"{
+                            timer?.invalidate()
                         }
-                    }.foregroundColor(Color.yellow)
-                    HStack{
-                        Image(systemName: "clock").font(.largeTitle).fontWeight(.black)
-                        Text("\(timer_count)").font(.title2).fontWeight(.black)
                     }
-                }.frame(width: 180, height: 130).overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.blue, lineWidth: 5))
-                Spacer()
-            }
-        }.onAppear{
-            //timerstart
-            var timer: Timer? = nil
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                timer_count -= 1
-                
-                if star_count == 3{
-                    if timer_count == 0 {
-                        timer = nil
-                        timer_count = 15
-                        star_count -= 1
+                    else if star_count == 2{
+                        if timer_count == 0 {
+                            timer = nil
+                            timer_count = 15
+                            star_count -= 1
+                        }
+                        else if clear_or_not_clear == "clear"{
+                            timer?.invalidate()
+                        }
+                        else if result == "collision"{
+                            timer?.invalidate()
+                        }
+                        else if result == "interruption"{
+                            timer?.invalidate()
+                        }
                     }
-                    else if clear_or_not_clear == "clear"{
+                    else if star_count == 1{
+                        if timer_count == 0 {
+                            timer = nil
+                            timer_count = 15
+                            star_count -= 1
+                        }
+                        else if clear_or_not_clear == "clear"{
+                            timer?.invalidate()
+                        }
+                        else if result == "collision"{
+                            timer?.invalidate()
+                        }
+                        else if result == "interruption"{
+                            timer?.invalidate()
+                        }
+                    }
+                    else if star_count == 0{
+                        if timer_count == 0 {
+                            timer?.invalidate()
+                            timer = nil
+                            clear_alert = true
+                            alert_message = "時間切れになりました。リザルト画面に移動します"
+                            result = "out_of_time"
+                        }
+                        else if clear_or_not_clear == "clear"{
+                            timer?.invalidate()
+                        }
+                        else if result == "collision"{
+                            timer?.invalidate()
+                        }
+                        else if result == "interruption"{
+                            timer?.invalidate()
+                        }
+                    }
+                    if clear_or_not_clear == "clear"{
                         timer?.invalidate()
-                    }
-                    else if result == "collision"{
-                        timer?.invalidate()
-                    }
-                    else if result == "interruption"{
-                        timer?.invalidate()
+                        alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
+                        result = "clear"
                     }
                 }
-                else if star_count == 2{
-                    if timer_count == 0 {
-                        timer = nil
-                        timer_count = 15
-                        star_count -= 1
-                    }
-                    else if clear_or_not_clear == "clear"{
-                        timer?.invalidate()
-                    }
-                    else if result == "collision"{
-                        timer?.invalidate()
-                    }
-                    else if result == "interruption"{
-                        timer?.invalidate()
-                    }
+            }.navigationBarBackButtonHidden(true)
+                .alert(isPresented: $clear_alert) {
+                    Alert(title: Text("結果"),
+                          message: Text(alert_message),
+                          dismissButton: .default(Text("OK"),
+                                                  action: {showShould_result_View = true}))
                 }
-                else if star_count == 1{
-                    if timer_count == 0 {
-                        timer = nil
-                        timer_count = 15
-                        star_count -= 1
-                    }
-                    else if clear_or_not_clear == "clear"{
-                        timer?.invalidate()
-                    }
-                    else if result == "collision"{
-                        timer?.invalidate()
-                    }
-                    else if result == "interruption"{
-                        timer?.invalidate()
-                    }
-                }
-                else if star_count == 0{
-                    if timer_count == 0 {
-                        timer?.invalidate()
-                        timer = nil
-                        clear_alert = true
-                        alert_message = "時間切れになりました。リザルト画面に移動します"
-                        result = "out_of_time"
-                    }
-                    else if clear_or_not_clear == "clear"{
-                        timer?.invalidate()
-                    }
-                    else if result == "collision"{
-                        timer?.invalidate()
-                    }
-                    else if result == "interruption"{
-                        timer?.invalidate()
-                    }
-                }
-                if clear_or_not_clear == "clear"{
-                    timer?.invalidate()
-                    alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
-                    result = "clear"
-                }
-            }
         }.navigationBarBackButtonHidden(true)
-            .alert(isPresented: $clear_alert) {
-                Alert(title: Text("結果"),
-                      message: Text(alert_message),
-                      dismissButton: .default(Text("OK"),
-                                              action: {showShould_result_View = true}))
-            }
     }
     private func selectCard(_ card: Card) {
         guard let selectedIndex = cards.firstIndex(where: { $0.id == card.id }),
@@ -268,7 +273,6 @@ struct stage5: View{
         }
     }
 }
-
 //ステージ5のカードめくりアニメーション
 struct Flip<Front: View, Back: View>: View {
     var isFront: Bool
