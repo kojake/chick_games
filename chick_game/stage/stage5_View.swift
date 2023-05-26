@@ -56,9 +56,9 @@ struct stage5: View{
     @State var isFront5 = false
     @State var isFront6 = false
     
-    var body: some View {
-        NavigationView{
-            ZStack{
+    var body: some View{
+        ZStack{
+            NavigationView{
                 Color.green.ignoresSafeArea()
                 VStack{
                     NavigationLink(destination: ContentView(), isActive: $showShould_Content_View) {
@@ -105,14 +105,14 @@ struct stage5: View{
                                 }) {
                                     Flip(isFront: card.isFaceUp || card.isMatched,
                                          front: {
-                                            Image(card.imageName)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .padding(8)
-                                         },
+                                        Image(card.imageName)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .padding(8)
+                                    },
                                          back: {
-                                            Image("card-back").resizable().scaledToFit()
-                                         })
+                                        Image("card-back").resizable().scaledToFit()
+                                    })
                                 }
                                 .disabled(card.isMatched)
                             }
@@ -234,12 +234,12 @@ struct stage5: View{
                 }
             }
         }.navigationBarBackButtonHidden(true)
-        .alert(isPresented: $clear_alert) {
-            Alert(title: Text("結果"),
-                  message: Text(alert_message),
-                  dismissButton: .default(Text("OK"),
-                                          action: {showShould_result_View = true}))
-        }
+            .alert(isPresented: $clear_alert) {
+                Alert(title: Text("結果"),
+                      message: Text(alert_message),
+                      dismissButton: .default(Text("OK"),
+                                              action: {showShould_result_View = true}))
+            }
     }
     private func selectCard(_ card: Card) {
         guard let selectedIndex = cards.firstIndex(where: { $0.id == card.id }),
@@ -276,7 +276,7 @@ struct Flip<Front: View, Back: View>: View {
     let duration: Double
     let front: () -> Front
     let back: () -> Back
-
+    
     init(isFront: Bool,
          duration: Double = 1.0,
          @ViewBuilder front: @escaping () -> Front,
@@ -287,7 +287,7 @@ struct Flip<Front: View, Back: View>: View {
         self.front = front
         self.back = back
     }
-
+    
     var body: some View {
         ZStack {
             if self.canShowFrontView {
