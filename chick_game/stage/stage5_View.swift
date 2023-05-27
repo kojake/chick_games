@@ -300,7 +300,7 @@ struct stage5: View{
             print(each_card_list)
         //カードランダムがおかしくなっていたら
             var random_list = [1,2,3]
-            if each_card_list[0] == each_card_list[2]{
+            if each_card_list[0] == each_card_list[2] || each_card_list[0] == each_card_list[4]{
                 if each_card_list[0] == "神経衰弱_カード_1"{
                     random_list.remove(at: 0)
                     let random = random_list.randomElement()
@@ -352,8 +352,9 @@ struct stage5: View{
                 //変更した内容を代入する
                 cards[2].imageName = each_card_list[2]
                 cards[3].imageName = each_card_list[3]
+                cards[4].imageName = each_card_list[4]
+                cards[5].imageName = each_card_list[5]
             }
-            
             print(each_card_list)
         }
     }
