@@ -27,6 +27,7 @@ struct stage5: View{
     @State var alert_message = ""
     //timer
     @State var timer_count = 15
+    @State var timer: Timer? = nil
     //result_View
     @State private var showShould_result_View = false
     //結果
@@ -152,7 +153,6 @@ struct stage5: View{
                 //カードランダム関数実行
                 card_decision()
                 //timerstart
-                var timer: Timer? = nil
                 timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                     timer_count -= 1
                     if star_count == 3{
@@ -220,11 +220,6 @@ struct stage5: View{
                         else if result == "interruption"{
                             timer?.invalidate()
                         }
-                    }
-                    if clear_or_not_clear == "clear"{
-                        timer?.invalidate()
-                        alert_message = "ゴール旗に触れましたクリアです、リザルト画面に移動します"
-                        result = "clear"
                     }
                 }
             }.navigationBarBackButtonHidden(true)
@@ -339,17 +334,19 @@ struct stage5: View{
             if cards[firstIndex].imageName == cards[secondIndex].imageName {
                 cards[firstIndex].isMatched = true
                 cards[secondIndex].isMatched = true
+                
+                // カードが揃った場合の処理
+                if cards.allSatisfy({ $0.isMatched }) {
+                    timer?.invalidate()
+                    result = "clear"
+                    showShould_result_View = true
+                }
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 cards[firstIndex].isFaceUp = false
                 cards[secondIndex].isFaceUp = false
                 selectedCardIndices.removeAll()
-                
-                if cards.allSatisfy({ $0.isMatched }) {
-                    // すべてのカードが揃った時の処理
-                    result = "clear"
-                }
             }
         }
     }
