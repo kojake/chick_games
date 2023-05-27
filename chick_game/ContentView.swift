@@ -128,7 +128,7 @@ struct ContentView: View {
                                             Image("stage4_image").resizable().scaledToFit().frame(width: 200,height: 300)
                                         }
                                         else if selected_STAGE == 5{
-                                            
+                                            Image("stage5_image").resizable().scaledToFit().frame(width: 200,height: 300)
                                         }
                                     }
                                 }
@@ -388,18 +388,7 @@ struct select_stage_menu_View: View{
         Text("ステージ選択").padding().fontWeight(.black).font(.largeTitle)
         ScrollView(.horizontal) {
             HStack{
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }){
-                    Text("閉じる")
-                        .padding()
-                        .frame(width: 100, height: 100)
-                        .imageScale(.large)
-                        .foregroundColor(Color.white)
-                        .background(Color.green)
-                        .clipShape(Circle())
-                        .shadow(radius: 20)
-                }
+                Image("swipeuptoclose_image").resizable().scaledToFit().frame(width: 200, height: 200)
                 ZStack{
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
                         .fill(Color.gray)
