@@ -307,10 +307,14 @@ struct stage5: View{
                     if random == 2{
                         each_card_list[2] = "神経衰弱_カード_2"
                         each_card_list[3] = "神経衰弱_カード_2"
+                        each_card_list[4] = "神経衰弱_カード_3"
+                        each_card_list[5] = "神経衰弱_カード_3"
                     }
                     else if random == 3{
                         each_card_list[2] = "神経衰弱_カード_3"
                         each_card_list[3] = "神経衰弱_カード_3"
+                        each_card_list[4] = "神経衰弱_カード_2"
+                        each_card_list[5] = "神経衰弱_カード_2"
                     }
                 }
                 if each_card_list[0] == "神経衰弱_カード_2"{
@@ -319,10 +323,14 @@ struct stage5: View{
                     if random == 1{
                         each_card_list[2] = "神経衰弱_カード_1"
                         each_card_list[3] = "神経衰弱_カード_1"
+                        each_card_list[4] = "神経衰弱_カード_3"
+                        each_card_list[5] = "神経衰弱_カード_3"
                     }
                     else if random == 3{
                         each_card_list[2] = "神経衰弱_カード_3"
                         each_card_list[3] = "神経衰弱_カード_3"
+                        each_card_list[4] = "神経衰弱_カード_2"
+                        each_card_list[5] = "神経衰弱_カード_2"
                     }
                 }
                 if each_card_list[0] == "神経衰弱_カード_3"{
@@ -331,57 +339,20 @@ struct stage5: View{
                     if random == 1{
                         each_card_list[2] = "神経衰弱_カード_1"
                         each_card_list[3] = "神経衰弱_カード_1"
+                        each_card_list[4] = "神経衰弱_カード_2"
+                        each_card_list[5] = "神経衰弱_カード_2"
                     }
                     else if random == 2{
                         each_card_list[2] = "神経衰弱_カード_2"
                         each_card_list[3] = "神経衰弱_カード_2"
+                        each_card_list[4] = "神経衰弱_カード_3"
+                        each_card_list[5] = "神経衰弱_カード_3"
                     }
                 }
                 //変更した内容を代入する
                 cards[2].imageName = each_card_list[2]
                 cards[3].imageName = each_card_list[3]
             }
-            if each_card_list[0] == each_card_list[4]{
-                if each_card_list[0] == "神経衰弱_カード_1"{
-                    random_list.remove(at: 0)
-                    let random = random_list.randomElement()
-                    if random == 2{
-                        each_card_list[4] = "神経衰弱_カード_2"
-                        each_card_list[5] = "神経衰弱_カード_2"
-                    }
-                    else if random == 3{
-                        each_card_list[4] = "神経衰弱_カード_3"
-                        each_card_list[5] = "神経衰弱_カード_3"
-                    }
-                }
-                if each_card_list[0] == "神経衰弱_カード_2"{
-                    random_list.remove(at: 1)
-                    let random = random_list.randomElement()
-                    if random == 1{
-                        each_card_list[4] = "神経衰弱_カード_1"
-                        each_card_list[5] = "神経衰弱_カード_1"
-                    }
-                    else if random == 3{
-                        each_card_list[4] = "神経衰弱_カード_3"
-                        each_card_list[5] = "神経衰弱_カード_3"
-                    }
-                }
-                if each_card_list[0] == "神経衰弱_カード_3"{
-                    random_list.remove(at: 2)
-                    let random = random_list.randomElement()
-                    if random == 1{
-                        each_card_list[4] = "神経衰弱_カード_1"
-                        each_card_list[5] = "神経衰弱_カード_1"
-                    }
-                    else if random == 2{
-                        each_card_list[4] = "神経衰弱_カード_2"
-                        each_card_list[5] = "神経衰弱_カード_2"
-                    }
-                }
-            }
-            //変更した内容を代入する
-            cards[4].imageName = each_card_list[4]
-            cards[5].imageName = each_card_list[5]
             
             print(each_card_list)
         }
