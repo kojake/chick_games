@@ -39,7 +39,6 @@ struct stage5: View{
     //カード
     @State var each_card_list = ["","","","","",""]
     let card_random_list = ["神経衰弱_カード_1","神経衰弱_カード_2","神経衰弱_カード_3"]
-    @State var card_random_list2 = [1,2,3,4,5,6]
     @State private var cards: [Card] = [
         Card(imageName: ""),
         Card(imageName: ""),
@@ -240,6 +239,154 @@ struct stage5: View{
                 }
         }.navigationBarBackButtonHidden(true)
     }
+    func card_decision(){
+        //カードランダム
+        for i in 0..<7{
+            let card_random_value_get = card_random_list.randomElement()
+            if i == 1{
+                each_card_list[0] = card_random_value_get!
+                cards[0].imageName = each_card_list[0]
+            }
+            else if i == 2{
+                if each_card_list[0] == "神経衰弱_カード_1"{
+                    each_card_list[1] = "神経衰弱_カード_1"
+                    cards[1].imageName = each_card_list[1]
+                }
+                else if each_card_list[0] == "神経衰弱_カード_2"{
+                    each_card_list[1] = "神経衰弱_カード_2"
+                    cards[1].imageName = each_card_list[1]
+                }
+                else if each_card_list[0] == "神経衰弱_カード_3"{
+                    each_card_list[1] = "神経衰弱_カード_3"
+                    cards[1].imageName = each_card_list[1]
+                }
+            }
+            else if i == 3{
+                each_card_list[2] = card_random_value_get!
+                cards[2].imageName = each_card_list[2]
+            }
+            else if i == 4{
+                if each_card_list[2] == "神経衰弱_カード_1"{
+                    each_card_list[3] = "神経衰弱_カード_1"
+                    cards[3].imageName = each_card_list[3]
+                }
+                else if each_card_list[2] == "神経衰弱_カード_2"{
+                    each_card_list[3] = "神経衰弱_カード_2"
+                    cards[3].imageName = each_card_list[3]
+                }
+                else if each_card_list[2] == "神経衰弱_カード_3"{
+                    each_card_list[3] = "神経衰弱_カード_3"
+                    cards[3].imageName = each_card_list[3]
+                }
+            }
+            else if i == 5{
+                each_card_list[4] = card_random_value_get!
+                cards[4].imageName = each_card_list[4]
+            }
+            else if i == 6{
+                if each_card_list[4] == "神経衰弱_カード_1"{
+                    each_card_list[5] = "神経衰弱_カード_1"
+                    cards[5].imageName = each_card_list[5]
+                }
+                else if each_card_list[4] == "神経衰弱_カード_2"{
+                    each_card_list[5] = "神経衰弱_カード_2"
+                    cards[5].imageName = each_card_list[5]
+                }
+                else if each_card_list[4] == "神経衰弱_カード_3"{
+                    each_card_list[5] = "神経衰弱_カード_3"
+                    cards[5].imageName = each_card_list[5]
+                }
+            }
+            print(each_card_list)
+        //カードランダムがおかしくなっていたら
+            var random_list = [1,2,3]
+            if each_card_list[0] == each_card_list[2]{
+                if each_card_list[0] == "神経衰弱_カード_1"{
+                    random_list.remove(at: 0)
+                    let random = random_list.randomElement()
+                    if random == 2{
+                        each_card_list[2] = "神経衰弱_カード_2"
+                        each_card_list[3] = "神経衰弱_カード_2"
+                    }
+                    else if random == 3{
+                        each_card_list[2] = "神経衰弱_カード_3"
+                        each_card_list[3] = "神経衰弱_カード_3"
+                    }
+                }
+                if each_card_list[0] == "神経衰弱_カード_2"{
+                    random_list.remove(at: 1)
+                    let random = random_list.randomElement()
+                    if random == 1{
+                        each_card_list[2] = "神経衰弱_カード_1"
+                        each_card_list[3] = "神経衰弱_カード_1"
+                    }
+                    else if random == 3{
+                        each_card_list[2] = "神経衰弱_カード_3"
+                        each_card_list[3] = "神経衰弱_カード_3"
+                    }
+                }
+                if each_card_list[0] == "神経衰弱_カード_3"{
+                    random_list.remove(at: 2)
+                    let random = random_list.randomElement()
+                    if random == 1{
+                        each_card_list[2] = "神経衰弱_カード_1"
+                        each_card_list[3] = "神経衰弱_カード_1"
+                    }
+                    else if random == 2{
+                        each_card_list[2] = "神経衰弱_カード_2"
+                        each_card_list[3] = "神経衰弱_カード_2"
+                    }
+                }
+                //変更した内容を代入する
+                cards[2].imageName = each_card_list[2]
+                cards[3].imageName = each_card_list[3]
+            }
+            if each_card_list[0] == each_card_list[4]{
+                if each_card_list[0] == "神経衰弱_カード_1"{
+                    random_list.remove(at: 0)
+                    let random = random_list.randomElement()
+                    if random == 2{
+                        each_card_list[4] = "神経衰弱_カード_2"
+                        each_card_list[5] = "神経衰弱_カード_2"
+                    }
+                    else if random == 3{
+                        each_card_list[4] = "神経衰弱_カード_3"
+                        each_card_list[5] = "神経衰弱_カード_3"
+                    }
+                }
+                if each_card_list[0] == "神経衰弱_カード_2"{
+                    random_list.remove(at: 1)
+                    let random = random_list.randomElement()
+                    if random == 1{
+                        each_card_list[4] = "神経衰弱_カード_1"
+                        each_card_list[5] = "神経衰弱_カード_1"
+                    }
+                    else if random == 3{
+                        each_card_list[4] = "神経衰弱_カード_3"
+                        each_card_list[5] = "神経衰弱_カード_3"
+                    }
+                }
+                if each_card_list[0] == "神経衰弱_カード_3"{
+                    random_list.remove(at: 2)
+                    let random = random_list.randomElement()
+                    if random == 1{
+                        each_card_list[4] = "神経衰弱_カード_1"
+                        each_card_list[5] = "神経衰弱_カード_1"
+                    }
+                    else if random == 2{
+                        each_card_list[4] = "神経衰弱_カード_2"
+                        each_card_list[5] = "神経衰弱_カード_2"
+                    }
+                }
+            }
+            //変更した内容を代入する
+            cards[4].imageName = each_card_list[4]
+            cards[5].imageName = each_card_list[5]
+            
+            print(each_card_list)
+        }
+    }
+    
     //カードが揃っているか
     private func selectCard(_ card: Card) {
         guard let selectedIndex = cards.firstIndex(where: { $0.id == card.id }),
@@ -266,93 +413,51 @@ struct stage5: View{
                 selectedCardIndices.removeAll()
             }
         }
+        
+        if cards.allSatisfy({ $0.isMatched }) {
+            // すべてのカードが揃った時の処理
+            result = "clear"
+            showShould_result_View = true
+        }
+    }
+}
+//ステージ5のカードめくりアニメーション
+struct Flip<Front: View, Back: View>: View {
+    var isFront: Bool
+    @State var canShowFrontView: Bool
+    let duration: Double
+    let front: () -> Front
+    let back: () -> Back
+    
+    init(isFront: Bool,
+         duration: Double = 1.0,
+         @ViewBuilder front: @escaping () -> Front,
+         @ViewBuilder back: @escaping () -> Back) {
+        self.isFront = isFront
+        self._canShowFrontView = State(initialValue: isFront)
+        self.duration = duration
+        self.front = front
+        self.back = back
     }
     
-    func card_decision(){
-        for i in 0..<7 {
-            let card_random_value_get = card_random_list.randomElement() ?? ""
-            
-            if i == 1 {
-                each_card_list[0] = card_random_value_get
-                cards[0].imageName = each_card_list[0]
+    var body: some View {
+        ZStack {
+            if self.canShowFrontView {
+                front()
             }
-            else if i == 2 {
-                if each_card_list[0] == "神経衰弱_カード_2" {
-                    each_card_list[1] = "神経衰弱_カード_2"
-                    cards[1].imageName = each_card_list[1]
-                }
-                else {
-                    each_card_list[1] = card_random_value_get
-                }
+            else {
+                back()
+                    .rotation3DEffect(Angle(degrees: 180), axis: (x: 0, y: 1, z: 0))
             }
-            else if i == 3 {
-                each_card_list[2] = card_random_value_get
-                cards[2].imageName = each_card_list[2]
-            }
-            else if i == 4 {
-                if each_card_list[2] == "神経衰弱_カード_1" {
-                    each_card_list[3] = "神経衰弱_カード_1"
-                }
-                else {
-                    each_card_list[3] = card_random_value_get
-                }
-            }
-            else if i == 5 {
-                each_card_list[4] = card_random_value_get
-                cards[4].imageName = each_card_list[4]
-            }
-            else if i == 6 {
-                if each_card_list[4] == "神経衰弱_カード_1" {
-                    each_card_list[5] = "神経衰弱_カード_1"
-                }
-                else {
-                    each_card_list[5] = card_random_value_get
-                }
-            }
-            
-            let card_placement_random = card_random_list2.randomElement() ?? 0
-            cards[card_placement_random].imageName = each_card_list[i]
-            card_random_list2.removeAll(where: { $0 == card_placement_random })
         }
-    }
-    //ステージ5のカードめくりアニメーション
-    struct Flip<Front: View, Back: View>: View {
-        var isFront: Bool
-        @State var canShowFrontView: Bool
-        let duration: Double
-        let front: () -> Front
-        let back: () -> Back
-        
-        init(isFront: Bool,
-             duration: Double = 1.0,
-             @ViewBuilder front: @escaping () -> Front,
-             @ViewBuilder back: @escaping () -> Back) {
-            self.isFront = isFront
-            self._canShowFrontView = State(initialValue: isFront)
-            self.duration = duration
-            self.front = front
-            self.back = back
-        }
-        
-        var body: some View {
-            ZStack {
-                if self.canShowFrontView {
-                    front()
-                }
-                else {
-                    back()
-                        .rotation3DEffect(Angle(degrees: 180), axis: (x: 0, y: 1, z: 0))
-                }
+        .onChange(of: isFront, perform: {
+            value in
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration/2.0) {
+                self.canShowFrontView = value
             }
-            .onChange(of: isFront, perform: {
-                value in
-                DispatchQueue.main.asyncAfter(deadline: .now() + duration/2.0) {
-                    self.canShowFrontView = value
-                }
-            })
-            .animation(nil)
-            .rotation3DEffect(isFront ? Angle(degrees: 0): Angle(degrees: 180), axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0)))
-            .animation(.easeInOut(duration: duration))
-        }
+        })
+        .animation(nil)
+        .rotation3DEffect(isFront ? Angle(degrees: 0): Angle(degrees: 180), axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0)))
+        .animation(.easeInOut(duration: duration))
     }
 }
