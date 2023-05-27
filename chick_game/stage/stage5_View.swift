@@ -37,8 +37,6 @@ struct stage5: View{
     //選択されたステージを取得する
     @Binding var select_stage: Int
     //カード
-    @State var each_card_list = ["","","","","",""]
-    let card_random_list = ["神経衰弱_カード_1","神経衰弱_カード_2","神経衰弱_カード_3"]
     @State private var cards: [Card] = [
         Card(imageName: ""),
         Card(imageName: ""),
@@ -72,7 +70,7 @@ struct stage5: View{
                         HStack{
                             VStack{
                                 Text("STAGE5").font(.title3).fontWeight(.black)
-                                Text("ひよこを揃えながら").font(.title).fontWeight(.black)
+                                Text("ひよこ神経衰弱").font(.title).fontWeight(.black)
                             }
                             Spacer()
                             Button(action: {
@@ -157,7 +155,6 @@ struct stage5: View{
                 var timer: Timer? = nil
                 timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                     timer_count -= 1
-                    
                     if star_count == 3{
                         if timer_count == 0 {
                             timer = nil
@@ -241,121 +238,86 @@ struct stage5: View{
     }
     func card_decision(){
         //カードランダム
-        for i in 0..<7{
-            let card_random_value_get = card_random_list.randomElement()
-            if i == 1{
-                each_card_list[0] = card_random_value_get!
-                cards[0].imageName = each_card_list[0]
-            }
-            else if i == 2{
-                if each_card_list[0] == "神経衰弱_カード_1"{
-                    each_card_list[1] = "神経衰弱_カード_1"
-                    cards[1].imageName = each_card_list[1]
-                }
-                else if each_card_list[0] == "神経衰弱_カード_2"{
-                    each_card_list[1] = "神経衰弱_カード_2"
-                    cards[1].imageName = each_card_list[1]
-                }
-                else if each_card_list[0] == "神経衰弱_カード_3"{
-                    each_card_list[1] = "神経衰弱_カード_3"
-                    cards[1].imageName = each_card_list[1]
-                }
-            }
-            else if i == 3{
-                each_card_list[2] = card_random_value_get!
-                cards[2].imageName = each_card_list[2]
-            }
-            else if i == 4{
-                if each_card_list[2] == "神経衰弱_カード_1"{
-                    each_card_list[3] = "神経衰弱_カード_1"
-                    cards[3].imageName = each_card_list[3]
-                }
-                else if each_card_list[2] == "神経衰弱_カード_2"{
-                    each_card_list[3] = "神経衰弱_カード_2"
-                    cards[3].imageName = each_card_list[3]
-                }
-                else if each_card_list[2] == "神経衰弱_カード_3"{
-                    each_card_list[3] = "神経衰弱_カード_3"
-                    cards[3].imageName = each_card_list[3]
-                }
-            }
-            else if i == 5{
-                each_card_list[4] = card_random_value_get!
-                cards[4].imageName = each_card_list[4]
-            }
-            else if i == 6{
-                if each_card_list[4] == "神経衰弱_カード_1"{
-                    each_card_list[5] = "神経衰弱_カード_1"
-                    cards[5].imageName = each_card_list[5]
-                }
-                else if each_card_list[4] == "神経衰弱_カード_2"{
-                    each_card_list[5] = "神経衰弱_カード_2"
-                    cards[5].imageName = each_card_list[5]
-                }
-                else if each_card_list[4] == "神経衰弱_カード_3"{
-                    each_card_list[5] = "神経衰弱_カード_3"
-                    cards[5].imageName = each_card_list[5]
-                }
-            }
-            print(each_card_list)
-        //カードランダムがおかしくなっていたら
-            var random_list = [1,2,3]
-            if each_card_list[0] == each_card_list[2] || each_card_list[0] == each_card_list[4]{
-                if each_card_list[0] == "神経衰弱_カード_1"{
-                    random_list.remove(at: 0)
-                    let random = random_list.randomElement()
-                    if random == 2{
-                        each_card_list[2] = "神経衰弱_カード_2"
-                        each_card_list[3] = "神経衰弱_カード_2"
-                        each_card_list[4] = "神経衰弱_カード_3"
-                        each_card_list[5] = "神経衰弱_カード_3"
-                    }
-                    else if random == 3{
-                        each_card_list[2] = "神経衰弱_カード_3"
-                        each_card_list[3] = "神経衰弱_カード_3"
-                        each_card_list[4] = "神経衰弱_カード_2"
-                        each_card_list[5] = "神経衰弱_カード_2"
-                    }
-                }
-                if each_card_list[0] == "神経衰弱_カード_2"{
-                    random_list.remove(at: 1)
-                    let random = random_list.randomElement()
-                    if random == 1{
-                        each_card_list[2] = "神経衰弱_カード_1"
-                        each_card_list[3] = "神経衰弱_カード_1"
-                        each_card_list[4] = "神経衰弱_カード_3"
-                        each_card_list[5] = "神経衰弱_カード_3"
-                    }
-                    else if random == 3{
-                        each_card_list[2] = "神経衰弱_カード_3"
-                        each_card_list[3] = "神経衰弱_カード_3"
-                        each_card_list[4] = "神経衰弱_カード_2"
-                        each_card_list[5] = "神経衰弱_カード_2"
-                    }
-                }
-                if each_card_list[0] == "神経衰弱_カード_3"{
-                    random_list.remove(at: 2)
-                    let random = random_list.randomElement()
-                    if random == 1{
-                        each_card_list[2] = "神経衰弱_カード_1"
-                        each_card_list[3] = "神経衰弱_カード_1"
-                        each_card_list[4] = "神経衰弱_カード_2"
-                        each_card_list[5] = "神経衰弱_カード_2"
-                    }
-                    else if random == 2{
-                        each_card_list[2] = "神経衰弱_カード_2"
-                        each_card_list[3] = "神経衰弱_カード_2"
-                        each_card_list[4] = "神経衰弱_カード_3"
-                        each_card_list[5] = "神経衰弱_カード_3"
-                    }
-                }
-                //変更した内容を代入する
-                cards[2].imageName = each_card_list[2]
-                cards[3].imageName = each_card_list[3]
-                cards[4].imageName = each_card_list[4]
-                cards[5].imageName = each_card_list[5]
-            }
-            print(each_card_list)
+        let card_random = Int.random(in: 1..<10)
+        if card_random == 1{
+            cards[0].imageName = "神経衰弱_カード_1"
+            cards[1].imageName = "神経衰弱_カード_1"
+            cards[2].imageName = "神経衰弱_カード_2"
+            cards[3].imageName = "神経衰弱_カード_2"
+            cards[4].imageName = "神経衰弱_カード_3"
+            cards[5].imageName = "神経衰弱_カード_3"
+        }
+        else if card_random == 2{
+            cards[0].imageName = "神経衰弱_カード_3"
+            cards[1].imageName = "神経衰弱_カード_2"
+            cards[2].imageName = "神経衰弱_カード_1"
+            cards[3].imageName = "神経衰弱_カード_2"
+            cards[4].imageName = "神経衰弱_カード_3"
+            cards[5].imageName = "神経衰弱_カード_1"
+        }
+        else if card_random == 3{
+            cards[0].imageName = "神経衰弱_カード_3"
+            cards[1].imageName = "神経衰弱_カード_1"
+            cards[2].imageName = "神経衰弱_カード_1"
+            cards[3].imageName = "神経衰弱_カード_2"
+            cards[4].imageName = "神経衰弱_カード_2"
+            cards[5].imageName = "神経衰弱_カード_3"
+        }
+        else if card_random == 4{
+            cards[0].imageName = "神経衰弱_カード_2"
+            cards[1].imageName = "神経衰弱_カード_1"
+            cards[2].imageName = "神経衰弱_カード_3"
+            cards[3].imageName = "神経衰弱_カード_3"
+            cards[4].imageName = "神経衰弱_カード_1"
+            cards[5].imageName = "神経衰弱_カード_2"
+        }
+        else if card_random == 5{
+            cards[0].imageName = "神経衰弱_カード_2"
+            cards[1].imageName = "神経衰弱_カード_2"
+            cards[2].imageName = "神経衰弱_カード_3"
+            cards[3].imageName = "神経衰弱_カード_1"
+            cards[4].imageName = "神経衰弱_カード_3"
+            cards[5].imageName = "神経衰弱_カード_1"
+        }
+        else if card_random == 6{
+            cards[0].imageName = "神経衰弱_カード_3"
+            cards[1].imageName = "神経衰弱_カード_3"
+            cards[2].imageName = "神経衰弱_カード_2"
+            cards[3].imageName = "神経衰弱_カード_1"
+            cards[4].imageName = "神経衰弱_カード_1"
+            cards[5].imageName = "神経衰弱_カード_2"
+        }
+        else if card_random == 7{
+            cards[0].imageName = "神経衰弱_カード_2"
+            cards[1].imageName = "神経衰弱_カード_2"
+            cards[2].imageName = "神経衰弱_カード_1"
+            cards[3].imageName = "神経衰弱_カード_3"
+            cards[4].imageName = "神経衰弱_カード_3"
+            cards[5].imageName = "神経衰弱_カード_1"
+        }
+        else if card_random == 8{
+            cards[0].imageName = "神経衰弱_カード_3"
+            cards[1].imageName = "神経衰弱_カード_2"
+            cards[2].imageName = "神経衰弱_カード_1"
+            cards[3].imageName = "神経衰弱_カード_1"
+            cards[4].imageName = "神経衰弱_カード_3"
+            cards[5].imageName = "神経衰弱_カード_2"
+        }
+        else if card_random == 9{
+            cards[0].imageName = "神経衰弱_カード_1"
+            cards[1].imageName = "神経衰弱_カード_2"
+            cards[2].imageName = "神経衰弱_カード_1"
+            cards[3].imageName = "神経衰弱_カード_3"
+            cards[4].imageName = "神経衰弱_カード_2"
+            cards[5].imageName = "神経衰弱_カード_3"
+        }
+        else if card_random == 10{
+            cards[0].imageName = "神経衰弱_カード_3"
+            cards[1].imageName = "神経衰弱_カード_2"
+            cards[2].imageName = "神経衰弱_カード_1"
+            cards[3].imageName = "神経衰弱_カード_3"
+            cards[4].imageName = "神経衰弱_カード_2"
+            cards[5].imageName = "神経衰弱_カード_1"
         }
     }
     
@@ -383,13 +345,12 @@ struct stage5: View{
                 cards[firstIndex].isFaceUp = false
                 cards[secondIndex].isFaceUp = false
                 selectedCardIndices.removeAll()
+                
+                if cards.allSatisfy({ $0.isMatched }) {
+                    // すべてのカードが揃った時の処理
+                    result = "clear"
+                }
             }
-        }
-        
-        if cards.allSatisfy({ $0.isMatched }) {
-            // すべてのカードが揃った時の処理
-            result = "clear"
-            showShould_result_View = true
         }
     }
 }
