@@ -3,7 +3,7 @@
 //  chick_game
 //
 //  Created by kaito on 2023/04/30.
-//
+// コミットのテストのためにコメント
 
 import SwiftUI
 
