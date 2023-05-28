@@ -83,8 +83,8 @@
 				97494C512A16537C004A20D2 /* clatter_expression_View.swift */,
 				9717A4F52A09027E006EE8C2 /* clatter_result.swift */,
 				9775A13C29FF48E90066FD79 /* result_View.swift */,
-				977748F62A1879F8003499A4 /* stage */,
 				971736A729FE45F300B8B833 /* Assets.xcassets */,
+				977748F62A1879F8003499A4 /* stage */,
 				971736A929FE45F300B8B833 /* Preview Content */,
 			);
 			path = chick_game;

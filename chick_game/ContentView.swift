@@ -83,22 +83,6 @@ struct ContentView: View {
                                         .clipShape(Circle())
                                         .shadow(radius: 20)
                                 }
-                                Button(action: {
-                                    if (self.offset == self.openOffset) {
-                                        self.offset = self.closeOffset
-                                    } else {
-                                        self.offset = self.openOffset
-                                    }
-                                }){
-                                    Image(systemName: "filemenu.and.selection")
-                                        .padding()
-                                        .frame(width: 70, height: 70)
-                                        .imageScale(.large)
-                                        .foregroundColor(Color.white)
-                                        .background(Color.green)
-                                        .clipShape(Circle())
-                                        .shadow(radius: 20)
-                                }
                             }
                             HStack{
                                 Image("hiyoko").resizable().scaledToFit().frame(width: 100, height: 100)
@@ -132,32 +116,49 @@ struct ContentView: View {
                                         }
                                     }
                                 }
-                                
-                                Button(action: {
-                                    //選択されたステージを表示する
-                                    if selected_STAGE == 1{
-                                        showShould_stage1 = true
+                                HStack{
+                                    Button(action: {
+                                        //選択されたステージを表示する
+                                        if selected_STAGE == 1{
+                                            showShould_stage1 = true
+                                        }
+                                        else if selected_STAGE == 2{
+                                            showShould_stage2 = true
+                                        }
+                                        else if selected_STAGE == 3{
+                                            showShould_stage3 = true
+                                        }
+                                        else if selected_STAGE == 4{
+                                            showShould_stage4 = true
+                                        }
+                                        else if selected_STAGE == 5{
+                                            showShould_stage5 = true
+                                        }
+                                    }) {
+                                        Image("chick_game_start_button_image").resizable().scaledToFit()
+                                            .bold()
+                                            .padding()
+                                            .frame(width: 230, height: 150)
+                                            .foregroundColor(Color.white)
+                                            .background(Color.yellow)
+                                            .cornerRadius(10)
                                     }
-                                    else if selected_STAGE == 2{
-                                        showShould_stage2 = true
+                                    Button(action: {
+                                        if (self.offset == self.openOffset) {
+                                            self.offset = self.closeOffset
+                                        } else {
+                                            self.offset = self.openOffset
+                                        }
+                                    }){
+                                        Text("ステージ選択")
+                                            .frame(width: 130, height: 130)
+                                            .foregroundColor(Color.white)
+                                            .background(Color.green)
+                                            .clipShape(Circle())
+                                            .shadow(radius: 20)
+                                            .font(.title3)
+                                            .fontWeight(.black)
                                     }
-                                    else if selected_STAGE == 3{
-                                        showShould_stage3 = true
-                                    }
-                                    else if selected_STAGE == 4{
-                                        showShould_stage4 = true
-                                    }
-                                    else if selected_STAGE == 5{
-                                        showShould_stage5 = true
-                                    }
-                                }) {
-                                    Image("chick_game_start_button_image").resizable().scaledToFit()
-                                        .bold()
-                                        .padding()
-                                        .frame(width: 300, height: 150)
-                                        .foregroundColor(Color.white)
-                                        .background(Color.yellow)
-                                        .cornerRadius(10)
                                 }
                             }
                         }
