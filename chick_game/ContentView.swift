@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     //選択されたステージ
-    @State var selected_STAGE = 5
+    @State var selected_STAGE = 1
     //画面遷移
     @State private var showShould_main_View = false
     @State private var showShould_shop_View = false
