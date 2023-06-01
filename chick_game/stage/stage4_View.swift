@@ -182,7 +182,7 @@ struct stage4: View{
                                     }
                                 }
                             }.onEnded { _ in
-                                self.isTapped = true
+                                self.isTapped = false
                             })
                             
                             Button(action: {
@@ -195,7 +195,7 @@ struct stage4: View{
                                 
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
-                                self.isTapped2 = true
+                                self.isTapped2 = false
                                 if Number_of_times_removed["yellow1"] == "yes" && Number_of_times_removed["yellow2"] == "yes" && Number_of_times_removed["blue1"] == "yes" && Number_of_times_removed["blue2"] == "yes"{
                                     chick_y_position -= 10
                                     

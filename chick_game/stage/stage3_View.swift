@@ -133,7 +133,7 @@ struct stage3: View{
                                     
                                 }
                             }.onEnded { _ in
-                                self.isTapped = true
+                                self.isTapped = false
                             })
                             
                             Button(action: {
@@ -147,7 +147,7 @@ struct stage3: View{
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
                                 if Are_barriers_applied == 0{
-                                    self.isTapped2 = true
+                                    self.isTapped2 = false
                                     if chick_y_position == -180{
                                     }
                                     else{

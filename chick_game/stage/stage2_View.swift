@@ -136,7 +136,7 @@ struct stage2: View{
                                 
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
-                                self.isTapped2 = true
+                                self.isTapped2 = false
                                 if chick_y_position == 0{
                                 }
                                 else{

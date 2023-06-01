@@ -94,7 +94,7 @@ struct stage1: View{
                                     y_position += 10
                                 }
                             }.onEnded { _ in
-                                self.isTapped = true
+                                self.isTapped = false
                             })
                             
                             Button(action: {
@@ -107,7 +107,7 @@ struct stage1: View{
                                 
                             }
                             .simultaneousGesture(LongPressGesture().onChanged { _ in
-                                self.isTapped2 = true
+                                self.isTapped2 = false
                                 if y_position == 0{
                                 }
                                 else{
